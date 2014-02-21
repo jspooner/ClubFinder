@@ -21,6 +21,20 @@
 		FB59C90318B7169500A0F41B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E518B7169500A0F41B /* UIKit.framework */; };
 		FB59C90B18B7169500A0F41B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB59C90918B7169500A0F41B /* InfoPlist.strings */; };
 		FB59C90D18B7169500A0F41B /* ClubFinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C90C18B7169500A0F41B /* ClubFinderTests.m */; };
+		FB59C91718B716B600A0F41B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C91618B716B600A0F41B /* CoreBluetooth.framework */; };
+		FB59C91918B716BE00A0F41B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C91818B716BE00A0F41B /* CoreLocation.framework */; };
+		FB59C91B18B716C500A0F41B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C91A18B716C500A0F41B /* CoreData.framework */; };
+		FB59C91D18B716CD00A0F41B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C91C18B716CD00A0F41B /* libz.dylib */; };
+		FB59C91F18B716D500A0F41B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C91E18B716D500A0F41B /* MapKit.framework */; };
+		FB59C92118B716DA00A0F41B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C92018B716DA00A0F41B /* Security.framework */; };
+		FB59C93418B7173B00A0F41B /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C92318B7173A00A0F41B /* Common.framework */; };
+		FB59C93518B7173B00A0F41B /* ContextCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C92618B7173A00A0F41B /* ContextCore.framework */; };
+		FB59C93618B7173B00A0F41B /* ContextLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C92918B7173A00A0F41B /* ContextLocation.framework */; };
+		FB59C93718B7173B00A0F41B /* DataModels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB59C92B18B7173A00A0F41B /* DataModels.bundle */; };
+		FB59C93818B7173B00A0F41B /* ContextProfiling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C92D18B7173B00A0F41B /* ContextProfiling.framework */; };
+		FB59C93918B7173B00A0F41B /* rules.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB59C92F18B7173B00A0F41B /* rules.txt */; };
+		FB59C93A18B7173B00A0F41B /* FYX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C93018B7173B00A0F41B /* FYX.framework */; };
+		FB59C93B18B7173B00A0F41B /* NetworkServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C93218B7173B00A0F41B /* NetworkServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +67,20 @@
 		FB59C90818B7169500A0F41B /* ClubFinderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClubFinderTests-Info.plist"; sourceTree = "<group>"; };
 		FB59C90A18B7169500A0F41B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FB59C90C18B7169500A0F41B /* ClubFinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClubFinderTests.m; sourceTree = "<group>"; };
+		FB59C91618B716B600A0F41B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		FB59C91818B716BE00A0F41B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FB59C91A18B716C500A0F41B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FB59C91C18B716CD00A0F41B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		FB59C91E18B716D500A0F41B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FB59C92018B716DA00A0F41B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FB59C92318B7173A00A0F41B /* Common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Common.framework; sourceTree = "<group>"; };
+		FB59C92618B7173A00A0F41B /* ContextCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContextCore.framework; sourceTree = "<group>"; };
+		FB59C92918B7173A00A0F41B /* ContextLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContextLocation.framework; sourceTree = "<group>"; };
+		FB59C92B18B7173A00A0F41B /* DataModels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DataModels.bundle; sourceTree = "<group>"; };
+		FB59C92D18B7173B00A0F41B /* ContextProfiling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContextProfiling.framework; sourceTree = "<group>"; };
+		FB59C92F18B7173B00A0F41B /* rules.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rules.txt; sourceTree = "<group>"; };
+		FB59C93018B7173B00A0F41B /* FYX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FYX.framework; sourceTree = "<group>"; };
+		FB59C93218B7173B00A0F41B /* NetworkServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NetworkServices.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +88,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB59C92118B716DA00A0F41B /* Security.framework in Frameworks */,
+				FB59C93B18B7173B00A0F41B /* NetworkServices.framework in Frameworks */,
+				FB59C91F18B716D500A0F41B /* MapKit.framework in Frameworks */,
+				FB59C91D18B716CD00A0F41B /* libz.dylib in Frameworks */,
+				FB59C93618B7173B00A0F41B /* ContextLocation.framework in Frameworks */,
+				FB59C93A18B7173B00A0F41B /* FYX.framework in Frameworks */,
+				FB59C91B18B716C500A0F41B /* CoreData.framework in Frameworks */,
+				FB59C93518B7173B00A0F41B /* ContextCore.framework in Frameworks */,
+				FB59C91918B716BE00A0F41B /* CoreLocation.framework in Frameworks */,
+				FB59C91718B716B600A0F41B /* CoreBluetooth.framework in Frameworks */,
 				FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */,
+				FB59C93818B7173B00A0F41B /* ContextProfiling.framework in Frameworks */,
+				FB59C93418B7173B00A0F41B /* Common.framework in Frameworks */,
 				FB59C8E618B7169500A0F41B /* UIKit.framework in Frameworks */,
 				FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */,
 			);
@@ -101,6 +141,18 @@
 		FB59C8E018B7169400A0F41B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB59C92218B7173A00A0F41B /* Common.embeddedframework */,
+				FB59C92518B7173A00A0F41B /* ContextCore.embeddedframework */,
+				FB59C92818B7173A00A0F41B /* ContextLocation.embeddedframework */,
+				FB59C92C18B7173A00A0F41B /* ContextProfiling.embeddedframework */,
+				FB59C93018B7173B00A0F41B /* FYX.framework */,
+				FB59C93118B7173B00A0F41B /* NetworkServices.embeddedframework */,
+				FB59C92018B716DA00A0F41B /* Security.framework */,
+				FB59C91E18B716D500A0F41B /* MapKit.framework */,
+				FB59C91C18B716CD00A0F41B /* libz.dylib */,
+				FB59C91A18B716C500A0F41B /* CoreData.framework */,
+				FB59C91818B716BE00A0F41B /* CoreLocation.framework */,
+				FB59C91618B716B600A0F41B /* CoreBluetooth.framework */,
 				FB59C8E118B7169400A0F41B /* Foundation.framework */,
 				FB59C8E318B7169500A0F41B /* CoreGraphics.framework */,
 				FB59C8E518B7169500A0F41B /* UIKit.framework */,
@@ -150,6 +202,88 @@
 				FB59C90918B7169500A0F41B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB59C92218B7173A00A0F41B /* Common.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92318B7173A00A0F41B /* Common.framework */,
+				FB59C92418B7173A00A0F41B /* Resources */,
+			);
+			path = Common.embeddedframework;
+			sourceTree = "<group>";
+		};
+		FB59C92418B7173A00A0F41B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FB59C92518B7173A00A0F41B /* ContextCore.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92618B7173A00A0F41B /* ContextCore.framework */,
+				FB59C92718B7173A00A0F41B /* Resources */,
+			);
+			path = ContextCore.embeddedframework;
+			sourceTree = "<group>";
+		};
+		FB59C92718B7173A00A0F41B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FB59C92818B7173A00A0F41B /* ContextLocation.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92918B7173A00A0F41B /* ContextLocation.framework */,
+				FB59C92A18B7173A00A0F41B /* Resources */,
+			);
+			path = ContextLocation.embeddedframework;
+			sourceTree = "<group>";
+		};
+		FB59C92A18B7173A00A0F41B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92B18B7173A00A0F41B /* DataModels.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FB59C92C18B7173A00A0F41B /* ContextProfiling.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92D18B7173B00A0F41B /* ContextProfiling.framework */,
+				FB59C92E18B7173B00A0F41B /* Resources */,
+			);
+			path = ContextProfiling.embeddedframework;
+			sourceTree = "<group>";
+		};
+		FB59C92E18B7173B00A0F41B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C92F18B7173B00A0F41B /* rules.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FB59C93118B7173B00A0F41B /* NetworkServices.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				FB59C93218B7173B00A0F41B /* NetworkServices.framework */,
+				FB59C93318B7173B00A0F41B /* Resources */,
+			);
+			path = NetworkServices.embeddedframework;
+			sourceTree = "<group>";
+		};
+		FB59C93318B7173B00A0F41B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +365,8 @@
 				FB59C8FA18B7169500A0F41B /* Images.xcassets in Resources */,
 				FB59C8EC18B7169500A0F41B /* InfoPlist.strings in Resources */,
 				FB59C8F518B7169500A0F41B /* Main.storyboard in Resources */,
+				FB59C93718B7173B00A0F41B /* DataModels.bundle in Resources */,
+				FB59C93918B7173B00A0F41B /* rules.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +514,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/Common.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextCore.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextLocation.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextProfiling.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/NetworkServices.embeddedframework,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ClubFinder/ClubFinder-Prefix.pch";
 				INFOPLIST_FILE = "ClubFinder/ClubFinder-Info.plist";
@@ -391,6 +536,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/Common.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextCore.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextLocation.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/ContextProfiling.embeddedframework,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder,
+					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/NetworkServices.embeddedframework,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ClubFinder/ClubFinder-Prefix.pch";
 				INFOPLIST_FILE = "ClubFinder/ClubFinder-Info.plist";

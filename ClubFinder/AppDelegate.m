@@ -12,6 +12,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
+        appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
+      callbackUrl:@"clubfinder://"];
+    [FYX startService:self];
+
     // Override point for customization after application launch.
     return YES;
 }
@@ -41,6 +46,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)serviceStarted
+{
+    // this will be invoked if the service has successfully started
+    // bluetooth scanning will be started at this point.
+    NSLog(@"FYX Service Successfully Started");
+}
+
+- (void)startServiceFailed:(NSError *)error
+{
+    // this will be called if the service has failed to start
+    NSLog(@"%@", error);
 }
 
 @end

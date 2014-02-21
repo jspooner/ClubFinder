@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FYX/FYX.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FYXServiceDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
