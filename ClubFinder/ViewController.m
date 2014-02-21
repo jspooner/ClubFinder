@@ -53,7 +53,7 @@
 - (void)receivedSighting:(FYXVisit *)visit updateTime:(NSDate *)updateTime RSSI:(NSNumber *)RSSI;
 {
     // this will be invoked when an authorized transmitter is sighted during an on-going visit
-    [self logMessage:[NSString stringWithFormat:@"I received a sighting!!! %@", visit.transmitter.name]];
+    [self logMessage:[NSString stringWithFormat:@"I received a sighting!!! %@ (%@)", visit.transmitter.name, RSSI]];
 }
 
 - (void)didDepart:(FYXVisit *)visit;

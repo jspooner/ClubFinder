@@ -333,6 +333,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "One Bear Nine Ventures";
 				TargetAttributes = {
+					FB59C8DD18B7169400A0F41B = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					FB59C8FE18B7169500A0F41B = {
 						TestTargetID = FB59C8DD18B7169400A0F41B;
 					};
@@ -548,6 +555,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ClubFinder/ClubFinder-Prefix.pch";
 				INFOPLIST_FILE = "ClubFinder/ClubFinder-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
