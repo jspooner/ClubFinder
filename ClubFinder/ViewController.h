@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FYX/FYXVisitManager.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <FYXVisitDelegate>
 
 @end
