@@ -7,16 +7,45 @@
 //
 
 #import "AppDelegate.h"
-
+#import <ContextLocation/QLPlaceEvent.h>
+#import <ContextLocation/QLPlace.h>
+#import <FYX/FYXLogging.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [FYXLogging setLogLevel:FYX_LOG_LEVEL_VERBOSE];
     [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
         appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
-      callbackUrl:@"clubfinder://"];
+      callbackUrl:@"clubfinder://authcode"];
     [FYX startService:self];
+    
+    // Geofence
+    self.placeConnector = [[QLContextPlaceConnector alloc] init];
+    self.placeConnector.delegate = self;
+    [self.placeConnector monitorPlacesInBackground];
+    [self.placeConnector monitorPlacesWhenAllowed];
 
+    NSLog(self.placeConnector.isPlacesEnabled ? @"placeConnector.isPlacesEnabled=Yes" : @"placeConnector.isPlacesEnabled=No");
+    NSLog(self.placeConnector.isBackgroundPlaceMonitoringEnabled ? @"placeConnector.isBackgroundPlaceMonitoringEnabled=Yes" : @"placeConnector.isBackgroundPlaceMonitoringEnabled=No");
+    
+    
+    
+    [self.placeConnector allOrganizationPlacesAndOnSuccess:^(NSArray *places) {
+        NSLog(@"allOrganizationPlacesAndOnSuccess SUCCESS %@", places);
+    } failure:^(NSError *error) {
+        NSLog(@"allOrganizationPlacesAndOnSuccess ERROR %@", error);
+    }];
+    [self.placeConnector allPrivatePointsOfInterestAndOnSuccess:^(NSArray *privatePointsOfInterest) {
+        NSLog(@"allPrivatePointsOfInterestAndOnSuccess SUCCESS %@", privatePointsOfInterest);
+    } failure:^(NSError *error) {
+        NSLog(@"allPrivatePointsOfInterestAndOnSuccess ERROR %@", error);
+    }];
+    [self.placeConnector allPlacesAndOnSuccess:^(NSArray *places) {
+        NSLog(@"allPlacesAndOnSuccess SUCCESS %@", places);
+    } failure:^(NSError *error) {
+        NSLog(@"allPlacesAndOnSuccess ERROR %@", error);
+    }];
     // Override point for customization after application launch.
     return YES;
 }
@@ -48,6 +77,9 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma - mark
+#pragma - mark FYX
+
 - (void)serviceStarted
 {
     // this will be invoked if the service has successfully started
@@ -60,5 +92,36 @@
     // this will be called if the service has failed to start
     NSLog(@"%@", error);
 }
+
+#pragma - mark
+#pragma - mark Geofence
+
+- (void)didGetPlaceEvent:(QLPlaceEvent *)placeEvent
+{
+    NSLog(@"[geofence] did get place event %@", [placeEvent place].name);
+}
+
+- (void)didGetContentDescriptors:(NSArray *)contentDescriptors
+{
+    NSLog(@"didGetContentDescriptors %@", contentDescriptors);
+}
+
+- (void)placesPermissionDidChange:(BOOL)placesPermission
+{
+    NSLog(@"placesPermissionDidChange %hhd", placesPermission);
+}
+
+- (void)privatePlacesDidChange:(NSArray *)privatePlaces
+{
+    NSLog(@"privatePlacesDidChange %@", privatePlaces);
+}
+
+- (BOOL)shouldMonitorPlace:(QLPlace *)place
+{
+    NSLog(@"shouldMonitorPlace %@", place);
+    return YES;
+}
+
+
 
 @end

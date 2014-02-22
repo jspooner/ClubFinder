@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FYX/FYXVisitManager.h>
+#import <ContextLocation/QLContextPlaceConnector.h>
 
 @interface ViewController : UIViewController <FYXVisitDelegate>
 

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <FYX/FYXVisitManager.h>
 #import <FYX/FYXTransmitter.h>
+#import <ContextCore/QLContextCoreConnector.h>
 
 @interface ViewController ()
 @property (nonatomic) FYXVisitManager *visitManager;
@@ -20,10 +21,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    QLContextCoreConnector *contectCoreConnection = [[QLContextCoreConnector alloc] init];
+    [contectCoreConnection checkStatusAndOnEnabled:^(QLContextConnectorPermissions *contextConnectorPermissions) {
+        NSLog(@"holy!");
+    } disabled:^(NSError *error) {
+        [contectCoreConnection enableFromViewController:self success:^{
+            NSLog(@"Success foo");
+        } failure:^(NSError *error) {
+            NSLog(@"oh crap another error \n\n%@", error);
+        }];
+        
+    }];
+//
+    [self logMessage:@"View did load"];
     self.visitManager = [FYXVisitManager new];
     self.visitManager.delegate = self;
     [self.visitManager start];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,7 +50,7 @@
 
 -(void)logMessage:(NSString*)message
 {
-    NSLog(message);
+    NSLog(@"%@", message);
     self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
 }
 
