@@ -69,6 +69,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="tableView" destination="IZH-w9-UiF" id="sF8-0x-kkO"/>
                         <outlet property="textView" destination="3ik-Lj-F41" id="gDt-Hw-Sfq"/>
                     </connections>
                 </viewController>
