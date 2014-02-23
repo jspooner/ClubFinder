@@ -43,8 +43,10 @@
 -(void)logMessage:(NSString*)message
 {
     NSLog(@"%@",message);
-    self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
-    [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
+    @synchronized(self) {
+        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
+        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
+    }
 }
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth {
