@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "SightingsTableViewCell.h"
+#import "Transmitter.h"
 #import <FYX/FYXVisitManager.h>
 #import <FYX/FYXTransmitter.h>
 
@@ -33,12 +35,52 @@
 }
 
 #pragma - mark
+#pragma - mark TableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // transmitters.count
+    return 4;
+}
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"MyReusableCell";
+    SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if (cell != nil) {
+//        Transmitter *transmitter = [self.transmitters objectAtIndex:indexPath.row];
+        Transmitter *transmitter = [[Transmitter alloc] init];
+        transmitter.name = @"Big Burtha";
+        // Update the transmitter text
+        cell.transmitterNameLabel.text = transmitter.name;
+//
+//        // Update the transmitter avatar (icon image)
+//        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
+//        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];
+        cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
+//
+//        if ([self isTransmitterAgedOut:transmitter]) {
+//            [self grayOutSightingsCell:cell];
+//        } else {
+//            [self updateSightingsCell:cell withTransmitter:transmitter];
+//        }
+    }
+    return cell;
+}
+
+
+#pragma - mark
 #pragma - mark Helpers
 
 -(void)logMessage:(NSString*)message
 {
-    NSLog(message);
+    NSLog(@"%@",message);
     self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
+    [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
 }
 
 #pragma - mark

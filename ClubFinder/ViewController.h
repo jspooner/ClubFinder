@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FYX/FYXVisitManager.h>
 
-@interface ViewController : UIViewController <FYXVisitDelegate>
+@interface ViewController : UIViewController <FYXVisitDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @end

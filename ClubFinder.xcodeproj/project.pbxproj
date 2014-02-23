@@ -35,6 +35,8 @@
 		FB59C93918B7173B00A0F41B /* rules.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB59C92F18B7173B00A0F41B /* rules.txt */; };
 		FB59C93A18B7173B00A0F41B /* FYX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C93018B7173B00A0F41B /* FYX.framework */; };
 		FB59C93B18B7173B00A0F41B /* NetworkServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C93218B7173B00A0F41B /* NetworkServices.framework */; };
+		FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */; };
+		FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94818BA6DBE00A0F41B /* Transmitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,10 @@
 		FB59C92F18B7173B00A0F41B /* rules.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rules.txt; sourceTree = "<group>"; };
 		FB59C93018B7173B00A0F41B /* FYX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FYX.framework; sourceTree = "<group>"; };
 		FB59C93218B7173B00A0F41B /* NetworkServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NetworkServices.framework; sourceTree = "<group>"; };
+		FB59C94418BA6D1800A0F41B /* SightingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SightingsTableViewCell.h; sourceTree = "<group>"; };
+		FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SightingsTableViewCell.m; sourceTree = "<group>"; };
+		FB59C94718BA6DBE00A0F41B /* Transmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmitter.h; sourceTree = "<group>"; };
+		FB59C94818BA6DBE00A0F41B /* Transmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transmitter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,10 @@
 				FB59C8F318B7169500A0F41B /* Main.storyboard */,
 				FB59C8F618B7169500A0F41B /* ViewController.h */,
 				FB59C8F718B7169500A0F41B /* ViewController.m */,
+				FB59C94418BA6D1800A0F41B /* SightingsTableViewCell.h */,
+				FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */,
+				FB59C94718BA6DBE00A0F41B /* Transmitter.h */,
+				FB59C94818BA6DBE00A0F41B /* Transmitter.m */,
 				FB59C8F918B7169500A0F41B /* Images.xcassets */,
 				FB59C8E818B7169500A0F41B /* Supporting Files */,
 			);
@@ -394,6 +404,8 @@
 			files = (
 				FB59C8F818B7169500A0F41B /* ViewController.m in Sources */,
 				FB59C8F218B7169500A0F41B /* AppDelegate.m in Sources */,
+				FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */,
+				FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */,
 				FB59C8EE18B7169500A0F41B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,6 +634,7 @@
 				FB59C91218B7169500A0F41B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB59C91318B7169500A0F41B /* Build configuration list for PBXNativeTarget "ClubFinderTests" */ = {
 			isa = XCConfigurationList;
@@ -630,6 +643,7 @@
 				FB59C91518B7169500A0F41B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
