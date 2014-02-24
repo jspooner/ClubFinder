@@ -11,6 +11,7 @@
 #import "Transmitter.h"
 #import <FYX/FYXVisitManager.h>
 #import <FYX/FYXTransmitter.h>
+#import <UIKit/UILocalNotification.h>
 
 @interface ViewController ()
 @property (strong, nonatomic) NSMutableArray *transmitters;
@@ -28,7 +29,6 @@
     self.visitManager = [FYXVisitManager new];
     self.visitManager.delegate = self;
     [self.visitManager start];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,10 +43,10 @@
 -(void)logMessage:(NSString*)message
 {
     NSLog(@"%@",message);
-    @synchronized(self) {
-        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
-        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
-    }
+//    @synchronized(self) {
+//        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
+//        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
+//    }
 }
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth {
@@ -254,6 +254,24 @@
     // this will be invoked when an authorized transmitter has not been sighted for some time
     [self logMessage:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]];
     [self logMessage:[NSString stringWithFormat:@"I was around the beacon for %f seconds", visit.dwellTime]];
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+            UILocalNotification *myNote = [[UILocalNotification alloc] init];
+            myNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:5];
+            myNote.timeZone = [NSTimeZone defaultTimeZone];
+            myNote.alertBody = [NSString stringWithFormat:@"Left proximity of a Gimbal Beacon!!!! %@ I was around the beacon for %f seconds", visit.transmitter.name, visit.dwellTime];
+            myNote.alertAction = @"View Details";
+            myNote.soundName = UILocalNotificationDefaultSoundName;
+            [[UIApplication sharedApplication] scheduleLocalNotification:myNote];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]
+                                        message:[NSString stringWithFormat:@"I was around the beacon for %f seconds", visit.dwellTime]
+                                       delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+        }
+    }];
+    
+    
 }
 
 @end
