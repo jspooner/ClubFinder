@@ -61,11 +61,41 @@
 }
 
 #pragma mark
+#pragma mark - User interface manipulation
+
+- (void)hideNoTransmittersView {
+    // Simply set a background image for the table view
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+    [self.tableView setBackgroundView:backgroundImageView];
+//    [self.spinnerImageView stopAnimating];
+}
+
+- (void)showNoTransmittersView {
+    CGRect viewFrame = self.tableView.frame;
+    
+    UIView *view = [[UIView alloc] initWithFrame:viewFrame];
+    [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    
+    UILabel *label = [UILabel new];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:22.0f];
+    label.text = @"Scanning...";
+    [label sizeToFit];
+    label.center = CGPointMake(viewFrame.size.width / 2, (viewFrame.size.height / 2) - 40);
+    [view addSubview:label];
+//    self.spinnerImageView.frame = CGRectMake(viewFrame.size.width / 2 - 25, (viewFrame.size.height / 2) - 105, 50, 50);
+//    [self.spinnerImageView startAnimating];
+//    [view addSubview:self.spinnerImageView];
+    [self.tableView setBackgroundView:view];
+}
+
+
+#pragma mark
 #pragma mark - Transmitters manipulation
 
 - (void)initializeTransmitters {
     // Re-create the transmitters container array
-//    [self showNoTransmittersView];
+    [self showNoTransmittersView];
     @synchronized(self.transmitters){
         if (self.transmitters == nil) {
             self.transmitters = [NSMutableArray new];
@@ -81,7 +111,7 @@
         [self.transmitters addObject:transmitter];
             NSLog(@"transmitters %@", self.transmitters);
         if([self.transmitters count] == 1){
-//            [self hideNoTransmittersView];
+            [self hideNoTransmittersView];
         }
     }
 }
@@ -140,7 +170,7 @@
 }
 
 - (void)clearTransmitters {
-//    [self showNoTransmittersView];
+    [self showNoTransmittersView];
     @synchronized(self.transmitters){
         [self.transmitters removeAllObjects];
         [self.tableView reloadData];
@@ -154,7 +184,7 @@
         count =[self.transmitters count];
     }
     if(count == 0){
-//        [self showNoTransmittersView];
+        [self showNoTransmittersView];
     }
 }
 
