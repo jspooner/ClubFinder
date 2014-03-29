@@ -23,15 +23,19 @@
     [DDLog addLogger:fileLogger];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+-(void)setupGimbal
 {
-    [self setupLogging];
     [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
         appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
       callbackUrl:@"clubfinder://"];
     [FYX startService:self];
+}
 
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self setupLogging];
+    [self setupGimbal];
+
     return YES;
 }
 							
