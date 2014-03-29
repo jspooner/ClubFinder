@@ -35,7 +35,7 @@
 {
     [self setupLogging];
     [self setupGimbal];
-
+    NSLog(@"[%f] log?e=app/applicationDidFinishLaunching", [[NSDate date] timeIntervalSince1970]);
     return YES;
 }
 							
