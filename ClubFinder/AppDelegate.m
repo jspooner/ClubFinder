@@ -20,7 +20,7 @@
     [fileLogger setRollingFrequency:60 * 60 * 24];
     [fileLogger setMaximumFileSize:1024 * 1024 * 4];
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:30];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+//    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
 }
 

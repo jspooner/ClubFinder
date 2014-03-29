@@ -26,7 +26,7 @@ static CFLogger *sharedSingleton;
 {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    NSLog(@"[%@][%f] log?%@", appVersion, timeInMiliseconds, event);
+    DDLogVerbose(@"[%@][%f] log?%@", appVersion, timeInMiliseconds, event);
 }
 
 @end

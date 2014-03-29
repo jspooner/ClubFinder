@@ -28,6 +28,10 @@
     [self initializeTransmitters];
     self.visitManager = [FYXVisitManager new];
     self.visitManager.delegate = self;
+    NSMutableDictionary *options = [NSMutableDictionary new];
+    [options setObject:[NSNumber numberWithInt:5] forKey:FYXVisitOptionDepartureIntervalInSecondsKey];
+//    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    [self.visitManager startWithOptions:options];
     [self.visitManager start];
 }
 
@@ -111,7 +115,8 @@
     }
 }
 
-- (BOOL)shouldUpdateTransmitterCell:(FYXVisit *)visit withTransmitter:(Transmitter *)transmitter RSSI:(NSNumber *)rssi{
+- (BOOL)shouldUpdateTransmitterCell:(FYXVisit *)visit withTransmitter:(Transmitter *)transmitter RSSI:(NSNumber *)rssi
+{
     if (![transmitter.rssi isEqual:rssi] || ![transmitter.batteryLevel isEqualToNumber:visit.transmitter.battery]
         || ![transmitter.temperature isEqualToNumber:visit.transmitter.temperature]){
         return YES;
@@ -121,38 +126,84 @@
     }
 }
 
-- (void)updateTransmitter:(Transmitter *)transmitter withVisit:(FYXVisit *)visit RSSI:(NSNumber *)rssi {
+- (void)updateTransmitter:(Transmitter *)transmitter withVisit:(FYXVisit *)visit RSSI:(NSNumber *)rssi
+{
     transmitter.previousRSSI = transmitter.rssi;
     transmitter.rssi = rssi;
     transmitter.batteryLevel = visit.transmitter.battery;
     transmitter.temperature = visit.transmitter.temperature;
 }
 
+- (float)barWidthForRSSI:(NSNumber *)rssi
+{
+    NSInteger barMaxValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
+    NSInteger barMinValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
+    
+    float rssiValue = [rssi floatValue];
+    float barWidth;
+    if (rssiValue >= barMaxValue) {
+        barWidth = 270.0f;
+    } else if (rssiValue <= barMinValue) {
+        barWidth = 5.0f;
+    } else {
+        NSInteger barRange = barMaxValue - barMinValue;
+        float percentage = (barMaxValue - rssiValue) / (float)barRange;
+        barWidth = (1.0f - percentage) * 270.0f;
+    }
+    return barWidth;
+}
+
+- (UIImage *)getBatteryImageForLevel: (NSNumber *)batteryLevel
+{
+    switch([batteryLevel integerValue]){
+        case 0:
+        case 1:
+            return [UIImage imageNamed:@"battery_low.png"];
+        case 2:
+            return [UIImage imageNamed:@"battery_high.png"];
+        case 3:
+            return [UIImage imageNamed:@"battery_full.png"];
+    }
+    return [UIImage imageNamed:@"battery_unknown.png"];
+}
+
+- (void)grayOutSightingsCell:(SightingsTableViewCell *)sightingsCell
+{
+    if (sightingsCell) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sightingsCell.contentView.alpha = 0.3f;
+            CGRect oldFrame = sightingsCell.rssiImageView.frame;
+            sightingsCell.rssiImageView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, 0, oldFrame.size.height);
+            sightingsCell.isGrayedOut = YES;
+        });
+    }
+}
+
 - (void)updateSightingsCell:(SightingsTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter {
-//    if (sightingsCell && transmitter) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            sightingsCell.contentView.alpha = 1.0f;
-//            
-//            float oldBarWidth = [self barWidthForRSSI:transmitter.previousRSSI];
-//            float newBarWidth = [self barWidthForRSSI:transmitter.rssi];
-//            CGRect tempFrame = sightingsCell.rssiImageView.frame;
-//            CGRect oldFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, oldBarWidth, tempFrame.size.height);
-//            CGRect newFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, newBarWidth, tempFrame.size.height);
-//            
-//            // Animate updating the RSSI indicator bar
-//            sightingsCell.rssiImageView.frame = oldFrame;
-//            [UIView animateWithDuration:1.0f animations:^{
-//                sightingsCell.rssiImageView.frame = newFrame;
-//            }];
-//            sightingsCell.isGrayedOut = NO;
-//            UIImage *batteryImage = [self getBatteryImageForLevel:transmitter.batteryLevel];
-//            [sightingsCell.batteryImageView setImage:batteryImage];
-//            sightingsCell.temperature.text = [NSString stringWithFormat:@"%@%@", transmitter.temperature,
-//                                              [NSString stringWithUTF8String:"\xC2\xB0 F" ]];
-//            sightingsCell.rssiLabel.text = [NSString stringWithFormat:@"%@", transmitter.rssi];
-//            
-//        });
-//    }
+    if (sightingsCell && transmitter) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sightingsCell.contentView.alpha = 1.0f;
+            
+            float oldBarWidth = [self barWidthForRSSI:transmitter.previousRSSI];
+            float newBarWidth = [self barWidthForRSSI:transmitter.rssi];
+            CGRect tempFrame = sightingsCell.rssiImageView.frame;
+            CGRect oldFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, oldBarWidth, tempFrame.size.height);
+            CGRect newFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, newBarWidth, tempFrame.size.height);
+            
+            // Animate updating the RSSI indicator bar
+            sightingsCell.rssiImageView.frame = oldFrame;
+            [UIView animateWithDuration:1.0f animations:^{
+                sightingsCell.rssiImageView.frame = newFrame;
+            }];
+            sightingsCell.isGrayedOut = NO;
+            UIImage *batteryImage = [self getBatteryImageForLevel:transmitter.batteryLevel];
+            [sightingsCell.batteryImageView setImage:batteryImage];
+            sightingsCell.temperature.text = [NSString stringWithFormat:@"%@%@", transmitter.temperature,
+                                              [NSString stringWithUTF8String:"\xC2\xB0 F" ]];
+            sightingsCell.rssiLabel.text = [NSString stringWithFormat:@"%@", transmitter.rssi];
+            
+        });
+    }
 }
 
 - (Transmitter *)transmitterForID:(NSString *)ID {
@@ -215,11 +266,11 @@
 //        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];
         cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
 
-//        if ([self isTransmitterAgedOut:transmitter]) {
-//            [self grayOutSightingsCell:cell];
-//        } else {
-//            [self updateSightingsCell:cell withTransmitter:transmitter];
-//        }
+        if ([self isTransmitterAgedOut:transmitter]) {
+            [self grayOutSightingsCell:cell];
+        } else {
+            [self updateSightingsCell:cell withTransmitter:transmitter];
+        }
     }
     return cell;
 }
@@ -295,6 +346,7 @@
 - (void)didDepart:(FYXVisit *)visit
 {
     // this will be invoked when an authorized transmitter has not been sighted for some time
+    // LOGGING
     NSArray *params = @[
                         @"e=/beacon/didDepart",
                         [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
@@ -305,7 +357,14 @@
                         [@[@"dwellTime", [NSString stringWithFormat:@"%f", visit.dwellTime]] componentsJoinedByString:@"="]
                         ];
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
-    //
+    // MANAGE THE TABLE
+    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[SightingsTableViewCell class]]) {
+        [self grayOutSightingsCell:((SightingsTableViewCell*)cell)];
+    }
+    // START ALERT OF NOTIFICATION
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
