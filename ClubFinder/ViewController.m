@@ -41,7 +41,7 @@
 
 -(void)logMessage:(NSString*)message
 {
-    NSLog(@"%@",message);
+    NSLog(@"log?%@",message);
 //    @synchronized(self) {
 //        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
 //        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
@@ -234,13 +234,32 @@
 - (void)didArrive:(FYXVisit *)visit
 {
     // this will be invoked when an authorized transmitter is sighted for the first time
-    [self logMessage:[NSString stringWithFormat:@"I arrived at a Gimbal Beacon!!! %@", visit.transmitter.name]];
+    NSArray *params = @[
+                       @"e=/beacon/didArrive",
+                       [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                       [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                       [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                       [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                       [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="]
+                       ];
+    [self logMessage:[params componentsJoinedByString:@"&"]];
 }
 
 - (void)receivedSighting:(FYXVisit *)visit updateTime:(NSDate *)updateTime RSSI:(NSNumber *)RSSI;
 {
     // this will be invoked when an authorized transmitter is sighted during an on-going visit
-    [self logMessage:[NSString stringWithFormat:@"I received a sighting!!! %@ (%@)", visit.transmitter.name, RSSI]];
+    NSArray *params = @[
+                        @"e=/beacon/receivedSighting",
+                        [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                        [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                        [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
+                        [@[@"updateTime", updateTime] componentsJoinedByString:@"="],
+                        [@[@"rssi", RSSI] componentsJoinedByString:@"="],
+                        ];
+    [self logMessage:[params componentsJoinedByString:@"&"]];
+    
     Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
     if (!transmitter) {
         NSString *transmitterName = visit.transmitter.identifier;
@@ -281,8 +300,17 @@
 - (void)didDepart:(FYXVisit *)visit
 {
     // this will be invoked when an authorized transmitter has not been sighted for some time
-    [self logMessage:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]];
-    [self logMessage:[NSString stringWithFormat:@"I was around the beacon for %f seconds", visit.dwellTime]];
+    NSArray *params = @[
+                        @"e=/beacon/didDepart",
+                        [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                        [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                        [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
+                        [@[@"dwellTime", [NSString stringWithFormat:@"%f", visit.dwellTime]] componentsJoinedByString:@"="]
+                        ];
+    [self logMessage:[params componentsJoinedByString:@"&"]];
+    //
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
