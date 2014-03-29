@@ -21,8 +21,6 @@
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:30];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
-    
-    DDLogVerbose(@"Logging is setup");
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

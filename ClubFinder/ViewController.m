@@ -41,7 +41,8 @@
 
 -(void)logMessage:(NSString*)message
 {
-    NSLog(@"log?%@",message);
+    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    NSLog(@"[%f] log?%@", timeInMiliseconds, message);
 //    @synchronized(self) {
 //        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
 //        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
