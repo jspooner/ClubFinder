@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PRODUCTION_API_KEY</key>
+	<string>ee4aa2c1-f657-4a3a-a234-6cf6995cce78</string>
+	<key>FEATURE_NAME</key>
+	<string>Golf Club Beacon</string>
+	<key>FEATURE_DESCRIPTION</key>
+	<string>Receive notifications if you leave your club behind.</string>
+</dict>
+</plist>

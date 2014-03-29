@@ -40,6 +40,8 @@
 		FB59C93B18B7173B00A0F41B /* NetworkServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C93218B7173B00A0F41B /* NetworkServices.framework */; };
 		FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */; };
 		FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94818BA6DBE00A0F41B /* Transmitter.m */; };
+		FB59C93D18B91A7E00A0F41B /* UserContext.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB59C93C18B91A7E00A0F41B /* UserContext.plist */; };
+		FB59C93F18B92C6600A0F41B /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FB59C93E18B92C6600A0F41B /* home.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		FB59C94718BA6DBE00A0F41B /* Transmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmitter.h; sourceTree = "<group>"; };
 		FB59C94818BA6DBE00A0F41B /* Transmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transmitter.m; sourceTree = "<group>"; };
 		FBE68A5618E6762100AB8EE6 /* Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		FB59C93C18B91A7E00A0F41B /* UserContext.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserContext.plist; sourceTree = "<group>"; };
+		FB59C93E18B92C6600A0F41B /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 		FB59C8D518B7169400A0F41B = {
 			isa = PBXGroup;
 			children = (
+				FB59C93E18B92C6600A0F41B /* home.gpx */,
 				FB59C8E718B7169500A0F41B /* ClubFinder */,
 				FB59C90618B7169500A0F41B /* ClubFinderTests */,
 				FB59C8E018B7169400A0F41B /* Frameworks */,
@@ -207,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				FB59C8E918B7169500A0F41B /* ClubFinder-Info.plist */,
+				FB59C93C18B91A7E00A0F41B /* UserContext.plist */,
 				FB59C8EA18B7169500A0F41B /* InfoPlist.strings */,
 				FB59C8ED18B7169500A0F41B /* main.m */,
 				FB59C8EF18B7169500A0F41B /* ClubFinder-Prefix.pch */,
@@ -400,10 +406,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB59C8FA18B7169500A0F41B /* Images.xcassets in Resources */,
+				FB59C93D18B91A7E00A0F41B /* UserContext.plist in Resources */,
 				FB59C8EC18B7169500A0F41B /* InfoPlist.strings in Resources */,
 				FB59C8F518B7169500A0F41B /* Main.storyboard in Resources */,
 				FB59C93718B7173B00A0F41B /* DataModels.bundle in Resources */,
 				FB59C93918B7173B00A0F41B /* rules.txt in Resources */,
+				FB59C93F18B92C6600A0F41B /* home.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

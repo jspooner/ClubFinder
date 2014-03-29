@@ -13,6 +13,7 @@
 #import <FYX/FYXTransmitter.h>
 #import <UIKit/UILocalNotification.h>
 #import "CFLogger.h"
+#import <ContextCore/QLContextCoreConnector.h>
 
 @interface ViewController ()
 @property (strong, nonatomic) NSMutableArray *transmitters;
@@ -26,6 +27,17 @@
 {
     [super viewDidLoad];
     [self initializeTransmitters];
+    QLContextCoreConnector *contectCoreConnection = [[QLContextCoreConnector alloc] init];
+    [contectCoreConnection checkStatusAndOnEnabled:^(QLContextConnectorPermissions *contextConnectorPermissions) {
+        NSLog(@"holy!");
+    } disabled:^(NSError *error) {
+        [contectCoreConnection enableFromViewController:self success:^{
+            NSLog(@"Success foo");
+        } failure:^(NSError *error) {
+            NSLog(@"oh crap another error \n\n%@", error);
+        }];
+        
+    }];
     self.visitManager = [FYXVisitManager new];
     self.visitManager.delegate = self;
     NSMutableDictionary *options = [NSMutableDictionary new];
