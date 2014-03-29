@@ -12,6 +12,7 @@
 #import <FYX/FYXVisitManager.h>
 #import <FYX/FYXTransmitter.h>
 #import <UIKit/UILocalNotification.h>
+#import "CFLogger.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) NSMutableArray *transmitters;
@@ -30,24 +31,19 @@
     [self.visitManager start];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma - mark
 #pragma - mark Helpers
 
--(void)logMessage:(NSString*)message
-{
-    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"[%f] log?%@", timeInMiliseconds, message);
-//    @synchronized(self) {
-//        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
-//        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
-//    }
-}
+//-(void)logMessage:(NSString*)message
+//{
+//    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+//    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+//    NSLog(@"[%@][%f] log?%@", appVersion, timeInMiliseconds, message);
+////    @synchronized(self) {
+////        self.textView.text = [self.textView.text stringByAppendingString:[NSString stringWithFormat:@"\n%@", message]];
+////        [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
+////    }
+//}
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth {
     NSInteger barMaxValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
@@ -242,7 +238,7 @@
                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="]
                        ];
-    [self logMessage:[params componentsJoinedByString:@"&"]];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 }
 
 - (void)receivedSighting:(FYXVisit *)visit updateTime:(NSDate *)updateTime RSSI:(NSNumber *)RSSI;
@@ -258,7 +254,7 @@
                         [@[@"updateTime", updateTime] componentsJoinedByString:@"="],
                         [@[@"rssi", RSSI] componentsJoinedByString:@"="],
                         ];
-    [self logMessage:[params componentsJoinedByString:@"&"]];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
     
     Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
     if (!transmitter) {
@@ -308,7 +304,7 @@
                         [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
                         [@[@"dwellTime", [NSString stringWithFormat:@"%f", visit.dwellTime]] componentsJoinedByString:@"="]
                         ];
-    [self logMessage:[params componentsJoinedByString:@"&"]];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
     //
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {

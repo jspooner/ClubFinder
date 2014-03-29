@@ -7,6 +7,7 @@
 //
 
 #import "LocationLogger.h"
+#import "CFLogger.h"
 
 @implementation LocationLogger {
     CLLocationManager *_locationManager;
@@ -35,18 +36,16 @@
 //    [_locationManager startMonitoringSignificantLocationChanges];
 }
 
--(void)logMessage:(NSString*)message
-{
-    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"[%f] log?%@", timeInMiliseconds, message);
-}
-
 #pragma - mark
 #pragma - mark CLLocation Manager Delegate
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"error %@", error);
+    NSArray *params = @[
+                        @"e=/location/didFailWithError",
+                        [@[@"error", error] componentsJoinedByString:@"="]
+                        ];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -62,7 +61,7 @@
                         [@[@"latitude", [NSString stringWithFormat:@"%f", location.coordinate.latitude]] componentsJoinedByString:@"="],
                         [@[@"longitude", [NSString stringWithFormat:@"%f", location.coordinate.longitude]] componentsJoinedByString:@"="]
                         ];
-    [self logMessage:[params componentsJoinedByString:@"&"]];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
@@ -77,7 +76,7 @@
                         [@[@"y", [NSString stringWithFormat:@"%f", newHeading.y]] componentsJoinedByString:@"="],
                         [@[@"z", [NSString stringWithFormat:@"%f", newHeading.z]] componentsJoinedByString:@"="]
                         ];
-    [self logMessage:[params componentsJoinedByString:@"&"]];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 }
 
 @end
