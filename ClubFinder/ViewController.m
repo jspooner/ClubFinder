@@ -49,7 +49,8 @@
 ////    }
 //}
 
-- (NSNumber *)rssiForBarWidth:(float)barWidth {
+- (NSNumber *)rssiForBarWidth:(float)barWidth
+{
     NSInteger barMaxValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
     NSInteger barMinValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
     
@@ -70,7 +71,8 @@
 //    [self.spinnerImageView stopAnimating];
 }
 
-- (void)showNoTransmittersView {
+- (void)showNoTransmittersView
+{
     CGRect viewFrame = self.tableView.frame;
     
     UIView *view = [[UIView alloc] initWithFrame:viewFrame];
@@ -93,7 +95,8 @@
 #pragma mark
 #pragma mark - Transmitters manipulation
 
-- (void)initializeTransmitters {
+- (void)initializeTransmitters
+{
     // Re-create the transmitters container array
     [self showNoTransmittersView];
     @synchronized(self.transmitters){
@@ -179,7 +182,8 @@
     }
 }
 
-- (void)updateSightingsCell:(SightingsTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter {
+- (void)updateSightingsCell:(SightingsTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter
+{
     if (sightingsCell && transmitter) {
         dispatch_async(dispatch_get_main_queue(), ^{
             sightingsCell.contentView.alpha = 1.0f;
