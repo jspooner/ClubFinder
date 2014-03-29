@@ -16,7 +16,6 @@
 @interface ViewController ()
 @property (strong, nonatomic) NSMutableArray *transmitters;
 @property (nonatomic) FYXVisitManager *visitManager;
-@property (nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic) IBOutlet UITableView *tableView;
 @end
 
@@ -232,7 +231,7 @@
 #pragma - mark
 #pragma - mark FYXVisitDelegate
 
-- (void)didArrive:(FYXVisit *)visit;
+- (void)didArrive:(FYXVisit *)visit
 {
     // this will be invoked when an authorized transmitter is sighted for the first time
     [self logMessage:[NSString stringWithFormat:@"I arrived at a Gimbal Beacon!!! %@", visit.transmitter.name]];
@@ -279,7 +278,7 @@
     }
 }
 
-- (void)didDepart:(FYXVisit *)visit;
+- (void)didDepart:(FYXVisit *)visit
 {
     // this will be invoked when an authorized transmitter has not been sighted for some time
     [self logMessage:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]];
