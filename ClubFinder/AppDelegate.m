@@ -35,6 +35,8 @@
 {
     [self setupLogging];
     [self setupGimbal];
+    self.locationLogger = [[LocationLogger alloc] init];
+    
     NSLog(@"[%f] log?e=app/applicationDidFinishLaunching", [[NSDate date] timeIntervalSince1970]);
     return YES;
 }

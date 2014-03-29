@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A219468A27A24A7EA8E66CE0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A047CD719B4A97AB37028D /* libPods.a */; };
+		FB032AB818E68CB000610BF0 /* LocationLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB032AB718E68CB000610BF0 /* LocationLogger.m */; };
 		FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E118B7169400A0F41B /* Foundation.framework */; };
 		FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E318B7169500A0F41B /* CoreGraphics.framework */; };
 		FB59C8E618B7169500A0F41B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E518B7169500A0F41B /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 /* Begin PBXFileReference section */
 		A2A047CD719B4A97AB37028D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BBE78A5AF04021849141A9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		FB032AB618E68CB000610BF0 /* LocationLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationLogger.h; sourceTree = "<group>"; };
+		FB032AB718E68CB000610BF0 /* LocationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationLogger.m; sourceTree = "<group>"; };
 		FB59C8DE18B7169400A0F41B /* ClubFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB59C8E118B7169400A0F41B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB59C8E318B7169500A0F41B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -189,6 +192,8 @@
 				FB59C8F918B7169500A0F41B /* Images.xcassets */,
 				FB59C8E818B7169500A0F41B /* Supporting Files */,
 				FBE68A5618E6762100AB8EE6 /* Logging.h */,
+				FB032AB618E68CB000610BF0 /* LocationLogger.h */,
+				FB032AB718E68CB000610BF0 /* LocationLogger.m */,
 			);
 			path = ClubFinder;
 			sourceTree = "<group>";
@@ -447,6 +452,7 @@
 			files = (
 				FB59C8F818B7169500A0F41B /* ViewController.m in Sources */,
 				FB59C8F218B7169500A0F41B /* AppDelegate.m in Sources */,
+				FB032AB818E68CB000610BF0 /* LocationLogger.m in Sources */,
 				FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */,
 				FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */,
 				FB59C8EE18B7169500A0F41B /* main.m in Sources */,

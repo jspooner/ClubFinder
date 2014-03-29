@@ -109,7 +109,6 @@
 {
     @synchronized(self.transmitters){
         [self.transmitters addObject:transmitter];
-            NSLog(@"transmitters %@", self.transmitters);
         if([self.transmitters count] == 1){
             [self hideNoTransmittersView];
         }
@@ -275,7 +274,6 @@
         transmitter.previousRSSI = transmitter.rssi;
         transmitter.batteryLevel = 0;
         transmitter.temperature = 0;
-            NSLog(@"transmitter %@", transmitter);
         [self addTransmitter:transmitter];
         [self.tableView reloadData];
     }
