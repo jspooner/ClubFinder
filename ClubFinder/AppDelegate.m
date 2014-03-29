@@ -7,11 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import <DDLog.h>
+#import <DDTTYLogger.h>
+#import <DDFileLogger.h>
 
 @implementation AppDelegate
 
+-(void)setupLogging
+{
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    [fileLogger setRollingFrequency:60 * 60 * 24];
+    [fileLogger setMaximumFileSize:1024 * 1024 * 4];
+    [fileLogger.logFileManager setMaximumNumberOfLogFiles:30];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:fileLogger];
+    
+    DDLogVerbose(@"Logging is setup");
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self setupLogging];
     [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
         appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
       callbackUrl:@"clubfinder://"];
