@@ -414,7 +414,7 @@
 - (NSData *)zipLogs {
     NSString *logsDir = [self logsDirectory];
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsDir error:nil];
-    NSPredicate *textFilePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    NSPredicate *textFilePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH '.log'"];
     files = [files filteredArrayUsingPredicate:textFilePredicate];
     
     NSString *logZipPath = [logsDir stringByAppendingPathComponent:@"logs.zip"];
