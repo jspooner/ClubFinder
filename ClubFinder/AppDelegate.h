@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <FYX/FYX.h>
-#import "LocationLogger.h"
+#import "LocationTracker.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, FYXServiceDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) LocationLogger *locationLogger;
+@property (strong, nonatomic) LocationTracker *locationLogger;
 
 @end

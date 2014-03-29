@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 One Bear Nine Ventures. All rights reserved.
 //
 
-#import "LocationLogger.h"
+#import "LocationTracker.h"
 #import "CFLogger.h"
 
-@implementation LocationLogger {
+@implementation LocationTracker {
     CLLocationManager *_locationManager;
 }
 

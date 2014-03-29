@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LocationLogger : NSObject <CLLocationManagerDelegate>
+@interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
 @end

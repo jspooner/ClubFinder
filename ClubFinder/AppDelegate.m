@@ -36,7 +36,7 @@
 {
     [self setupLogging];
     [self setupGimbal];
-    self.locationLogger = [[LocationLogger alloc] init];
+    self.locationLogger = [[LocationTracker alloc] init];
     [[CFLogger sharedInstance] logEvent:@"e=app/applicationDidFinishLaunching"];
     return YES;
 }
