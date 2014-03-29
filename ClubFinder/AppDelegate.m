@@ -23,7 +23,7 @@
     [fileLogger setRollingFrequency:60 * 60 * 24];
     [fileLogger setMaximumFileSize:1024 * 1024 * 4];
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:30];
-//    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
 }
 
@@ -125,11 +125,13 @@
 - (void)didGetPlaceEvent:(QLPlaceEvent *)placeEvent
 {
     NSLog(@"[geofence] did get place event %@", [placeEvent place].name);
+    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@", [placeEvent place].name]];
 }
 
 - (void)didGetContentDescriptors:(NSArray *)contentDescriptors
 {
     NSLog(@"didGetContentDescriptors %@", contentDescriptors);
+    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetContentDescriptors&contentDescriptors=%@", contentDescriptors]];
 }
 
 - (void)placesPermissionDidChange:(BOOL)placesPermission
@@ -144,7 +146,7 @@
 
 - (BOOL)shouldMonitorPlace:(QLPlace *)place
 {
-    NSLog(@"shouldMonitorPlace %@", place);
+    NSLog(@"shouldMonitorPlace %@", place.name);
     return YES;
 }
 
