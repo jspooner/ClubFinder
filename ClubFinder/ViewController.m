@@ -14,8 +14,10 @@
 #import <UIKit/UILocalNotification.h>
 #import "CFLogger.h"
 #import <ContextCore/QLContextCoreConnector.h>
+#import <SSZipArchive.h>
+#import <MessageUI/MessageUI.h>
 
-@interface ViewController ()
+@interface ViewController () <MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray *transmitters;
 @property (nonatomic) FYXVisitManager *visitManager;
 @property (nonatomic) IBOutlet UITableView *tableView;
@@ -102,7 +104,6 @@
 //    [view addSubview:self.spinnerImageView];
     [self.tableView setBackgroundView:view];
 }
-
 
 #pragma mark
 #pragma mark - Transmitters manipulation
@@ -397,8 +398,94 @@
                                        delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
         }
     }];
-    
-    
 }
+
+#pragma - mark
+#pragma - mark Mail Logs
+
+- (NSString *)cachesDirectory {
+    return NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+}
+
+- (NSString *)logsDirectory {
+    return [[self cachesDirectory] stringByAppendingPathComponent:@"Logs"];
+}
+
+- (NSData *)zipLogs {
+    NSString *logsDir = [self logsDirectory];
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsDir error:nil];
+    NSPredicate *textFilePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    files = [files filteredArrayUsingPredicate:textFilePredicate];
+    
+    NSString *logZipPath = [logsDir stringByAppendingPathComponent:@"logs.zip"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:logZipPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:logZipPath error:nil];
+    }
+    
+    NSMutableArray *inputFiles = [NSMutableArray array];
+    for (NSString *file in files) {
+        [inputFiles addObject:[logsDir stringByAppendingPathComponent:file]];
+    }
+    
+    [SSZipArchive createZipFileAtPath:logZipPath withFilesAtPaths:inputFiles];
+    NSData *zipData = [NSData dataWithContentsOfFile:logZipPath];
+    [[NSFileManager defaultManager] removeItemAtPath:logZipPath error:nil];
+    return zipData;
+}
+
+- (IBAction)mailLogs:(id)sender {
+    if (![MFMailComposeViewController canSendMail]) {
+        [[[UIAlertView alloc] initWithTitle:@"Can't send email"
+                                    message:@"Please set up your mail account first"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+        return;
+    }
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        NSData *zipFileData = [self zipLogs];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
+            [mailVC setSubject:@"ClubFinder Logs"];
+            [mailVC setToRecipients:@[@"jspooner@gmail.com"]];
+            [mailVC setMessageBody:@"Please find the attached logs" isHTML:NO];
+            [mailVC addAttachmentData:zipFileData
+                             mimeType:@"application/zip"
+                             fileName:@"logs.zip"];
+            
+            [mailVC setMailComposeDelegate:self];
+            
+            [self presentViewController:mailVC animated:YES completion:nil];
+        });
+    });
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSaved:
+            NSLog(@"Saved as a draft");
+            break;
+            
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+            
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+            
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail send failed");
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 @end

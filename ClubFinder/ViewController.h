@@ -12,4 +12,6 @@
 
 @interface ViewController : UIViewController <FYXVisitDelegate, UITableViewDelegate, UITableViewDataSource>
 
+- (IBAction)mailLogs:(id)sender;
+
 @end
