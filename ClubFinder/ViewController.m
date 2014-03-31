@@ -386,7 +386,7 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
             UILocalNotification *myNote = [[UILocalNotification alloc] init];
-            myNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:5];
+            myNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:30];
             myNote.timeZone = [NSTimeZone defaultTimeZone];
             myNote.alertBody = [NSString stringWithFormat:@"Left proximity of a Gimbal Beacon!!!! %@ I was around the beacon for %f seconds", visit.transmitter.name, visit.dwellTime];
             myNote.alertAction = @"View Details";

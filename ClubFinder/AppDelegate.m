@@ -124,8 +124,8 @@
 
 - (void)didGetPlaceEvent:(QLPlaceEvent *)placeEvent
 {
-    NSLog(@"[geofence] did get place event %@", [placeEvent place].name);
-    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@", [placeEvent place].name]];
+    NSLog(@"[geofence] did get place event %@, placeType=%i", [placeEvent place].name, placeEvent.placeType);
+    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@&placeEventType=%i", [placeEvent place].name, placeEvent.placeType ] ];
 }
 
 - (void)didGetContentDescriptors:(NSArray *)contentDescriptors
