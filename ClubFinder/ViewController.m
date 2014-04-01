@@ -47,6 +47,7 @@
 //    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
     [self.visitManager startWithOptions:options];
     [self.visitManager start];
+
 }
 
 #pragma - mark
@@ -385,17 +386,39 @@
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+            // Testing
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+            [timeFormat setDateFormat:@"HH:mm:ss"];
+            //    NSDate *now = [[NSDate alloc] init];
+            NSDate *now =  [NSDate dateWithTimeIntervalSinceNow:1];
+            NSString *theDate = [dateFormat stringFromDate:now];
+            NSString *theTime = [timeFormat stringFromDate:now];
+            NSLog(@"\n"
+                  "theDate: |%@| \n"
+                  "theTime: |%@| \n"
+                  , theDate, theTime);
             UILocalNotification *myNote = [[UILocalNotification alloc] init];
-            myNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:30];
+            myNote.fireDate =  now;
             myNote.timeZone = [NSTimeZone defaultTimeZone];
-            myNote.alertBody = [NSString stringWithFormat:@"Left proximity of a Gimbal Beacon!!!! %@ I was around the beacon for %f seconds", visit.transmitter.name, visit.dwellTime];
+            myNote.alertBody = [NSString stringWithFormat:@"Did you lose %@ at %@?", visit.transmitter.name, theTime];
             myNote.alertAction = @"View Details";
             myNote.soundName = UILocalNotificationDefaultSoundName;
             [[UIApplication sharedApplication] scheduleLocalNotification:myNote];
+            [[CFLogger sharedInstance] logEvent:[@[
+                                                   @"e=/alert/localnotification",
+                                                   [@[@"date", theDate] componentsJoinedByString:@"="],
+                                                   [@[@"time", theTime] componentsJoinedByString:@"="],
+                                                   ] componentsJoinedByString:@"&"]];
         } else {
             [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]
                                         message:[NSString stringWithFormat:@"I was around the beacon for %f seconds", visit.dwellTime]
                                        delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+            [[CFLogger sharedInstance] logEvent:[@[
+                                                   @"e=/alert/uialertview",
+                                                   ] componentsJoinedByString:@"&"]];
+
         }
     }];
 }
