@@ -34,21 +34,12 @@
         appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
       callbackUrl:@"clubfinder://authcode"];
     [FYX startService:self];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [self setupLogging];
-    [self setupGimbal];
-    self.locationLogger = [[LocationTracker alloc] init];
-    [[CFLogger sharedInstance] logEvent:@"e=app/applicationDidFinishLaunching"];
-    
     // Geofence
     self.placeConnector = [[QLContextPlaceConnector alloc] init];
     self.placeConnector.delegate = self;
     [self.placeConnector monitorPlacesInBackground];
     [self.placeConnector monitorPlacesWhenAllowed];
-
+    
     NSLog(self.placeConnector.isPlacesEnabled ? @"placeConnector.isPlacesEnabled=Yes" : @"placeConnector.isPlacesEnabled=No");
     NSLog(self.placeConnector.isBackgroundPlaceMonitoringEnabled ? @"placeConnector.isBackgroundPlaceMonitoringEnabled=Yes" : @"placeConnector.isBackgroundPlaceMonitoringEnabled=No");
     
@@ -67,7 +58,23 @@
     } failure:^(NSError *error) {
         NSLog(@"allPlacesAndOnSuccess ERROR %@", error);
     }];
-    // Override point for customization after application launch.
+
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self setupLogging];
+    self.locationLogger = [[LocationTracker alloc] init];
+    [self setupGimbal];
+    
+    NSMutableArray *params = @[@"e=/app/applicationDidFinishLaunching"].mutableCopy;
+    UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotif) {
+        // Show Alert Here
+        [params addObject:[@[@"alertAction", localNotif.alertAction] componentsJoinedByString:@"="]];
+    }
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+    
     return YES;
 }
 							
@@ -102,6 +109,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[CFLogger sharedInstance] logEvent:@"e=app/applicationWillTerminate"];
 }
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/didReceiveRemoteNotification?userInfo=%@", userInfo]];
+}
+//-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{}
 
 #pragma - mark
 #pragma - mark FYX

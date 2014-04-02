@@ -31,9 +31,10 @@
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _locationManager.distanceFilter = 1;
-    [_locationManager startUpdatingLocation];
+    _locationManager.activityType = CLActivityTypeFitness;
+//    [_locationManager startUpdatingLocation];
 //    [_locationManager startUpdatingHeading];
-//    [_locationManager startMonitoringSignificantLocationChanges];
+    [_locationManager startMonitoringSignificantLocationChanges];
 }
 
 #pragma - mark

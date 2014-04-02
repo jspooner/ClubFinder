@@ -31,12 +31,12 @@
     [self initializeTransmitters];
     QLContextCoreConnector *contectCoreConnection = [[QLContextCoreConnector alloc] init];
     [contectCoreConnection checkStatusAndOnEnabled:^(QLContextConnectorPermissions *contextConnectorPermissions) {
-        NSLog(@"holy!");
+        NSLog(@"ViewController.viewDidLoad holy!");
     } disabled:^(NSError *error) {
         [contectCoreConnection enableFromViewController:self success:^{
-            NSLog(@"Success foo");
+            NSLog(@"ViewController.viewDidLoad Success");
         } failure:^(NSError *error) {
-            NSLog(@"oh crap another error \n\n%@", error);
+            NSLog(@"ViewController.viewDidLoad oh crap another error \n\n%@", error);
         }];
         
     }];
@@ -398,12 +398,10 @@
     }
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
-            // Testing
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:@"yyyy-MM-dd"];
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
             [timeFormat setDateFormat:@"HH:mm:ss"];
-            //    NSDate *now = [[NSDate alloc] init];
             NSDate *now =  [NSDate dateWithTimeIntervalSinceNow:1];
             NSString *theDate = [dateFormat stringFromDate:now];
             NSString *theTime = [timeFormat stringFromDate:now];
