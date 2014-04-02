@@ -32,7 +32,7 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _locationManager.distanceFilter = 1;
     [_locationManager startUpdatingLocation];
-    [_locationManager startUpdatingHeading];
+//    [_locationManager startUpdatingHeading];
 //    [_locationManager startMonitoringSignificantLocationChanges];
 }
 

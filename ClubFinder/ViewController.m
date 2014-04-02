@@ -384,6 +384,18 @@
     }
     // START ALERT OF NOTIFICATION
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    if (state == UIApplicationStateActive)
+    {
+        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateActive"];
+    }
+    else if (state == UIApplicationStateBackground)
+    {
+        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateBackground"];
+    }
+    else if (state == UIApplicationStateInactive)
+    {
+        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateInactive"];
+    }
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
             // Testing
