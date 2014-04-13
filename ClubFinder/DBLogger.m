@@ -68,8 +68,13 @@
 
 -(NSString*)dropBoxPath:(NSString *)filePath
 {
+#if DEBUG
+    NSString *base = @"DEBUG/";
+#else
+    NSString *base = @"";
+#endif
     NSUUID *oNSUUID = [[UIDevice currentDevice] identifierForVendor];
-    return [NSString stringWithFormat:@"%@/%@", [oNSUUID UUIDString], [[filePath componentsSeparatedByString:@"/"] lastObject]];
+    return [NSString stringWithFormat:@"%@/%@/%@", base, [oNSUUID UUIDString], [[filePath componentsSeparatedByString:@"/"] lastObject]];
 }
 
 
