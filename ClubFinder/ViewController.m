@@ -17,6 +17,7 @@
 #import <SSZipArchive.h>
 #import <MessageUI/MessageUI.h>
 #import <DropboxSDK/DropboxSDK.h>
+#import <FYX/FYXSightingManager.h>
 
 @interface ViewController () <MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray *transmitters;
@@ -50,8 +51,19 @@
     self.spinnerImageView.animationRepeatCount = 0;
     [self initializeTransmitters];
     [self initLocationManager];
-    [self initVisitManager];
+    [self initializeVisitManager];
     [self initDropBox];
+}
+
+- (void)viewDidUnload {
+    [self cleanupVisitManager];
+    [super viewDidUnload];
+}
+
+- (void)cleanupVisitManager {
+    if (self.visitManager) {
+        [self.visitManager stop];
+    }
 }
 
 #pragma - mark
@@ -72,15 +84,39 @@
     }];
 }
 
--(void)initVisitManager
+-(void)initializeVisitManager
 {
-    self.visitManager = [FYXVisitManager new];
-    self.visitManager.delegate = self;
+    if (!self.visitManager) {
+        self.visitManager = [[FYXVisitManager alloc] init];
+        self.visitManager.delegate = self;
+    }
+    
     NSMutableDictionary *options = [NSMutableDictionary new];
+    
+    /*
+     Number of seconds before the absence of a beacon triggers the didDepart callback
+     */
     [options setObject:[NSNumber numberWithInt:VISIT_DURATION_INTERVAL_IN_SECONDS] forKey:FYXVisitOptionDepartureIntervalInSecondsKey];
-    //    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    
+    /*
+     Signal Strength Window
+     Smoothing of signal strengths using historic sliding window averaging
+    
+     This option allows for a window of historic signal strengths to be used for a given device to "smooth" them out to remove quick jumps in signal strength. The larger the window the less the signal strength will jump but the slower it will react to the signal strength changes.
+     */
+    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    
+    /*
+     An RSSI value of the beacon sighting that must be exceeded before a didArrive callback is triggered
+     [options setObject:-75 forKey:FYXVisitOptionArrivalRSSIKey];
+     */
+
+    /*
+     If an RSSI value of the beacon sightings is less than this value and the departure interval is exceeded a didDepart callback is triggered
+     [options setObject:-90 forKey:FYXVisitOptionDepartureRSSIKey];
+     */
+    
     [self.visitManager startWithOptions:options];
-    [self.visitManager start];
 }
 
 -(void)initDropBox
@@ -103,8 +139,8 @@
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth
 {
-    NSInteger barMaxValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
-    NSInteger barMinValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
+    NSInteger barMaxValue = -60; // [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
+    NSInteger barMinValue = -90; // [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
     
     NSInteger barRange = barMaxValue - barMinValue;
     float percentage = - ((barWidth / 270.0f) - 1.0f);
@@ -190,8 +226,8 @@
 
 - (float)barWidthForRSSI:(NSNumber *)rssi
 {
-    NSInteger barMaxValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
-    NSInteger barMinValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
+    NSInteger barMaxValue = -60; //[[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
+    NSInteger barMinValue = -90; // [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
     
     float rssiValue = [rssi floatValue];
     float barWidth;
@@ -291,7 +327,7 @@
 
 - (BOOL)isTransmitterAgedOut:(Transmitter *)transmitter {
     NSDate *now = [NSDate date];
-    NSTimeInterval ageOutPeriod = [[NSUserDefaults standardUserDefaults] integerForKey:@"age_out_period"];
+    NSTimeInterval ageOutPeriod = 15; //[[NSUserDefaults standardUserDefaults] integerForKey:@"age_out_period"];
     if ([now timeIntervalSinceDate:transmitter.lastSighted] > ageOutPeriod) {
         return YES;
     }
@@ -363,7 +399,7 @@
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
     
     Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
-    if (!transmitter) {
+if (!transmitter) {
         NSString *transmitterName = visit.transmitter.identifier;
         if(visit.transmitter.name){
             transmitterName = visit.transmitter.name;
