@@ -31,6 +31,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Create the animated spinner view
+    self.spinnerImageView = [UIImageView new];
+    self.spinnerImageView.animationImages = [NSArray arrayWithObjects:
+                                             [UIImage imageNamed:@"spinner_01.png"],
+                                             [UIImage imageNamed:@"spinner_02.png"],
+                                             [UIImage imageNamed:@"spinner_03.png"],
+                                             [UIImage imageNamed:@"spinner_04.png"],
+                                             [UIImage imageNamed:@"spinner_05.png"],
+                                             [UIImage imageNamed:@"spinner_06.png"],
+                                             [UIImage imageNamed:@"spinner_07.png"],
+                                             [UIImage imageNamed:@"spinner_08.png"],
+                                             [UIImage imageNamed:@"spinner_09.png"],
+                                             [UIImage imageNamed:@"spinner_10.png"],
+                                             [UIImage imageNamed:@"spinner_11.png"],
+                                             [UIImage imageNamed:@"spinner_12.png"], nil];
+    self.spinnerImageView.animationDuration = 1;
+    self.spinnerImageView.animationRepeatCount = 0;
     [self initializeTransmitters];
     [self initLocationManager];
     [self initVisitManager];
@@ -103,7 +120,7 @@
     // Simply set a background image for the table view
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
     [self.tableView setBackgroundView:backgroundImageView];
-//    [self.spinnerImageView stopAnimating];
+    [self.spinnerImageView stopAnimating];
 }
 
 - (void)showNoTransmittersView
@@ -120,9 +137,9 @@
     [label sizeToFit];
     label.center = CGPointMake(viewFrame.size.width / 2, (viewFrame.size.height / 2) - 40);
     [view addSubview:label];
-//    self.spinnerImageView.frame = CGRectMake(viewFrame.size.width / 2 - 25, (viewFrame.size.height / 2) - 105, 50, 50);
-//    [self.spinnerImageView startAnimating];
-//    [view addSubview:self.spinnerImageView];
+    self.spinnerImageView.frame = CGRectMake(viewFrame.size.width / 2 - 25, (viewFrame.size.height / 2) - 105, 50, 50);
+    [self.spinnerImageView startAnimating];
+    [view addSubview:self.spinnerImageView];
     [self.tableView setBackgroundView:view];
 }
 

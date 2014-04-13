@@ -22,12 +22,7 @@
 {
     DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:[[DBLogger alloc] init]];
     [fileLogger setRollingFrequency:60 * 60 * 24];
-# if DEBUG
-    [fileLogger setMaximumFileSize:1024 * 1024];
-#else
     [fileLogger setMaximumFileSize:1024 * 1024 * 4];
-#endif
-    
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:3];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];

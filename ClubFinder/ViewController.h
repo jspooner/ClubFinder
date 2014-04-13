@@ -12,6 +12,7 @@
 
 @interface ViewController : UIViewController <FYXVisitDelegate, UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) UIImageView *spinnerImageView;
 - (IBAction)mailLogs:(id)sender;
 
 @end
