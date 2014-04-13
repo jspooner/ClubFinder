@@ -103,8 +103,14 @@
      Smoothing of signal strengths using historic sliding window averaging
     
      This option allows for a window of historic signal strengths to be used for a given device to "smooth" them out to remove quick jumps in signal strength. The larger the window the less the signal strength will jump but the slower it will react to the signal strength changes.
+     
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowNone	No window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowSmall	A small window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowMedium	A medium window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowLarge	A large window of historic signal strengths is used
+     
      */
-    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowLarge] forKey:FYXSightingOptionSignalStrengthWindowKey];
     
     /*
      An RSSI value of the beacon sighting that must be exceeded before a didArrive callback is triggered

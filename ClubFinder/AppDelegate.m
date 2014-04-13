@@ -21,8 +21,8 @@
 -(void)setupLogging
 {
     DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:[[DBLogger alloc] init]];
-    [fileLogger setRollingFrequency:60 * 60 * 24];
-    [fileLogger setMaximumFileSize:1024 * 1024 * 4];
+    [fileLogger setRollingFrequency:60 * 60 * 1];       // Every Hour
+    [fileLogger setMaximumFileSize:1024 * 1024 * 4];    // 4mb
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:3];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
