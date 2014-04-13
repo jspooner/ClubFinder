@@ -14,15 +14,21 @@
 #import <ContextLocation/QLPlaceEvent.h>
 #import <ContextLocation/QLPlace.h>
 #import <FYX/FYXLogging.h>
+#import "DBLogger.h"
 
 @implementation AppDelegate
 
 -(void)setupLogging
 {
-    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:[[DBLogger alloc] init]];
     [fileLogger setRollingFrequency:60 * 60 * 24];
+# if DEBUG
+    [fileLogger setMaximumFileSize:1024 * 1024 * 1];
+#else
     [fileLogger setMaximumFileSize:1024 * 1024 * 4];
-    [fileLogger.logFileManager setMaximumNumberOfLogFiles:30];
+#endif
+    
+    [fileLogger.logFileManager setMaximumNumberOfLogFiles:3];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
 }
@@ -115,6 +121,22 @@
     [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/didReceiveRemoteNotification?userInfo=%@", userInfo]];
 }
 //-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{}
+
+#pragma - mark
+#pragma - mark Dropbox
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+  sourceApplication:(NSString *)source annotation:(id)annotation {
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
+    }
+    // Add whatever other url handling code your app requires here
+    return NO;
+}
 
 #pragma - mark
 #pragma - mark FYX

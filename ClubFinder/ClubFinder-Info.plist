@@ -30,6 +30,12 @@
 				<string>clubfinder</string>
 			</array>
 		</dict>
+        <dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-dw0ugacyw2y192e</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.6</string>

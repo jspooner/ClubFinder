@@ -4,14 +4,17 @@ PODS:
   - CocoaLumberjack/Core (1.8.1)
   - CocoaLumberjack/Extensions (1.8.1):
     - CocoaLumberjack/Core
+  - Dropbox-iOS-SDK (1.3.10)
   - SSZipArchive (0.3.1)
 
 DEPENDENCIES:
   - CocoaLumberjack (~> 1.8)
+  - Dropbox-iOS-SDK (~> 1.3)
   - SSZipArchive
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
-  SSZipArchive: 47d0589a15452311749a4eeecb97e12800d127de
+  Dropbox-iOS-SDK: 9cc160cd7fa2edfae25adf11346bff3496d6dbad
+  SSZipArchive: 5479ec96c412904a987a3ae3180d65234aa46b6e
 
 COCOAPODS: 0.29.0

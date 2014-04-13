@@ -16,6 +16,7 @@
 #import <ContextCore/QLContextCoreConnector.h>
 #import <SSZipArchive.h>
 #import <MessageUI/MessageUI.h>
+#import <DropboxSDK/DropboxSDK.h>
 
 @interface ViewController () <MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray *transmitters;
@@ -25,10 +26,22 @@
 
 @implementation ViewController
 
+#define VISIT_DURATION_INTERVAL_IN_SECONDS 15
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initializeTransmitters];
+    [self initLocationManager];
+    [self initVisitManager];
+    [self initDropBox];
+}
+
+#pragma - mark
+#pragma - mark Helpers
+
+-(void)initLocationManager
+{
     QLContextCoreConnector *contectCoreConnection = [[QLContextCoreConnector alloc] init];
     [contectCoreConnection checkStatusAndOnEnabled:^(QLContextConnectorPermissions *contextConnectorPermissions) {
         NSLog(@"ViewController.viewDidLoad holy!");
@@ -40,18 +53,25 @@
         }];
         
     }];
+}
+
+-(void)initVisitManager
+{
     self.visitManager = [FYXVisitManager new];
     self.visitManager.delegate = self;
     NSMutableDictionary *options = [NSMutableDictionary new];
-    [options setObject:[NSNumber numberWithInt:5] forKey:FYXVisitOptionDepartureIntervalInSecondsKey];
-//    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    [options setObject:[NSNumber numberWithInt:VISIT_DURATION_INTERVAL_IN_SECONDS] forKey:FYXVisitOptionDepartureIntervalInSecondsKey];
+    //    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowNone] forKey:FYXSightingOptionSignalStrengthWindowKey];
     [self.visitManager startWithOptions:options];
     [self.visitManager start];
-
 }
 
-#pragma - mark
-#pragma - mark Helpers
+-(void)initDropBox
+{
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
+    }
+}
 
 //-(void)logMessage:(NSString*)message
 //{
