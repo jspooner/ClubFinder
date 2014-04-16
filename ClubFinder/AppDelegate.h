@@ -14,7 +14,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, FYXServiceDelegate, QLContextPlaceConnectorDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
 @property (strong, nonatomic) LocationTracker *locationLogger;
 @property (nonatomic) QLContextPlaceConnector *placeConnector;
 

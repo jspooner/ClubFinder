@@ -119,8 +119,9 @@
 
     /*
      If an RSSI value of the beacon sightings is less than this value and the departure interval is exceeded a didDepart callback is triggered
-     [options setObject:-90 forKey:FYXVisitOptionDepartureRSSIKey];
+     [options setObject:[NSNumber numberWithInt:-90] forKey:FYXVisitOptionDepartureRSSIKey];
      */
+    
     
     [self.visitManager startWithOptions:options];
 }

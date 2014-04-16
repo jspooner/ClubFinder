@@ -26,7 +26,24 @@ static CFLogger *sharedSingleton;
 {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    DDLogVerbose(@"[%@][%f] log?%@", appVersion, timeInMiliseconds, event);
+    
+    // START ALERT OF NOTIFICATION
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    NSString *currentState = nil;
+    if (state == UIApplicationStateActive)
+    {
+        currentState = @"&state=UIApplicationStateActive";
+    }
+    else if (state == UIApplicationStateBackground)
+    {
+        currentState = @"&state=UIApplicationStateBackground";
+    }
+    else if (state == UIApplicationStateInactive)
+    {
+        currentState = @"&state=UIApplicationStateInactive";
+    }
+    
+    DDLogVerbose(@"[%@][%f] log?%@%@", appVersion, timeInMiliseconds, event, currentState);
 }
 
 @end
