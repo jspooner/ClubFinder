@@ -49,9 +49,9 @@
                                              [UIImage imageNamed:@"spinner_12.png"], nil];
     self.spinnerImageView.animationDuration = 1;
     self.spinnerImageView.animationRepeatCount = 0;
-    [self initializeTransmitters];
-    [self initLocationManager];
-    [self initializeVisitManager];
+//    [self initializeTransmitters];
+//    [self initLocationManager];
+//    [self initializeVisitManager];
     [self initDropBox];
 }
 

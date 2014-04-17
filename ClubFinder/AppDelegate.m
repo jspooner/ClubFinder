@@ -15,58 +15,78 @@
 #import <ContextLocation/QLPlace.h>
 #import <FYX/FYXLogging.h>
 #import "DBLogger.h"
+#import <ContextCore/QLContextCoreConnector.h>
 
 @implementation AppDelegate
 
 -(void)setupLogging
 {
     DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:[[DBLogger alloc] init]];
-    [fileLogger setRollingFrequency:60 * 60 * 1];       // Every Hour
-    [fileLogger setMaximumFileSize:1024 * 1024 * 4];    // 4mb
+    [fileLogger setRollingFrequency:60 * 60 * 0.5];         // Every 1/2 Hour
+    [fileLogger setMaximumFileSize:1024 * 1024 * 1];        // 1mb
     [fileLogger.logFileManager setMaximumNumberOfLogFiles:3];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:fileLogger];
 }
 
--(void)setupGimbal
+-(void)initPlaceConnector
 {
-    [FYXLogging setLogLevel:FYX_LOG_LEVEL_VERBOSE];
-    [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
-        appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
-      callbackUrl:@"clubfinder://authcode"];
-    [FYX startService:self];
+    NSLog(@"initPlaceConnector");
+//    [FYXLogging setLogLevel:FYX_LOG_LEVEL_VERBOSE];
+//    [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
+//        appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
+//      callbackUrl:@"clubfinder://authcode"];
+//    [FYX startService:self];
     // Geofence
     self.placeConnector = [[QLContextPlaceConnector alloc] init];
     self.placeConnector.delegate = self;
     [self.placeConnector monitorPlacesInBackground];
     [self.placeConnector monitorPlacesWhenAllowed];
-    
     NSLog(self.placeConnector.isPlacesEnabled ? @"placeConnector.isPlacesEnabled=Yes" : @"placeConnector.isPlacesEnabled=No");
     NSLog(self.placeConnector.isBackgroundPlaceMonitoringEnabled ? @"placeConnector.isBackgroundPlaceMonitoringEnabled=Yes" : @"placeConnector.isBackgroundPlaceMonitoringEnabled=No");
     
-    [self.placeConnector allOrganizationPlacesAndOnSuccess:^(NSArray *places) {
-        NSLog(@"allOrganizationPlacesAndOnSuccess SUCCESS %@", places);
-    } failure:^(NSError *error) {
-        NSLog(@"allOrganizationPlacesAndOnSuccess ERROR %@", error);
+//    [self.placeConnector allOrganizationPlacesAndOnSuccess:^(NSArray *places) {
+//        NSLog(@"allOrganizationPlacesAndOnSuccess SUCCESS %@", places);
+//    } failure:^(NSError *error) {
+//        NSLog(@"allOrganizationPlacesAndOnSuccess ERROR %@", error);
+//    }];
+//    [self.placeConnector allPrivatePointsOfInterestAndOnSuccess:^(NSArray *privatePointsOfInterest) {
+//        NSLog(@"allPrivatePointsOfInterestAndOnSuccess SUCCESS %@", privatePointsOfInterest);
+//    } failure:^(NSError *error) {
+//        NSLog(@"allPrivatePointsOfInterestAndOnSuccess ERROR %@", error);
+//    }];
+//    [self.placeConnector allPlacesAndOnSuccess:^(NSArray *places) {
+//        NSLog(@"allPlacesAndOnSuccess SUCCESS %@", places);
+//    } failure:^(NSError *error) {
+//        NSLog(@"allPlacesAndOnSuccess ERROR %@", error);
+//    }];
+}
+- (void)enableContextCoreConnector
+{
+    QLContextCoreConnector *connector = [QLContextCoreConnector new];
+    [connector checkStatusAndOnEnabled:^(QLContextConnectorPermissions *contextConnectorPermissions) {
+        NSLog(@"Gimbal is enabled");
+        [self initPlaceConnector];
+    } disabled:^(NSError *error) {
+        NSLog(@"Gimbal was disabled %@", error);
+        [connector enableFromViewController:self.window.rootViewController success:^{
+            NSLog(@"Gimbal enabled");
+            [self initPlaceConnector];
+        } failure:^(NSError *error) {
+            NSLog(@"Failed to initialize gimbal %@", error);
+        }];
     }];
-    [self.placeConnector allPrivatePointsOfInterestAndOnSuccess:^(NSArray *privatePointsOfInterest) {
-        NSLog(@"allPrivatePointsOfInterestAndOnSuccess SUCCESS %@", privatePointsOfInterest);
-    } failure:^(NSError *error) {
-        NSLog(@"allPrivatePointsOfInterestAndOnSuccess ERROR %@", error);
-    }];
-    [self.placeConnector allPlacesAndOnSuccess:^(NSArray *places) {
-        NSLog(@"allPlacesAndOnSuccess SUCCESS %@", places);
-    } failure:^(NSError *error) {
-        NSLog(@"allPlacesAndOnSuccess ERROR %@", error);
-    }];
-
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupLogging];
-    self.locationLogger = [[LocationTracker alloc] init];
-    [self setupGimbal];
+    [self enableContextCoreConnector];
+    
+//    self.locationLogger = [[LocationTracker alloc] init];
+//    [self setupGimbal];
+    
     
     NSMutableArray *params = @[@"e=/app/applicationDidFinishLaunching"].mutableCopy;
     UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
@@ -155,7 +175,7 @@
 - (void)didGetPlaceEvent:(QLPlaceEvent *)placeEvent
 {
     NSLog(@"[geofence] did get place event %@, placeType=%i", [placeEvent place].name, placeEvent.placeType);
-    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@&placeEventType=%i", [placeEvent place].name, placeEvent.placeType ] ];
+    [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@&evenType=%i", [placeEvent place].name, placeEvent.eventType ] ];
 }
 
 - (void)didGetContentDescriptors:(NSArray *)contentDescriptors
