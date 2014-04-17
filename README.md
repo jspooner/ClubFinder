@@ -10,9 +10,24 @@ ClubFinder
   • Save my beacons
 
 3. Location monitoring
+  • for saving a location to a beacon sighting 
 
 4. CFLocationManager
   Manages 
+
+5. Transmitter
+  *name
+  *identifier
+  *rssi
+  *previousRSSI
+  *lastSighted
+  *batteryLevel
+  *temperature
+
+6. Sighting
+  *transmitter Transmitter
+  *dateTime
+  *location
 
 
 
