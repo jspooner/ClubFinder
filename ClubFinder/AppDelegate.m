@@ -16,6 +16,8 @@
 #import <FYX/FYXLogging.h>
 #import "DBLogger.h"
 #import <ContextCore/QLContextCoreConnector.h>
+#import "HomeViewController.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
 
@@ -95,6 +97,7 @@
         [params addObject:[@[@"alertAction", localNotif.alertAction] componentsJoinedByString:@"="]];
     }
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+ 
     
     return YES;
 }
@@ -176,6 +179,41 @@
 {
     NSLog(@"[geofence] did get place event %@, placeType=%i", [placeEvent place].name, placeEvent.placeType);
     [[CFLogger sharedInstance] logEvent:[NSString stringWithFormat:@"e=app/gimbal/geofence/didGetPlaceEvent&placeName=%@&evenType=%i", [placeEvent place].name, placeEvent.eventType ] ];
+    // Test Notification
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+            [timeFormat setDateFormat:@"HH:mm:ss"];
+            NSDate *now =  [NSDate dateWithTimeIntervalSinceNow:1];
+            NSString *theDate = [dateFormat stringFromDate:now];
+            NSString *theTime = [timeFormat stringFromDate:now];
+            NSLog(@"\n"
+                  "theDate: |%@| \n"
+                  "theTime: |%@| \n"
+                  , theDate, theTime);
+            UILocalNotification *myNote = [[UILocalNotification alloc] init];
+            myNote.fireDate =  now;
+            myNote.timeZone = [NSTimeZone defaultTimeZone];
+            if (placeEvent.eventType == QLPlaceEventTypeAt ) {
+                myNote.alertBody = [NSString stringWithFormat:@"Welcome to %@", placeEvent.place.name];
+            } else {
+                myNote.alertBody = [NSString stringWithFormat:@"Thank you for visiting %@", placeEvent.place.name];
+            }
+            
+            myNote.alertAction = @"View Details";
+            myNote.soundName = UILocalNotificationDefaultSoundName;
+            [[UIApplication sharedApplication] scheduleLocalNotification:myNote];
+        } else {
+            UIStoryboard *storyboard = [[[self window] rootViewController] storyboard];
+//            UINavigationController *navigationController = (UINavigationController*)[storyboard instantiateViewControllerWithIdentifier:@"navigationController"];
+            ViewController *vc = (ViewController*)[storyboard instantiateViewControllerWithIdentifier:@"viewController"];
+            HomeViewController *hvc = (HomeViewController*)[storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
+            [hvc performSegueWithIdentifier:@"fuckThis" sender:nil];
+        }
+    }];
 }
 
 - (void)didGetContentDescriptors:(NSArray *)contentDescriptors
