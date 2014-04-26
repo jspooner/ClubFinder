@@ -88,7 +88,7 @@
 -(void)showBeaconViewController
 {
     NSLog(@"showBeaconViewController");
-    BeaconViewController *bvc = [[BeaconViewController alloc] initWithNibName:@"BeaconViewController" bundle:nil];
+    BeaconViewController *bvc = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
     [self.centerController pushViewController:bvc animated:YES];
 }
 
@@ -171,21 +171,21 @@
     return NO;
 }
 
-#pragma - mark
-#pragma - mark FYX
-
-- (void)serviceStarted
-{
-    // this will be invoked if the service has successfully started
-    // bluetooth scanning will be started at this point.
-    [[CFLogger sharedInstance] logEvent:@"e=app/gimbal/serviceStarted"];
-}
-
-- (void)startServiceFailed:(NSError *)error
-{
-    // this will be called if the service has failed to start
-    [[CFLogger sharedInstance] logEvent: [NSString stringWithFormat:@"e=app/gimbal/startServiceFailed&error=%@", error]];
-}
+//#pragma - mark
+//#pragma - mark FYX
+//
+//- (void)serviceStarted
+//{
+//    // this will be invoked if the service has successfully started
+//    // bluetooth scanning will be started at this point.
+//    [[CFLogger sharedInstance] logEvent:@"e=app/gimbal/serviceStarted"];
+//}
+//
+//- (void)startServiceFailed:(NSError *)error
+//{
+//    // this will be called if the service has failed to start
+//    [[CFLogger sharedInstance] logEvent: [NSString stringWithFormat:@"e=app/gimbal/startServiceFailed&error=%@", error]];
+//}
 
 #pragma - mark
 #pragma - mark Geofence

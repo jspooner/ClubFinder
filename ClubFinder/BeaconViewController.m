@@ -14,9 +14,21 @@
 
 @implementation BeaconViewController
 
+-(id)initWithBeacon:(BeaconManager *)manager
+{
+    self = [super initWithNibName:@"BeaconViewController" bundle:nil];
+    if (self) {
+        self.beaconManager = manager;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (self.beaconManager) {
+        NSLog(@"I have a beacon manager");
+    }
     // Do any additional setup after loading the view from its nib.
 }
 

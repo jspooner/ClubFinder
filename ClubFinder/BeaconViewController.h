@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BeaconManager.h"
 
 @interface BeaconViewController : UIViewController
-
+@property (strong, nonatomic) BeaconManager *beaconManager;
+-(id)initWithBeacon:(BeaconManager *)manager;
 @end
