@@ -38,6 +38,7 @@
 -(void)initPlaceConnector
 {
     NSLog(@"initPlaceConnector");
+    [self showBeaconViewController];
 //    [FYXLogging setLogLevel:FYX_LOG_LEVEL_VERBOSE];
 //    [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
 //        appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
@@ -84,10 +85,17 @@
     }];
 }
 
+-(void)showBeaconViewController
+{
+    NSLog(@"showBeaconViewController");
+    BeaconViewController *bvc = [[BeaconViewController alloc] initWithNibName:@"BeaconViewController" bundle:nil];
+    [self.centerController pushViewController:bvc animated:YES];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupLogging];
-//    [self enableContextCoreConnector];
+    
 //    self.locationLogger = [[LocationTracker alloc] init];
     self.leftController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
@@ -105,7 +113,7 @@
         [params addObject:[@[@"alertAction", localNotif.alertAction] componentsJoinedByString:@"="]];
     }
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
-    
+    [self enableContextCoreConnector];
     return YES;
 }
 							

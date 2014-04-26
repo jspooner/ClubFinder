@@ -19,7 +19,7 @@
 @property (strong, nonatomic) LocationTracker *locationLogger;
 @property (strong, nonatomic) BeaconManager *beaconManager;
 @property (nonatomic) QLContextPlaceConnector *placeConnector;
-@property (retain, nonatomic) UIViewController *centerController;
+@property (retain, nonatomic) UINavigationController *centerController;
 @property (retain, nonatomic) UIViewController *leftController;
 
 @end
