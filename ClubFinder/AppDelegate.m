@@ -16,8 +16,12 @@
 #import <FYX/FYXLogging.h>
 #import "DBLogger.h"
 #import <ContextCore/QLContextCoreConnector.h>
+#import "IIViewDeckController.h"
+
+#import "BeaconViewController.h"
 #import "HomeViewController.h"
 #import "ViewController.h"
+#import "SplashViewController.h"
 
 @implementation AppDelegate
 
@@ -78,28 +82,30 @@
             NSLog(@"Failed to initialize gimbal %@", error);
         }];
     }];
-    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    ViewController *test = [[ViewController alloc]     initWithNibName:@"MainView" bundle:nil];
-    UINavigationController *nav = [[UINavigationController alloc]  initWithRootViewController:test];
-    self.window.rootViewController = nav;    
-    [self.window makeKeyAndVisible];
-    
     [self setupLogging];
-    [self enableContextCoreConnector];
+//    [self enableContextCoreConnector];
 //    self.locationLogger = [[LocationTracker alloc] init];
-//    [self setupGimbal];
+    self.leftController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
+    self.centerController = [[UINavigationController alloc] initWithRootViewController:splashViewController];
+    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
+                                                                                   leftViewController:self.leftController];
+    [deckController setParallaxAmount:0.08];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = deckController;
+    self.window.backgroundColor = [UIColor blackColor];
+    [self.window makeKeyAndVisible];
     NSMutableArray *params = @[@"e=/app/applicationDidFinishLaunching"].mutableCopy;
     UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif) {
-        // Show Alert Here
         [params addObject:[@[@"alertAction", localNotif.alertAction] componentsJoinedByString:@"="]];
     }
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
-
+    
     return YES;
 }
 							
@@ -126,7 +132,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[CFLogger sharedInstance] logEvent:@"e=app/applicationDidBecomeActive"];
+    [[CFLogger sharedInstance] logEvent:@"e=/app/applicationDidBecomeActive"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

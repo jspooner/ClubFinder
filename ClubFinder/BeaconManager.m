@@ -1,0 +1,211 @@
+//
+//  BeaconManager.m
+//  ClubFinder
+//
+//  Created by Jonathan Spooner on 4/25/14.
+//  Copyright (c) 2014 One Bear Nine Ventures. All rights reserved.
+//
+
+#import "BeaconManager.h"
+#import "CFLogger.h"
+#import <FYX/FYXVisitManager.h>
+#import <FYX/FYXTransmitter.h>
+#import <FYX/FYXSightingManager.h>
+#import <ContextLocation/QLContextPlaceConnector.h>
+
+
+@implementation BeaconManager
+
+#define VISIT_DURATION_INTERVAL_IN_SECONDS 15
+
+-(id)init
+{
+    if ( self = [super init] ) {
+        [self initBeacon];
+    }
+    return self;
+}
+
+-(void)initBeacon
+{
+    [[CFLogger sharedInstance] logEvent:@"initBeacon"];
+    self.visitManager = [[FYXVisitManager alloc] init];
+    self.visitManager.delegate = self;
+    NSMutableDictionary *options = [NSMutableDictionary new];
+    
+    /*
+     Number of seconds before the absence of a beacon triggers the didDepart callback
+     */
+    [options setObject:[NSNumber numberWithInt:VISIT_DURATION_INTERVAL_IN_SECONDS] forKey:FYXVisitOptionDepartureIntervalInSecondsKey];
+    
+    /*
+     Signal Strength Window
+     Smoothing of signal strengths using historic sliding window averaging
+     
+     This option allows for a window of historic signal strengths to be used for a given device to "smooth" them out to remove quick jumps in signal strength. The larger the window the less the signal strength will jump but the slower it will react to the signal strength changes.
+     
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowNone	No window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowSmall	A small window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowMedium	A medium window of historic signal strengths is used
+     FYXSightingOptionSignalStrengthWindowKey	FYXSightingOptionSignalStrengthWindowLarge	A large window of historic signal strengths is used
+     
+     */
+    [options setObject:[NSNumber numberWithInt:FYXSightingOptionSignalStrengthWindowLarge] forKey:FYXSightingOptionSignalStrengthWindowKey];
+    
+    /*
+     An RSSI value of the beacon sighting that must be exceeded before a didArrive callback is triggered
+     [options setObject:-75 forKey:FYXVisitOptionArrivalRSSIKey];
+     */
+    
+    /*
+     If an RSSI value of the beacon sightings is less than this value and the departure interval is exceeded a didDepart callback is triggered
+     [options setObject:[NSNumber numberWithInt:-90] forKey:FYXVisitOptionDepartureRSSIKey];
+     */
+    [self.visitManager startWithOptions:options];
+}
+
+#pragma - mark
+#pragma - mark FYXVisitDelegate
+
+- (void)didArrive:(FYXVisit *)visit
+{
+    // this will be invoked when an authorized transmitter is sighted for the first time
+    NSArray *params = @[
+                        @"e=/beacon/didArrive",
+                        [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                        [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                        [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="]
+                        ];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+}
+
+- (void)receivedSighting:(FYXVisit *)visit updateTime:(NSDate *)updateTime RSSI:(NSNumber *)RSSI;
+{
+    // this will be invoked when an authorized transmitter is sighted during an on-going visit
+    NSArray *params = @[
+                        @"e=/beacon/receivedSighting",
+                        [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                        [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                        [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
+                        [@[@"updateTime", updateTime] componentsJoinedByString:@"="],
+                        [@[@"rssi", RSSI] componentsJoinedByString:@"="],
+                        ];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+
+//    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
+//    if (!transmitter) {
+//        NSString *transmitterName = visit.transmitter.identifier;
+//        if(visit.transmitter.name){
+//            transmitterName = visit.transmitter.name;
+//        }
+//        transmitter = [Transmitter new];
+//        transmitter.identifier = visit.transmitter.identifier;
+//        transmitter.name = transmitterName;
+//        transmitter.lastSighted = [NSDate dateWithTimeIntervalSince1970:0];
+//        transmitter.rssi = [NSNumber numberWithInt:-100];
+//        transmitter.previousRSSI = transmitter.rssi;
+//        transmitter.batteryLevel = 0;
+//        transmitter.temperature = 0;
+//        [self addTransmitter:transmitter];
+//        [self.tableView reloadData];
+//    }
+//
+//    transmitter.lastSighted = updateTime;
+//    if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
+//        [self updateTransmitter:transmitter withVisit:visit  RSSI:RSSI];
+//
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
+//        for (UITableViewCell *cell in self.tableView.visibleCells) {
+//            if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
+//                SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
+//
+//                CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
+//                transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
+//
+//                [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
+//            }
+//        }
+//    }
+}
+
+- (void)didDepart:(FYXVisit *)visit
+{
+    // this will be invoked when an authorized transmitter has not been sighted for some time
+    // LOGGING
+    NSArray *params = @[
+                        @"e=/beacon/didDepart",
+                        [@[@"identifer", visit.transmitter.identifier] componentsJoinedByString:@"="],
+                        [@[@"name", visit.transmitter.name] componentsJoinedByString:@"="],
+                        [@[@"ownerId", visit.transmitter.ownerId] componentsJoinedByString:@"="],
+                        [@[@"battery", visit.transmitter.battery] componentsJoinedByString:@"="],
+                        [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
+                        [@[@"dwellTime", [NSString stringWithFormat:@"%f", visit.dwellTime]] componentsJoinedByString:@"="]
+                        ];
+    [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+    // MANAGE THE TABLE
+//    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    if ([cell isKindOfClass:[SightingsTableViewCell class]]) {
+//        [self grayOutSightingsCell:((SightingsTableViewCell*)cell)];
+//    }
+//    // START ALERT OF NOTIFICATION
+//    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+//    if (state == UIApplicationStateActive)
+//    {
+//        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateActive"];
+//    }
+//    else if (state == UIApplicationStateBackground)
+//    {
+//        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateBackground"];
+//    }
+//    else if (state == UIApplicationStateInactive)
+//    {
+//        [[CFLogger sharedInstance] logEvent:@"e=/beacon/didDepart&state=UIApplicationStateInactive"];
+//    }
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+//        if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+//            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+//            NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+//            [timeFormat setDateFormat:@"HH:mm:ss"];
+//            NSDate *now =  [NSDate dateWithTimeIntervalSinceNow:1];
+//            NSString *theDate = [dateFormat stringFromDate:now];
+//            NSString *theTime = [timeFormat stringFromDate:now];
+//            NSLog(@"\n"
+//                  "theDate: |%@| \n"
+//                  "theTime: |%@| \n"
+//                  , theDate, theTime);
+//            UILocalNotification *myNote = [[UILocalNotification alloc] init];
+//            myNote.fireDate =  now;
+//            myNote.timeZone = [NSTimeZone defaultTimeZone];
+//            myNote.alertBody = [NSString stringWithFormat:@"Did you lose %@ at %@?", visit.transmitter.name, theTime];
+//            myNote.alertAction = @"View Details";
+//            myNote.soundName = UILocalNotificationDefaultSoundName;
+//            [[UIApplication sharedApplication] scheduleLocalNotification:myNote];
+//            [[CFLogger sharedInstance] logEvent:[@[
+//                                                   @"e=/alert/localnotification",
+//                                                   [@[@"date", theDate] componentsJoinedByString:@"="],
+//                                                   [@[@"time", theTime] componentsJoinedByString:@"="],
+//                                                   ] componentsJoinedByString:@"&"]];
+//        } else {
+//            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"I left the proximity of a Gimbal Beacon!!!! %@", visit.transmitter.name]
+//                                        message:[NSString stringWithFormat:@"I was around the beacon for %f seconds", visit.dwellTime]
+//                                       delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
+//            [[CFLogger sharedInstance] logEvent:[@[
+//                                                   @"e=/alert/uialertview",
+//                                                   ] componentsJoinedByString:@"&"]];
+//
+//        }
+//    }];
+}
+
+
+
+
+
+@end

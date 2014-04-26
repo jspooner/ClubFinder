@@ -43,6 +43,15 @@
 		FB03CF9618FB0E020082DEB8 /* battery_full.png in Resources */ = {isa = PBXBuildFile; fileRef = FB03CF9418FB0E020082DEB8 /* battery_full.png */; };
 		FB03CF9718FB0E020082DEB8 /* battery_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */; };
 		FB07E6A7190B4C3B0023A581 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6A6190B4C3B0023A581 /* ViewController.xib */; };
+		FB07E6AC190B59FF0023A581 /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6AA190B59FF0023A581 /* BeaconViewController.m */; };
+		FB07E6AD190B59FF0023A581 /* BeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6AB190B59FF0023A581 /* BeaconViewController.xib */; };
+		FB07E6B1190B5F360023A581 /* BeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6B0190B5F360023A581 /* BeaconManager.m */; };
+		FB07E6B2190B5F360023A581 /* BeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6B0190B5F360023A581 /* BeaconManager.m */; };
+		FB07E6BA190B68870023A581 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6B8190B68870023A581 /* SplashViewController.m */; };
+		FB07E6BB190B68870023A581 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6B8190B68870023A581 /* SplashViewController.m */; };
+		FB07E6BC190B68870023A581 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6B9190B68870023A581 /* SplashViewController.xib */; };
+		FB07E6BD190B68870023A581 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6B9190B68870023A581 /* SplashViewController.xib */; };
+		FB07E6BF190B6B6A0023A581 /* CFSplashBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */; };
 		FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB26B3BC18E715E100E69F9A /* CFLogger.m */; };
 		FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E118B7169400A0F41B /* Foundation.framework */; };
 		FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E318B7169500A0F41B /* CoreGraphics.framework */; };
@@ -127,6 +136,15 @@
 		FB03CF9418FB0E020082DEB8 /* battery_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery_full.png; sourceTree = "<group>"; };
 		FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery_full@2x.png"; sourceTree = "<group>"; };
 		FB07E6A6190B4C3B0023A581 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		FB07E6A9190B59FF0023A581 /* BeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconViewController.h; sourceTree = "<group>"; };
+		FB07E6AA190B59FF0023A581 /* BeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconViewController.m; sourceTree = "<group>"; };
+		FB07E6AB190B59FF0023A581 /* BeaconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeaconViewController.xib; sourceTree = "<group>"; };
+		FB07E6AF190B5F360023A581 /* BeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconManager.h; sourceTree = "<group>"; };
+		FB07E6B0190B5F360023A581 /* BeaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconManager.m; sourceTree = "<group>"; };
+		FB07E6B7190B68870023A581 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		FB07E6B8190B68870023A581 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		FB07E6B9190B68870023A581 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
+		FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CFSplashBkg@2x.png"; sourceTree = "<group>"; };
 		FB26B3BB18E715E100E69F9A /* CFLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFLogger.h; sourceTree = "<group>"; };
 		FB26B3BC18E715E100E69F9A /* CFLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFLogger.m; sourceTree = "<group>"; };
 		FB59C8DE18B7169400A0F41B /* ClubFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +228,7 @@
 		FB03CF5718FB0A040082DEB8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */,
 				FB03CF9418FB0E020082DEB8 /* battery_full.png */,
 				FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */,
 				FB03CF9018FB0DBB0082DEB8 /* list_item_bg.png */,
@@ -244,6 +263,23 @@
 				FB03CF6F18FB0A200082DEB8 /* spinner_12@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		FB07E6AE190B5ECC0023A581 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FB032AB618E68CB000610BF0 /* LocationTracker.h */,
+				FB032AB718E68CB000610BF0 /* LocationTracker.m */,
+				FB26B3BB18E715E100E69F9A /* CFLogger.h */,
+				FB26B3BC18E715E100E69F9A /* CFLogger.m */,
+				FB03CF5418F3A46D0082DEB8 /* DBLogger.h */,
+				FB03CF5518F3A46D0082DEB8 /* DBLogger.m */,
+				FB59C94718BA6DBE00A0F41B /* Transmitter.h */,
+				FB59C94818BA6DBE00A0F41B /* Transmitter.m */,
+				FB07E6AF190B5F360023A581 /* BeaconManager.h */,
+				FB07E6B0190B5F360023A581 /* BeaconManager.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		FB59C8D518B7169400A0F41B = {
@@ -294,25 +330,23 @@
 		FB59C8E718B7169500A0F41B /* ClubFinder */ = {
 			isa = PBXGroup;
 			children = (
+				FB07E6AE190B5ECC0023A581 /* Models */,
 				FB59C8F018B7169500A0F41B /* AppDelegate.h */,
 				FB59C8F118B7169500A0F41B /* AppDelegate.m */,
+				FB07E6B7190B68870023A581 /* SplashViewController.h */,
+				FB07E6B8190B68870023A581 /* SplashViewController.m */,
+				FB07E6B9190B68870023A581 /* SplashViewController.xib */,
+				FB07E6A9190B59FF0023A581 /* BeaconViewController.h */,
+				FB07E6AA190B59FF0023A581 /* BeaconViewController.m */,
+				FB07E6AB190B59FF0023A581 /* BeaconViewController.xib */,
 				FB59C8F618B7169500A0F41B /* ViewController.h */,
 				FB59C8F718B7169500A0F41B /* ViewController.m */,
+				FB07E6A6190B4C3B0023A581 /* ViewController.xib */,
 				FB59C94418BA6D1800A0F41B /* SightingsTableViewCell.h */,
 				FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */,
-				FB59C94718BA6DBE00A0F41B /* Transmitter.h */,
-				FB59C94818BA6DBE00A0F41B /* Transmitter.m */,
 				FB59C8F918B7169500A0F41B /* Images.xcassets */,
 				FB03CF5718FB0A040082DEB8 /* Images */,
 				FB59C8E818B7169500A0F41B /* Supporting Files */,
-				FBE68A5618E6762100AB8EE6 /* Logging.h */,
-				FB032AB618E68CB000610BF0 /* LocationTracker.h */,
-				FB032AB718E68CB000610BF0 /* LocationTracker.m */,
-				FB26B3BB18E715E100E69F9A /* CFLogger.h */,
-				FB26B3BC18E715E100E69F9A /* CFLogger.m */,
-				FB03CF5418F3A46D0082DEB8 /* DBLogger.h */,
-				FB03CF5518F3A46D0082DEB8 /* DBLogger.m */,
-				FB07E6A6190B4C3B0023A581 /* ViewController.xib */,
 			);
 			path = ClubFinder;
 			sourceTree = "<group>";
@@ -325,6 +359,7 @@
 				FB59C8EA18B7169500A0F41B /* InfoPlist.strings */,
 				FB59C8ED18B7169500A0F41B /* main.m */,
 				FB59C8EF18B7169500A0F41B /* ClubFinder-Prefix.pch */,
+				FBE68A5618E6762100AB8EE6 /* Logging.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -533,6 +568,7 @@
 				FB03CF7618FB0A200082DEB8 /* spinner_04.png in Resources */,
 				FB03CF8E18FB0CB30082DEB8 /* bar_track_full.png in Resources */,
 				FB59C8EC18B7169500A0F41B /* InfoPlist.strings in Resources */,
+				FB07E6BF190B6B6A0023A581 /* CFSplashBkg@2x.png in Resources */,
 				FB03CF9618FB0E020082DEB8 /* battery_full.png in Resources */,
 				FB03CF7718FB0A200082DEB8 /* spinner_04@2x.png in Resources */,
 				FB03CF9718FB0E020082DEB8 /* battery_full@2x.png in Resources */,
@@ -546,12 +582,14 @@
 				FB03CF8518FB0A200082DEB8 /* spinner_11@2x.png in Resources */,
 				FB03CF7A18FB0A200082DEB8 /* spinner_06.png in Resources */,
 				FB59C93918B7173B00A0F41B /* rules.txt in Resources */,
+				FB07E6AD190B59FF0023A581 /* BeaconViewController.xib in Resources */,
 				FB59C93F18B92C6600A0F41B /* home.gpx in Resources */,
 				FB03CF7418FB0A200082DEB8 /* spinner_03.png in Resources */,
 				FB03CF7E18FB0A200082DEB8 /* spinner_08.png in Resources */,
 				FB03CF8418FB0A200082DEB8 /* spinner_11.png in Resources */,
 				FB03CF8718FB0A200082DEB8 /* spinner_12@2x.png in Resources */,
 				FB03CF7C18FB0A200082DEB8 /* spinner_07.png in Resources */,
+				FB07E6BC190B68870023A581 /* SplashViewController.xib in Resources */,
 				FB03CF7118FB0A200082DEB8 /* spinner_01@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB59C90B18B7169500A0F41B /* InfoPlist.strings in Resources */,
+				FB07E6BD190B68870023A581 /* SplashViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,12 +645,15 @@
 			files = (
 				FB59C8F818B7169500A0F41B /* ViewController.m in Sources */,
 				FB59C8F218B7169500A0F41B /* AppDelegate.m in Sources */,
+				FB07E6AC190B59FF0023A581 /* BeaconViewController.m in Sources */,
 				FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */,
 				FB03CF5618F3A46D0082DEB8 /* DBLogger.m in Sources */,
 				FB032AB818E68CB000610BF0 /* LocationTracker.m in Sources */,
+				FB07E6BA190B68870023A581 /* SplashViewController.m in Sources */,
 				FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */,
 				FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */,
 				FB59C8EE18B7169500A0F41B /* main.m in Sources */,
+				FB07E6B1190B5F360023A581 /* BeaconManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +662,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB59C90D18B7169500A0F41B /* ClubFinderTests.m in Sources */,
+				FB07E6B2190B5F360023A581 /* BeaconManager.m in Sources */,
+				FB07E6BB190B68870023A581 /* SplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +773,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/Common.embeddedframework,
@@ -752,6 +797,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jonathanspooner/Documents/git_jspooner/ClubFinder/Common.embeddedframework,
