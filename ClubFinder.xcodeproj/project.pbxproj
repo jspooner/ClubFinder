@@ -42,6 +42,7 @@
 		FB03CF9318FB0DBB0082DEB8 /* list_item_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB03CF9118FB0DBB0082DEB8 /* list_item_bg@2x.png */; };
 		FB03CF9618FB0E020082DEB8 /* battery_full.png in Resources */ = {isa = PBXBuildFile; fileRef = FB03CF9418FB0E020082DEB8 /* battery_full.png */; };
 		FB03CF9718FB0E020082DEB8 /* battery_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */; };
+		FB07E6A7190B4C3B0023A581 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6A6190B4C3B0023A581 /* ViewController.xib */; };
 		FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB26B3BC18E715E100E69F9A /* CFLogger.m */; };
 		FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E118B7169400A0F41B /* Foundation.framework */; };
 		FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E318B7169500A0F41B /* CoreGraphics.framework */; };
@@ -49,7 +50,6 @@
 		FB59C8EC18B7169500A0F41B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB59C8EA18B7169500A0F41B /* InfoPlist.strings */; };
 		FB59C8EE18B7169500A0F41B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C8ED18B7169500A0F41B /* main.m */; };
 		FB59C8F218B7169500A0F41B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C8F118B7169500A0F41B /* AppDelegate.m */; };
-		FB59C8F518B7169500A0F41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB59C8F318B7169500A0F41B /* Main.storyboard */; };
 		FB59C8F818B7169500A0F41B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C8F718B7169500A0F41B /* ViewController.m */; };
 		FB59C8FA18B7169500A0F41B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB59C8F918B7169500A0F41B /* Images.xcassets */; };
 		FB59C90118B7169500A0F41B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C90018B7169500A0F41B /* XCTest.framework */; };
@@ -126,6 +126,7 @@
 		FB03CF9118FB0DBB0082DEB8 /* list_item_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_item_bg@2x.png"; sourceTree = "<group>"; };
 		FB03CF9418FB0E020082DEB8 /* battery_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery_full.png; sourceTree = "<group>"; };
 		FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battery_full@2x.png"; sourceTree = "<group>"; };
+		FB07E6A6190B4C3B0023A581 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		FB26B3BB18E715E100E69F9A /* CFLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFLogger.h; sourceTree = "<group>"; };
 		FB26B3BC18E715E100E69F9A /* CFLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFLogger.m; sourceTree = "<group>"; };
 		FB59C8DE18B7169400A0F41B /* ClubFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +139,6 @@
 		FB59C8EF18B7169500A0F41B /* ClubFinder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClubFinder-Prefix.pch"; sourceTree = "<group>"; };
 		FB59C8F018B7169500A0F41B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB59C8F118B7169500A0F41B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FB59C8F418B7169500A0F41B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB59C8F618B7169500A0F41B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		FB59C8F718B7169500A0F41B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FB59C8F918B7169500A0F41B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -294,7 +294,6 @@
 		FB59C8E718B7169500A0F41B /* ClubFinder */ = {
 			isa = PBXGroup;
 			children = (
-				FB59C8F318B7169500A0F41B /* Main.storyboard */,
 				FB59C8F018B7169500A0F41B /* AppDelegate.h */,
 				FB59C8F118B7169500A0F41B /* AppDelegate.m */,
 				FB59C8F618B7169500A0F41B /* ViewController.h */,
@@ -313,6 +312,7 @@
 				FB26B3BC18E715E100E69F9A /* CFLogger.m */,
 				FB03CF5418F3A46D0082DEB8 /* DBLogger.h */,
 				FB03CF5518F3A46D0082DEB8 /* DBLogger.m */,
+				FB07E6A6190B4C3B0023A581 /* ViewController.xib */,
 			);
 			path = ClubFinder;
 			sourceTree = "<group>";
@@ -523,6 +523,7 @@
 				FB03CF7318FB0A200082DEB8 /* spinner_02@2x.png in Resources */,
 				FB03CF8C18FB0CB30082DEB8 /* bar_full.png in Resources */,
 				FB03CF7D18FB0A200082DEB8 /* spinner_07@2x.png in Resources */,
+				FB07E6A7190B4C3B0023A581 /* ViewController.xib in Resources */,
 				FB59C8FA18B7169500A0F41B /* Images.xcassets in Resources */,
 				FB03CF9218FB0DBB0082DEB8 /* list_item_bg.png in Resources */,
 				FB03CF8218FB0A200082DEB8 /* spinner_10.png in Resources */,
@@ -536,7 +537,6 @@
 				FB03CF7718FB0A200082DEB8 /* spinner_04@2x.png in Resources */,
 				FB03CF9718FB0E020082DEB8 /* battery_full@2x.png in Resources */,
 				FB03CF7518FB0A200082DEB8 /* spinner_03@2x.png in Resources */,
-				FB59C8F518B7169500A0F41B /* Main.storyboard in Resources */,
 				FB59C93718B7173B00A0F41B /* DataModels.bundle in Resources */,
 				FB03CF8618FB0A200082DEB8 /* spinner_12.png in Resources */,
 				FB03CF8318FB0A200082DEB8 /* spinner_10@2x.png in Resources */,
@@ -640,14 +640,6 @@
 				FB59C8EB18B7169500A0F41B /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FB59C8F318B7169500A0F41B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FB59C8F418B7169500A0F41B /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		FB59C90918B7169500A0F41B /* InfoPlist.strings */ = {

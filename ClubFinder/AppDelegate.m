@@ -83,13 +83,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    ViewController *test = [[ViewController alloc]     initWithNibName:@"MainView" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc]  initWithRootViewController:test];
+    self.window.rootViewController = nav;    
+    [self.window makeKeyAndVisible];
+    
     [self setupLogging];
     [self enableContextCoreConnector];
-    
 //    self.locationLogger = [[LocationTracker alloc] init];
 //    [self setupGimbal];
-    
-    
     NSMutableArray *params = @[@"e=/app/applicationDidFinishLaunching"].mutableCopy;
     UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif) {
@@ -97,8 +99,7 @@
         [params addObject:[@[@"alertAction", localNotif.alertAction] componentsJoinedByString:@"="]];
     }
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
- 
-    
+
     return YES;
 }
 							
