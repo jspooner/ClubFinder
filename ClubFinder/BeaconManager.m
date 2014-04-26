@@ -11,6 +11,7 @@
 #import <FYX/FYXVisitManager.h>
 #import <FYX/FYXTransmitter.h>
 #import <FYX/FYXSightingManager.h>
+#import <FYX/FYXLogging.h>
 #import <ContextLocation/QLContextPlaceConnector.h>
 
 
@@ -29,6 +30,21 @@
 -(void)initBeacon
 {
     [[CFLogger sharedInstance] logEvent:@"initBeacon"];
+    [FYXLogging setLogLevel:FYX_LOG_LEVEL_VERBOSE];
+    [FYX setAppId:@"ff0cc75b23cc0b03cb266cf617908c0aed6f03bd549dd7d6bc58da64b4d0fb90"
+        appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
+      callbackUrl:@"clubfinder://authcode"];
+    [FYX startService:self];
+}
+
+#pragma - mark
+#pragma - mark FYX
+
+- (void)serviceStarted
+{
+    // this will be invoked if the service has successfully started
+    // bluetooth scanning will be started at this point.
+    [[CFLogger sharedInstance] logEvent:@"e=app/gimbal/serviceStarted"];
     self.visitManager = [[FYXVisitManager alloc] init];
     self.visitManager.delegate = self;
     NSMutableDictionary *options = [NSMutableDictionary new];
@@ -62,7 +78,15 @@
      [options setObject:[NSNumber numberWithInt:-90] forKey:FYXVisitOptionDepartureRSSIKey];
      */
     [self.visitManager startWithOptions:options];
+
 }
+
+- (void)startServiceFailed:(NSError *)error
+{
+    // this will be called if the service has failed to start
+    [[CFLogger sharedInstance] logEvent: [NSString stringWithFormat:@"e=app/gimbal/startServiceFailed&error=%@", error]];
+}
+
 
 #pragma - mark
 #pragma - mark FYXVisitDelegate

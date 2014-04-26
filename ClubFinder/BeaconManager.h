@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FYX/FYX.h>
 #import <FYX/FYXVisitManager.h>
 #import <ContextLocation/QLContextPlaceConnector.h>
 
-@interface BeaconManager : NSObject <FYXVisitDelegate>
+@interface BeaconManager : NSObject <FYXVisitDelegate, FYXServiceDelegate>
 @property (nonatomic) FYXVisitManager *visitManager;
 -(id)init;
 
