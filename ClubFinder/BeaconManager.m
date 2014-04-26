@@ -136,14 +136,15 @@
         transmitter.batteryLevel = 0;
         transmitter.temperature = 0;
         [self.transmitters addObject:transmitter];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self.transmitters.copy userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self userInfo:nil];
     }
 
     transmitter.lastSighted = updateTime;
-//    if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
-//        [self updateTransmitter:transmitter withVisit:visit  RSSI:RSSI];
-//
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
+    if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
+        [self updateTransmitter:transmitter withVisit:visit RSSI:RSSI];
+        NSDictionary *dictionary = @{@"index" : [NSNumber numberWithUnsignedInteger:[self.transmitters indexOfObject:transmitter]]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:dictionary];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:nil];
 //        for (UITableViewCell *cell in self.tableView.visibleCells) {
 //            if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
 //                SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
@@ -154,7 +155,7 @@
 //                [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
 //            }
 //        }
-//    }
+    }
 }
 
 - (void)didDepart:(FYXVisit *)visit
@@ -241,7 +242,24 @@
     return nil;
 }
 
+- (BOOL)shouldUpdateTransmitterCell:(FYXVisit *)visit withTransmitter:(Transmitter *)transmitter RSSI:(NSNumber *)rssi
+{
+    if (![transmitter.rssi isEqual:rssi] || ![transmitter.batteryLevel isEqualToNumber:visit.transmitter.battery]
+        || ![transmitter.temperature isEqualToNumber:visit.transmitter.temperature]){
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
 
+- (void)updateTransmitter:(Transmitter *)transmitter withVisit:(FYXVisit *)visit RSSI:(NSNumber *)rssi
+{
+    transmitter.previousRSSI = transmitter.rssi;
+    transmitter.rssi = rssi;
+    transmitter.batteryLevel = visit.transmitter.battery;
+    transmitter.temperature = visit.transmitter.temperature;
+}
 
 
 

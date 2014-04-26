@@ -32,8 +32,12 @@
         NSLog(@"I have a beacon manager");
         // You still need to remove listeners before they are deleted.
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterAdded)
+                                                 selector:@selector(transmitterAdded:)
                                                      name:@"transmitterAdded"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(transmitterUpdated:)
+                                                     name:@"transmitterUpdated"
                                                    object:nil];
     }
     // Do any additional setup after loading the view from its nib.
@@ -44,6 +48,16 @@
     NSLog(@"-----------------------------------------------  transmitterAdded %lu", (unsigned long)[self.beaconManager.transmitters count]);
     [self.tableView reloadData];
 }
+
+-(void)transmitterUpdated:(NSNotification *)notification
+{
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++++++  transmitterAdded ");
+}
+
+//-(void)transmitterUpdated:(NSNotification *)notification
+//{
+//    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++++++  transmitterAdded %lu", [notification userInfo]);
+//}
 
 #pragma mark -
 #pragma mark - UITableViewDataSource
@@ -84,5 +98,9 @@
 #pragma mark -
 #pragma mark - UITableViewDelegate
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 115;
+}
 
 @end
