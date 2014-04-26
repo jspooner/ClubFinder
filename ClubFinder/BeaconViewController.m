@@ -32,7 +32,7 @@
         NSLog(@"I have a beacon manager");
         // You still need to remove listeners before they are deleted.
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterAdded:)
+                                                 selector:@selector(transmitterAdded)
                                                      name:@"transmitterAdded"
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -51,7 +51,7 @@
 
 -(void)transmitterUpdated:(NSNotification *)notification
 {
-    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++++++  transmitterAdded ");
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++++++  transmitterAdded %@", [[notification userInfo] objectForKey:@"index"]);
 }
 
 //-(void)transmitterUpdated:(NSNotification *)notification
