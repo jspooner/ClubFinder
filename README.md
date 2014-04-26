@@ -1,6 +1,14 @@
 ClubFinder
 ==========
 
+*To receive geofence events you must add the <QLContextPlaceConnectorDelegate> protocol to your AppDelegate.h and add a QLContextPlaceConnector property.
+
+
+
+A. Accept Gimbal Notifications
+B. Allow Location Monitoring
+
+
 
 1. Gimbal Geofences
   Diable / Enable proximity and location monitoring
