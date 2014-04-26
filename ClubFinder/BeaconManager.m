@@ -13,7 +13,7 @@
 #import <FYX/FYXSightingManager.h>
 #import <FYX/FYXLogging.h>
 #import <ContextLocation/QLContextPlaceConnector.h>
-
+#import "Transmitter.h"
 
 @implementation BeaconManager
 
@@ -22,6 +22,7 @@
 -(id)init
 {
     if ( self = [super init] ) {
+        self.transmitters = [NSMutableArray new];
         [self initBeacon];
     }
     return self;
@@ -120,25 +121,25 @@
                         ];
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 
-//    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
-//    if (!transmitter) {
-//        NSString *transmitterName = visit.transmitter.identifier;
-//        if(visit.transmitter.name){
-//            transmitterName = visit.transmitter.name;
-//        }
-//        transmitter = [Transmitter new];
-//        transmitter.identifier = visit.transmitter.identifier;
-//        transmitter.name = transmitterName;
-//        transmitter.lastSighted = [NSDate dateWithTimeIntervalSince1970:0];
-//        transmitter.rssi = [NSNumber numberWithInt:-100];
-//        transmitter.previousRSSI = transmitter.rssi;
-//        transmitter.batteryLevel = 0;
-//        transmitter.temperature = 0;
-//        [self addTransmitter:transmitter];
-//        [self.tableView reloadData];
-//    }
-//
-//    transmitter.lastSighted = updateTime;
+    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
+    if (!transmitter) {
+        NSString *transmitterName = visit.transmitter.identifier;
+        if(visit.transmitter.name){
+            transmitterName = visit.transmitter.name;
+        }
+        transmitter = [Transmitter new];
+        transmitter.identifier = visit.transmitter.identifier;
+        transmitter.name = transmitterName;
+        transmitter.lastSighted = [NSDate dateWithTimeIntervalSince1970:0];
+        transmitter.rssi = [NSNumber numberWithInt:-100];
+        transmitter.previousRSSI = transmitter.rssi;
+        transmitter.batteryLevel = 0;
+        transmitter.temperature = 0;
+        [self.transmitters addObject:transmitter];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self.transmitters.copy userInfo:nil];
+    }
+
+    transmitter.lastSighted = updateTime;
 //    if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
 //        [self updateTransmitter:transmitter withVisit:visit  RSSI:RSSI];
 //
@@ -226,6 +227,18 @@
 //
 //        }
 //    }];
+}
+
+#pragma mark -
+#pragma mark - Helpers
+
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.transmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
 }
 
 

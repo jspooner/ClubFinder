@@ -12,7 +12,7 @@
 #import <ContextLocation/QLContextPlaceConnector.h>
 
 @interface BeaconManager : NSObject <FYXVisitDelegate, FYXServiceDelegate>
-@property (nonatomic) FYXVisitManager *visitManager;
+@property (strong, nonatomic) FYXVisitManager *visitManager;
+@property (nonatomic) NSMutableArray *transmitters;
 -(id)init;
-
 @end

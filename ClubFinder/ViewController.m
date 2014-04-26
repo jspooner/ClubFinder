@@ -406,7 +406,7 @@
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
     
     Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
-if (!transmitter) {
+    if (!transmitter) {
         NSString *transmitterName = visit.transmitter.identifier;
         if(visit.transmitter.name){
             transmitterName = visit.transmitter.name;
