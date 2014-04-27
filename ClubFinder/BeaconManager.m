@@ -193,7 +193,10 @@
     transmitter.lastSighted = updateTime;
     if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
         [self updateTransmitter:transmitter withVisit:visit RSSI:RSSI];
-        NSDictionary *dictionary = @{@"index" : [NSNumber numberWithUnsignedInteger:[self.transmitters indexOfObject:transmitter]]};
+        NSDictionary *dictionary = @{
+                                     @"index" : [NSNumber numberWithUnsignedInteger:[self.transmitters indexOfObject:transmitter]],
+                                     @"identifier" : transmitter.identifier
+                                     };
         [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:dictionary];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:nil];
 //        for (UITableViewCell *cell in self.tableView.visibleCells) {

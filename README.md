@@ -1,6 +1,21 @@
 ClubFinder
 ==========
 
+
+
+## Current Bugs
+
+1. MyBag should update RSSI
+  notification is broadcasting the wrong index.  it should broadcast t.identifer not index
+
+2. Edit my bag does not show missing clubs
+
+3. Mybag should disable the cell after the beacon has become unrachable
+  BM should have a didDepart event notification
+
+
+
+
 *To receive geofence events you must add the <QLContextPlaceConnectorDelegate> protocol to your AppDelegate.h and add a QLContextPlaceConnector property.
 
 

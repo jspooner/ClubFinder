@@ -30,31 +30,26 @@
     [super viewDidLoad];
     if (self.beaconManager) {
         NSLog(@"I have a beacon manager");
-        // You still need to remove listeners before they are deleted.
-//
-//        
-//        
-//        
-//        
-//        
-//
-// THIS IS SENDING THE index from bm.transmitters and not bm.mySavedTransimitters
-//
-//        
-//        
-//        
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(transmitterUpdated:)
-//                                                     name:@"transmitterUpdated"
-//                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(transmitterUpdated:)
+                                                     name:@"transmitterUpdated"
+                                                   object:nil];
     }
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+}
+
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.beaconManager.mySavedTransmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
 }
 
 #pragma mark -
@@ -67,21 +62,28 @@
 
 -(void)transmitterUpdated:(NSNotification *)notification
 {
-    NSNumber *index = [[notification userInfo] objectForKey:@"index"];
-    int i = [index intValue];
-    Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:[index intValue]];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+//    NSNumber *index = [[notification userInfo] objectForKey:@"identifier"];
+//    int i = [index intValue];
+    Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
     for (UITableViewCell *cell in self.tableView.visibleCells) {
-        if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
-            SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
-            
+        SightingsTableViewCell *sightingsCell = (SightingsTableViewCell*)cell;
+        if ([sightingsCell.transmitterIdentifier isEqualToString:transmitter.identifier]) {
             CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
             transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
-            
             [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
         }
     }
-    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+//    for (UITableViewCell *cell in self.tableView.visibleCells) {
+//        if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
+//            SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
+//            
+//            CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
+//            transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
+//            
+//            [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
+//        }
+//    }
 }
 
 #pragma mark -
@@ -191,7 +193,7 @@
     if (cell != nil) {
         // Update the transmitter text
         cell.transmitterNameLabel.text = transmitter.name;
-        
+        cell.transmitterIdentifier = transmitter.identifier;
         // Update the transmitter avatar (icon image)
         //        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
         //        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];

@@ -22,6 +22,7 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.identifier forKey:@"identifier"];
 //    [encoder encodeObject:self.rssi forKey:@"rssi"];
 //    [encoder encodeObject:self.previousRSSI forKey:@"previousRSSI"];
 //    [encoder encodeObject:self.lastSighted forKey:@"lastSighted"];
@@ -36,6 +37,7 @@
         return nil;
     }
     self.name = [decoder decodeObjectForKey:@"name"];
+    self.identifier = [decoder decodeObjectForKey:@"identifier"];
 //    self.rssi = [decoder decodeObjectForKey:@"rssi"];
 //    self.previousRSSI = [decoder decodeObjectForKey:@"previousRSSI"];
 //    self.lastSighted = [decoder decodeObjectForKey:@"lastSighted"];
