@@ -25,7 +25,6 @@
         self.transmitters = [NSMutableArray new];
         NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mySavedTransmitters"];
         self.mySavedTransmitters = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-        NSLog(@"kdsjfal;sdkjfaljf   -------------- %@", self.mySavedTransmitters);
         [self initBeacon];
         [self initObservers];
     }

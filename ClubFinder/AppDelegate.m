@@ -19,6 +19,7 @@
 #import "IIViewDeckController.h"
 
 #import "BeaconViewController.h"
+#import "MyBagViewController.h"
 #import "HomeViewController.h"
 #import "LeftViewController.h"
 #import "SplashViewController.h"
@@ -88,12 +89,11 @@
 -(void)showBeaconViewController
 {
     NSLog(@"showBeaconViewController");
-    BeaconViewController *bvc = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
-//    [self.centerController pushViewController:bvc animated:YES];
-//    IIViewDeckController *deckController = (IIViewDeckController*)
-//    bvc.viewDeckController.centerController = bvc;
-    self.centerController.viewDeckController.centerController = bvc;
-    
+    if ([self.beaconManager.mySavedTransmitters count] > 0) {
+        self.centerController.viewDeckController.centerController = [[MyBagViewController alloc] initWithBeacon:self.beaconManager];
+    } else {
+        self.centerController.viewDeckController.centerController = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
