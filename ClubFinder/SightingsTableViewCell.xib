@@ -67,59 +67,9 @@
                 <outlet property="transmitterNameLabel" destination="vjO-jZ-Qge" id="2ZU-Mz-LXF"/>
             </connections>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="mfZ-e4-UFX" customClass="FindTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mfZ-e4-UFX" id="37P-ge-MPK">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="list_item_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="L46-tY-pNf">
-                        <rect key="frame" x="0.0" y="5" width="320" height="93"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="bar_track_full.png" translatesAutoresizingMaskIntoConstraints="NO" id="mxN-Vw-ska">
-                        <rect key="frame" x="10" y="89" width="270" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" image="bar_full.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tcu-FC-h8U">
-                        <rect key="frame" x="10" y="89" width="270" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4A-7K-5FR">
-                        <rect key="frame" x="77" y="42" width="230" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="batteryImageView" image="battery_full.png" translatesAutoresizingMaskIntoConstraints="NO" id="iIe-EC-A6c">
-                        <rect key="frame" x="255" y="9" width="51" height="29"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DC-Dl-Vdm">
-                        <rect key="frame" x="281" y="89" width="29" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8m-EQ-9vm">
-                        <rect key="frame" x="20" y="32" width="40" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                        <state key="normal" image="InBagToggleButtonOff.png"/>
-                        <state key="selected" image="InBagToggleButtonOn.png"/>
-                    </button>
-                </subviews>
-            </tableViewCellContentView>
-        </tableViewCell>
     </objects>
     <resources>
         <image name="Avatar" width="50" height="50"/>
-        <image name="InBagToggleButtonOff.png" width="40" height="40"/>
-        <image name="InBagToggleButtonOn.png" width="40" height="40"/>
         <image name="bar_full.png" width="300" height="15"/>
         <image name="bar_track_full.png" width="300" height="15"/>
         <image name="battery_full.png" width="32" height="17"/>

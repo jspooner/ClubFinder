@@ -183,7 +183,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"foo %@", [[self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row] class]);
-    static NSString *CellIdentifier = @"findTableViewCell";
+    static NSString *CellIdentifier = @"MyReusableCell";
     SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row];
@@ -203,7 +203,7 @@
         //            [self updateSightingsCell:cell withTransmitter:transmitter];
         //        }
     } else {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FindTableViewCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SightingsTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
         cell.transmitterIdentifier = transmitter.identifier;
         cell.transmitterNameLabel.text = transmitter.name;
