@@ -105,7 +105,7 @@
     [deckController setParallaxAmount:0.08];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = deckController;
-    self.window.backgroundColor = [UIColor blackColor];
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     NSMutableArray *params = @[@"e=/app/applicationDidFinishLaunching"].mutableCopy;
     UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];

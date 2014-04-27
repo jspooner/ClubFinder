@@ -53,6 +53,8 @@
 		FB07E6BD190B68870023A581 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6B9190B68870023A581 /* SplashViewController.xib */; };
 		FB07E6BF190B6B6A0023A581 /* CFSplashBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */; };
 		FB07E6C1190C72230023A581 /* SightingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6C0190C72230023A581 /* SightingsTableViewCell.xib */; };
+		FB07E6C9190D8CA90023A581 /* FindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6C7190D8CA90023A581 /* FindTableViewCell.m */; };
+		FB07E6CA190D8CA90023A581 /* FindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6C8190D8CA90023A581 /* FindTableViewCell.xib */; };
 		FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB26B3BC18E715E100E69F9A /* CFLogger.m */; };
 		FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E118B7169400A0F41B /* Foundation.framework */; };
 		FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E318B7169500A0F41B /* CoreGraphics.framework */; };
@@ -147,6 +149,9 @@
 		FB07E6B9190B68870023A581 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CFSplashBkg@2x.png"; sourceTree = "<group>"; };
 		FB07E6C0190C72230023A581 /* SightingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SightingsTableViewCell.xib; sourceTree = "<group>"; };
+		FB07E6C6190D8CA90023A581 /* FindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTableViewCell.h; sourceTree = "<group>"; };
+		FB07E6C7190D8CA90023A581 /* FindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTableViewCell.m; sourceTree = "<group>"; };
+		FB07E6C8190D8CA90023A581 /* FindTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindTableViewCell.xib; sourceTree = "<group>"; };
 		FB26B3BB18E715E100E69F9A /* CFLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFLogger.h; sourceTree = "<group>"; };
 		FB26B3BC18E715E100E69F9A /* CFLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFLogger.m; sourceTree = "<group>"; };
 		FB59C8DE18B7169400A0F41B /* ClubFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +349,9 @@
 				FB59C8F618B7169500A0F41B /* ViewController.h */,
 				FB59C8F718B7169500A0F41B /* ViewController.m */,
 				FB07E6A6190B4C3B0023A581 /* ViewController.xib */,
+				FB07E6C6190D8CA90023A581 /* FindTableViewCell.h */,
+				FB07E6C7190D8CA90023A581 /* FindTableViewCell.m */,
+				FB07E6C8190D8CA90023A581 /* FindTableViewCell.xib */,
 				FB59C94418BA6D1800A0F41B /* SightingsTableViewCell.h */,
 				FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */,
 				FB07E6C0190C72230023A581 /* SightingsTableViewCell.xib */,
@@ -585,6 +593,7 @@
 				FB03CF8018FB0A200082DEB8 /* spinner_09.png in Resources */,
 				FB03CF8518FB0A200082DEB8 /* spinner_11@2x.png in Resources */,
 				FB03CF7A18FB0A200082DEB8 /* spinner_06.png in Resources */,
+				FB07E6CA190D8CA90023A581 /* FindTableViewCell.xib in Resources */,
 				FB59C93918B7173B00A0F41B /* rules.txt in Resources */,
 				FB07E6AD190B59FF0023A581 /* BeaconViewController.xib in Resources */,
 				FB59C93F18B92C6600A0F41B /* home.gpx in Resources */,
@@ -653,6 +662,7 @@
 				FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */,
 				FB03CF5618F3A46D0082DEB8 /* DBLogger.m in Sources */,
 				FB032AB818E68CB000610BF0 /* LocationTracker.m in Sources */,
+				FB07E6C9190D8CA90023A581 /* FindTableViewCell.m in Sources */,
 				FB07E6BA190B68870023A581 /* SplashViewController.m in Sources */,
 				FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */,
 				FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */,

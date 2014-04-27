@@ -7,7 +7,7 @@
 //
 
 #import "BeaconViewController.h"
-#import "SightingsTableViewCell.h"
+#import "FindTableViewCell.h"
 #import "Transmitter.h"
 
 @interface BeaconViewController ()
@@ -59,7 +59,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     for (UITableViewCell *cell in self.tableView.visibleCells) {
         if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
-            SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
+            FindTableViewCell *sightingsCell = (FindTableViewCell *)cell;
 
             CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
             transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
@@ -102,7 +102,7 @@
 }
 
 
-- (void)updateSightingsCell:(SightingsTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter
+- (void)updateSightingsCell:(FindTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter
 {
     if (sightingsCell && transmitter) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -160,8 +160,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"MyReusableCell";
-    SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"findTableViewCell";
+    FindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell != nil) {
         Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:indexPath.row];
@@ -179,7 +179,7 @@
 //            [self updateSightingsCell:cell withTransmitter:transmitter];
 //        }
     } else {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SightingsTableViewCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FindTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     return cell;
