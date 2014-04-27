@@ -23,6 +23,7 @@
 {
     if ( self = [super init] ) {
         self.transmitters = [NSMutableArray new];
+        self.mySavedTransmitters = [NSMutableArray new];
         [self initBeacon];
         [self initObservers];
     }
@@ -59,14 +60,22 @@
 {
     NSLog(@" -----------  transmitterAdded %@", [notification userInfo]);
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
-    [temp setInBag:YES];
+    if (temp) {
+        [temp setInBag:YES];
+        if ([self.mySavedTransmitters indexOfObject:temp] != -1) {
+            [self.mySavedTransmitters addObject:temp];
+        }
+    }
 }
 
 -(void)transmitterRemoved:(NSNotification *)notification
 {
     NSLog(@" -----------  transmitterRemoved %@", [notification userInfo]);
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
-    [temp setInBag:NO];
+    if (temp) {
+        [temp setInBag:NO];
+        [self.mySavedTransmitters removeObject:temp];
+    }
 }
 
 #pragma - mark

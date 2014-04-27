@@ -7,7 +7,7 @@
 //
 
 #import "MyBagViewController.h"
-#import "FindTableViewCell.h"
+#import "SightingsTableViewCell.h"
 #import "Transmitter.h"
 
 @interface MyBagViewController ()
@@ -32,10 +32,6 @@
         NSLog(@"I have a beacon manager");
         // You still need to remove listeners before they are deleted.
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterAdded)
-                                                     name:@"transmitterAdded"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(transmitterUpdated:)
                                                      name:@"transmitterUpdated"
                                                    object:nil];
@@ -45,7 +41,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterAdded" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
 }
 
@@ -61,11 +56,11 @@
 {
     NSNumber *index = [[notification userInfo] objectForKey:@"index"];
     int i = [index intValue];
-    Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:[index intValue]];
+    Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:[index intValue]];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     for (UITableViewCell *cell in self.tableView.visibleCells) {
         if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
-            FindTableViewCell *sightingsCell = (FindTableViewCell *)cell;
+            SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
             
             CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
             transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
@@ -79,10 +74,6 @@
 #pragma mark -
 #pragma mark - Helpers
 
-//-(NSArray *)beaconsToShow
-//{
-//    return [NSArray arrayWithObjects:self.beaconManager.transmitters.copy, nil];
-//}
 
 #pragma mark -
 #pragma mark - ViewHelpers
@@ -119,7 +110,7 @@
 }
 
 
-- (void)updateSightingsCell:(FindTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter
+- (void)updateSightingsCell:(SightingsTableViewCell *)sightingsCell withTransmitter:(Transmitter *)transmitter
 {
     if (sightingsCell && transmitter) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -172,14 +163,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.beaconManager.transmitters count];
+    return [self.beaconManager.mySavedTransmitters count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"findTableViewCell";
-    FindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:indexPath.row];
+    SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row];
     
     if (cell != nil) {
         // Update the transmitter text
