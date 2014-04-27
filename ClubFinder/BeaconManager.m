@@ -23,7 +23,9 @@
 {
     if ( self = [super init] ) {
         self.transmitters = [NSMutableArray new];
-        self.mySavedTransmitters = [NSMutableArray new];
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mySavedTransmitters"];
+        self.mySavedTransmitters = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+        NSLog(@"kdsjfal;sdkjfaljf   -------------- %@", self.mySavedTransmitters);
         [self initBeacon];
         [self initObservers];
     }
@@ -53,6 +55,13 @@
 
 }
 
+-(void)persistsTransmitters
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mySavedTransmitters];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"mySavedTransmitters"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma - mark
 #pragma - mark Observers
 
@@ -64,6 +73,7 @@
         [temp setInBag:YES];
         if ([self.mySavedTransmitters indexOfObject:temp] != -1) {
             [self.mySavedTransmitters addObject:temp];
+            [self persistsTransmitters];
         }
     }
 }
@@ -75,6 +85,7 @@
     if (temp) {
         [temp setInBag:NO];
         [self.mySavedTransmitters removeObject:temp];
+        [self persistsTransmitters];
     }
 }
 

@@ -31,17 +31,30 @@
     if (self.beaconManager) {
         NSLog(@"I have a beacon manager");
         // You still need to remove listeners before they are deleted.
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterUpdated:)
-                                                     name:@"transmitterUpdated"
-                                                   object:nil];
+//
+//        
+//        
+//        
+//        
+//        
+//
+// THIS IS SENDING THE index from bm.transmitters and not bm.mySavedTransimitters
+//
+//        
+//        
+//        
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(transmitterUpdated:)
+//                                                     name:@"transmitterUpdated"
+//                                                   object:nil];
     }
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
 }
 
 #pragma mark -
@@ -163,13 +176,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"179");
     return [self.beaconManager.mySavedTransmitters count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"foo %@", [[self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row] class]);
     static NSString *CellIdentifier = @"findTableViewCell";
     SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row];
     
     if (cell != nil) {

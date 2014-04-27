@@ -20,4 +20,38 @@
 
 @implementation Transmitter
 
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.name forKey:@"name"];
+//    [encoder encodeObject:self.rssi forKey:@"rssi"];
+//    [encoder encodeObject:self.previousRSSI forKey:@"previousRSSI"];
+//    [encoder encodeObject:self.lastSighted forKey:@"lastSighted"];
+//    [encoder encodeObject:self.batteryLevel forKey:@"batteryLevel"];
+//    [encoder encodeObject:self.temperature forKey:@"temperature"];
+//    [encoder encodeBool:self.inBag forKey:@"inBag"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.name = [decoder decodeObjectForKey:@"name"];
+//    self.rssi = [decoder decodeObjectForKey:@"rssi"];
+//    self.previousRSSI = [decoder decodeObjectForKey:@"previousRSSI"];
+//    self.lastSighted = [decoder decodeObjectForKey:@"lastSighted"];
+//    self.batteryLevel = [decoder decodeObjectForKey:@"batteryLevel"];
+//    self.temperature = [decoder decodeObjectForKey:@"temperature"];
+//    self.inBag = [decoder decodeBoolForKey:@"inBag"];
+    
+    return self;
+}
 @end
+
+
+//@property (nonatomic, strong) NSString *identifier;
+//@property (nonatomic, strong) NSNumber *rssi;
+//@property (nonatomic, strong) NSNumber *previousRSSI;
+//@property (nonatomic, strong) NSDate *lastSighted;
+//@property (nonatomic, strong) NSNumber *batteryLevel;
+//@property (nonatomic, strong) NSNumber *temperature;
+//@property (nonatomic, assign) BOOL inBag;

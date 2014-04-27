@@ -18,7 +18,7 @@
  */
 #import <Foundation/Foundation.h>
 
-@interface Transmitter : NSObject
+@interface Transmitter : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *identifier;
