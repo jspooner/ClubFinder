@@ -23,12 +23,12 @@
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.name forKey:@"name"];
     [encoder encodeObject:self.identifier forKey:@"identifier"];
-//    [encoder encodeObject:self.rssi forKey:@"rssi"];
-//    [encoder encodeObject:self.previousRSSI forKey:@"previousRSSI"];
+    [encoder encodeFloat:[self.rssi floatValue]  forKey:@"rssi"];
+    [encoder encodeFloat:[self.previousRSSI floatValue]  forKey:@"previousRSSI"];
 //    [encoder encodeObject:self.lastSighted forKey:@"lastSighted"];
-//    [encoder encodeObject:self.batteryLevel forKey:@"batteryLevel"];
-//    [encoder encodeObject:self.temperature forKey:@"temperature"];
-//    [encoder encodeBool:self.inBag forKey:@"inBag"];
+    [encoder encodeFloat:[self.batteryLevel floatValue]  forKey:@"batteryLevel"];
+    [encoder encodeFloat:[self.temperature floatValue]  forKey:@"temperature"];
+    [encoder encodeBool:self.inBag forKey:@"inBag"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -38,12 +38,12 @@
     }
     self.name = [decoder decodeObjectForKey:@"name"];
     self.identifier = [decoder decodeObjectForKey:@"identifier"];
-//    self.rssi = [decoder decodeObjectForKey:@"rssi"];
-//    self.previousRSSI = [decoder decodeObjectForKey:@"previousRSSI"];
+    self.rssi = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"rssi"]];
+    self.previousRSSI = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"previousRSSI"]];
 //    self.lastSighted = [decoder decodeObjectForKey:@"lastSighted"];
-//    self.batteryLevel = [decoder decodeObjectForKey:@"batteryLevel"];
-//    self.temperature = [decoder decodeObjectForKey:@"temperature"];
-//    self.inBag = [decoder decodeBoolForKey:@"inBag"];
+    self.batteryLevel = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"batteryLevel"]];
+    self.temperature = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"temperature"]];
+    self.inBag = [decoder decodeBoolForKey:@"inBag"];
     
     return self;
 }
