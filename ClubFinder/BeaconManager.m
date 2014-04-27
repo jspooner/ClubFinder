@@ -24,6 +24,7 @@
     if ( self = [super init] ) {
         self.transmitters = [NSMutableArray new];
         [self initBeacon];
+        [self initObservers];
     }
     return self;
 }
@@ -36,6 +37,36 @@
         appSecret:@"2acc48534c2c20ad470cc3ec5c947e51d71126bafc39c2b1075675dd72a235fa"
       callbackUrl:@"clubfinder://authcode"];
     [FYX startService:self];
+}
+
+-(void)initObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterAdded:)
+                                                 name:@"transmitterAdded"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterRemoved:)
+                                                 name:@"transmitterRemoved"
+                                               object:nil];
+
+}
+
+#pragma - mark
+#pragma - mark Observers
+
+-(void)transmitterAdded:(NSNotification *)notification
+{
+    NSLog(@" -----------  transmitterAdded %@", [notification userInfo]);
+    Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
+    [temp setInBag:YES];
+}
+
+-(void)transmitterRemoved:(NSNotification *)notification
+{
+    NSLog(@" -----------  transmitterRemoved %@", [notification userInfo]);
+    Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
+    [temp setInBag:NO];
 }
 
 #pragma - mark

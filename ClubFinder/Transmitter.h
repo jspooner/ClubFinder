@@ -27,5 +27,6 @@
 @property (nonatomic, strong) NSDate *lastSighted;
 @property (nonatomic, strong) NSNumber *batteryLevel;
 @property (nonatomic, strong) NSNumber *temperature;
+@property (nonatomic, assign) BOOL inBag;
 
 @end

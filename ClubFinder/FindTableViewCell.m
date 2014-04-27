@@ -13,10 +13,20 @@
 
 -(void)switchChanged:(UISwitch*)sender
 {
+    NSDictionary *dictionary = @{
+                                 @"transmitterName" : self.transmitterNameLabel.text,
+                                 @"transmitterIdentifier" : self.transmitterIdentifier
+                                 };
     if ([sender isOn]) {
         NSLog(@"---------------------- SAVE CLUB");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded"
+                                                            object:self
+                                                          userInfo:dictionary];
     } else {
         NSLog(@"---------------------- Remove CLUB");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterRemoved"
+                                                            object:self
+                                                          userInfo:dictionary];
     }
 }
 

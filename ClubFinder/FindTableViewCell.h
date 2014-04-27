@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *transmitterIcon;
 @property (weak, nonatomic) IBOutlet UILabel *transmitterNameLabel;
+@property (weak, nonatomic) NSString *transmitterIdentifier;
 @property (weak, nonatomic) IBOutlet UIImageView *rssiImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *batteryImageView;
 @property (weak, nonatomic) IBOutlet UILabel *temperature;

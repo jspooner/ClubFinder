@@ -51,17 +51,14 @@
 
 -(void)transmitterAdded
 {
-    NSLog(@"-----------------------------------------------  transmitterAdded %lu", (unsigned long)[self.beaconManager.transmitters count]);
     [self.tableView reloadData];
 }
 
 -(void)transmitterUpdated:(NSNotification *)notification
 {
-    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++++++  transmitterAdded %@", [[notification userInfo] objectForKey:@"index"]);
     NSNumber *index = [[notification userInfo] objectForKey:@"index"];
     int i = [index intValue];
     Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:[index intValue]];
-//    NSIndexPath *indexPath = [[notification userInfo] objectForKey:@"index"];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     for (UITableViewCell *cell in self.tableView.visibleCells) {
         if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
@@ -168,9 +165,9 @@
 {
     static NSString *CellIdentifier = @"findTableViewCell";
     FindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:indexPath.row];
+
     if (cell != nil) {
-        Transmitter *transmitter = [self.beaconManager.transmitters objectAtIndex:indexPath.row];
         // Update the transmitter text
         cell.transmitterNameLabel.text = transmitter.name;
         
@@ -187,6 +184,8 @@
     } else {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FindTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
+        cell.transmitterIdentifier = transmitter.identifier;
+        cell.transmitterNameLabel.text = transmitter.name;
     }
     return cell;
 }
