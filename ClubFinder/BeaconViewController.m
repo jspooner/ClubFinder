@@ -43,6 +43,12 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterAdded" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+}
+
 -(void)transmitterAdded
 {
     NSLog(@"-----------------------------------------------  transmitterAdded %lu", (unsigned long)[self.beaconManager.transmitters count]);
