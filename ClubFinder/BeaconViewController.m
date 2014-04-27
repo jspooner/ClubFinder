@@ -49,6 +49,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
 }
 
+#pragma mark -
+#pragma mark - Observer Handelers
+
 -(void)transmitterAdded
 {
     [self.tableView reloadData];
@@ -72,6 +75,17 @@
     }
 
 }
+
+#pragma mark -
+#pragma mark - Helpers
+
+//-(NSArray *)beaconsToShow
+//{
+//    return [NSArray arrayWithObjects:self.beaconManager.transmitters.copy, nil];
+//}
+
+#pragma mark -
+#pragma mark - ViewHelpers
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth
 {

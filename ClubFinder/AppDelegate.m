@@ -20,7 +20,7 @@
 
 #import "BeaconViewController.h"
 #import "HomeViewController.h"
-#import "ViewController.h"
+#import "LeftViewController.h"
 #import "SplashViewController.h"
 
 @implementation AppDelegate
@@ -89,7 +89,11 @@
 {
     NSLog(@"showBeaconViewController");
     BeaconViewController *bvc = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
-    [self.centerController pushViewController:bvc animated:YES];
+//    [self.centerController pushViewController:bvc animated:YES];
+//    IIViewDeckController *deckController = (IIViewDeckController*)
+//    bvc.viewDeckController.centerController = bvc;
+    self.centerController.viewDeckController.centerController = bvc;
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -97,7 +101,7 @@
     [self setupLogging];
     self.beaconManager = [[BeaconManager alloc] init];
 //    self.locationLogger = [[LocationTracker alloc] init];
-    self.leftController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    self.leftController = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil];
     SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:splashViewController];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
@@ -224,7 +228,7 @@
         } else {
             UIStoryboard *storyboard = [[[self window] rootViewController] storyboard];
 //            UINavigationController *navigationController = (UINavigationController*)[storyboard instantiateViewControllerWithIdentifier:@"navigationController"];
-            ViewController *vc = (ViewController*)[storyboard instantiateViewControllerWithIdentifier:@"viewController"];
+//            ViewController *vc = (ViewController*)[storyboard instantiateViewControllerWithIdentifier:@"viewController"];
             HomeViewController *hvc = (HomeViewController*)[storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
             [hvc performSegueWithIdentifier:@"fuckThis" sender:nil];
         }
