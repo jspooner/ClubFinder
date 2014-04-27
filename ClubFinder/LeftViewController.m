@@ -27,15 +27,15 @@
 
 -(void)myBagClick
 {
-    self.viewDeckController.centerController = [[MyBagViewController alloc] initWithNibName:@"MyBagViewController" bundle:nil];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.viewDeckController.centerController = [[MyBagViewController alloc] initWithBeacon:appDelegate.beaconManager];
     [self.viewDeckController closeLeftViewAnimated:YES];
 }
 
 -(void)manageBagClick
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    BeaconViewController *bvc = [[BeaconViewController alloc] initWithBeacon:appDelegate.beaconManager];
-    self.viewDeckController.centerController = bvc;
+    self.viewDeckController.centerController = [[BeaconViewController alloc] initWithBeacon:appDelegate.beaconManager];
     [self.viewDeckController closeLeftViewAnimated:YES];
 }
 

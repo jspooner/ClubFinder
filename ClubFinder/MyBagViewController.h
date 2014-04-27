@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BeaconManager.h"
 
-@interface MyBagViewController : UIViewController
+@interface MyBagViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) BeaconManager *beaconManager;
+@property (nonatomic) IBOutlet UITableView *tableView;
+-(id)initWithBeacon:(BeaconManager *)manager;
 
 @end
