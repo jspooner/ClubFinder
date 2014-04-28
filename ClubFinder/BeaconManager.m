@@ -22,8 +22,8 @@
 -(id)init
 {
     if ( self = [super init] ) {
-        self.transmitters = [NSMutableArray new];
         NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mySavedTransmitters"];
+        self.transmitters = [NSMutableArray new];
         self.mySavedTransmitters = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
         [self initBeacon];
         [self initObservers];
@@ -66,7 +66,6 @@
 
 -(void)transmitterAdded:(NSNotification *)notification
 {
-    NSLog(@" -----------  transmitterAdded %@", [notification userInfo]);
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
     if (temp) {
         [temp setInBag:YES];
@@ -79,7 +78,6 @@
 
 -(void)transmitterRemoved:(NSNotification *)notification
 {
-    NSLog(@" -----------  transmitterRemoved %@", [notification userInfo]);
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
     if (temp) {
         [temp setInBag:NO];
@@ -192,22 +190,8 @@
     transmitter.lastSighted = updateTime;
     if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
         [self updateTransmitter:transmitter withVisit:visit RSSI:RSSI];
-        NSDictionary *dictionary = @{
-                                     @"index" : [NSNumber numberWithUnsignedInteger:[self.transmitters indexOfObject:transmitter]],
-                                     @"identifier" : transmitter.identifier
-                                     };
+        NSDictionary *dictionary = @{@"identifier" : transmitter.identifier};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:dictionary];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterUpdated" object:self userInfo:nil];
-//        for (UITableViewCell *cell in self.tableView.visibleCells) {
-//            if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
-//                SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
-//
-//                CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
-//                transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
-//
-//                [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
-//            }
-//        }
     }
 }
 

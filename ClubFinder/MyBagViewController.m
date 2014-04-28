@@ -62,8 +62,6 @@
 
 -(void)transmitterUpdated:(NSNotification *)notification
 {
-//    NSNumber *index = [[notification userInfo] objectForKey:@"identifier"];
-//    int i = [index intValue];
     Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
     for (UITableViewCell *cell in self.tableView.visibleCells) {
         SightingsTableViewCell *sightingsCell = (SightingsTableViewCell*)cell;
@@ -73,17 +71,6 @@
             [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
         }
     }
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-//    for (UITableViewCell *cell in self.tableView.visibleCells) {
-//        if ([[self.tableView indexPathForCell:cell] isEqual:indexPath]) {
-//            SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
-//            
-//            CALayer *tempLayer = [sightingsCell.rssiImageView.layer presentationLayer];
-//            transmitter.previousRSSI =  [self rssiForBarWidth:[tempLayer frame].size.width];
-//            
-//            [self updateSightingsCell:sightingsCell withTransmitter:transmitter];
-//        }
-//    }
 }
 
 #pragma mark -

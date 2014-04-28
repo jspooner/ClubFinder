@@ -184,6 +184,10 @@
     if (cell != nil) {
         // Update the transmitter text
         cell.transmitterNameLabel.text = transmitter.name;
+        cell.transmitterIdentifier = transmitter.identifier;
+        if (transmitter.inBag) {
+            [cell.bagSwitch setOn:YES];
+        }
         
         // Update the transmitter avatar (icon image)
         //        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
