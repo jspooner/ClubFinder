@@ -85,7 +85,11 @@
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
     if (temp) {
         [temp setInBag:NO];
-        [self.mySavedTransmitters removeObject:temp];
+        for (Transmitter *t in self.mySavedTransmitters) {
+            if ([t.identifier isEqualToString:temp.identifier]) {
+                [self.mySavedTransmitters removeObject:t];
+            }
+        }
         [self persistsTransmitters];
     }
 }
@@ -192,6 +196,7 @@
         transmitter.previousRSSI = transmitter.rssi;
         transmitter.batteryLevel = 0;
         transmitter.temperature = 0;
+        transmitter.inBag = [self transmitterIsSavedToBag:transmitter];
         [self.transmitters addObject:transmitter];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self userInfo:nil];
     }
@@ -285,6 +290,16 @@
 
 #pragma mark -
 #pragma mark - Helpers
+
+-(BOOL)transmitterIsSavedToBag:(Transmitter *)transmitter
+{
+    for (Transmitter *t in self.mySavedTransmitters) {
+        if ([t.identifier isEqualToString:transmitter.identifier]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 - (Transmitter *)transmitterForID:(NSString *)ID {
     for (Transmitter *transmitter in self.transmitters) {

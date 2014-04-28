@@ -59,6 +59,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"appear");
+    [self.tableView reloadData];
+}
+
 #pragma mark -
 #pragma mark - NavigationController button handlers
 

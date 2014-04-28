@@ -247,9 +247,7 @@
         // Update the transmitter text
         cell.transmitterNameLabel.text = transmitter.name;
         cell.transmitterIdentifier = transmitter.identifier;
-        if (transmitter.inBag) {
-            [cell.bagSwitch setOn:YES];
-        }
+        
         
         // Update the transmitter avatar (icon image)
         //        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
@@ -267,6 +265,10 @@
         cell.transmitterIdentifier = transmitter.identifier;
         cell.transmitterNameLabel.text = transmitter.name;
     }
+    if (transmitter.inBag) {
+        [cell.bagSwitch setOn:YES];
+    }
+    
     return cell;
 }
 
