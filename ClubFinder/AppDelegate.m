@@ -89,11 +89,13 @@
 -(void)showBeaconViewController
 {
     NSLog(@"showBeaconViewController");
-    if ([self.beaconManager.mySavedTransmitters count] > 0) {
-        self.centerController.viewDeckController.centerController = [[MyBagViewController alloc] initWithBeacon:self.beaconManager];
-    } else {
-        self.centerController.viewDeckController.centerController = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
-    }
+    MyBagViewController *myBagVC = [[MyBagViewController alloc] initWithBeacon:self.beaconManager];
+    self.centerController.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:myBagVC];
+//    if ([self.beaconManager.mySavedTransmitters count] > 0) {
+//        self.centerController.viewDeckController.centerController = [[MyBagViewController alloc] initWithBeacon:self.beaconManager];
+//    } else {
+//        self.centerController.viewDeckController.centerController = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
+//    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

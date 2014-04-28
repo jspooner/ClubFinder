@@ -40,13 +40,24 @@
                                                      name:@"transmitterUpdated"
                                                    object:nil];
     }
-    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(donePressed)];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterAdded" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+}
+
+#pragma mark -
+#pragma mark - NavigationController button handlers
+
+-(void)donePressed
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -

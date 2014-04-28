@@ -9,6 +9,7 @@
 #import "MyBagViewController.h"
 #import "SightingsTableViewCell.h"
 #import "Transmitter.h"
+#import "BeaconViewController.h"
 
 @interface MyBagViewController ()
 
@@ -35,6 +36,16 @@
                                                      name:@"transmitterUpdated"
                                                    object:nil];
     }
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(editBag)];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(addBeacon)];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -43,14 +54,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
 }
 
-- (Transmitter *)transmitterForID:(NSString *)ID {
-    for (Transmitter *transmitter in self.beaconManager.mySavedTransmitters) {
-        if ([transmitter.identifier isEqualToString:ID]) {
-            return transmitter;
-        }
-    }
-    return nil;
+#pragma mark -
+#pragma mark - NavigationController button handlers
+
+-(void)editBag
+{
+    
 }
+
+-(void)addBeacon
+{
+    BeaconViewController *bvc = [[BeaconViewController alloc] initWithBeacon:self.beaconManager];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bvc] animated:YES completion:nil];
+}
+
 
 #pragma mark -
 #pragma mark - Observer Handelers
@@ -75,6 +92,15 @@
 
 #pragma mark -
 #pragma mark - Helpers
+
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.beaconManager.mySavedTransmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
+}
 
 
 #pragma mark -
