@@ -35,6 +35,10 @@
                                                  selector:@selector(transmitterUpdated:)
                                                      name:@"transmitterUpdated"
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(transmitterDidDepart:)
+                                                     name:@"transmitterDidDepart"
+                                                   object:nil];
     }
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
@@ -52,6 +56,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
 }
 
 #pragma mark -
@@ -90,6 +95,17 @@
     }
 }
 
+-(void)transmitterDidDepart:(NSNotification *)notification
+{
+    Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
+    for (UITableViewCell *cell in self.tableView.visibleCells) {
+        SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
+        if ([sightingsCell.transmitterIdentifier isEqualToString:transmitter.identifier]) {
+            [self grayOutSightingsCell:((SightingsTableViewCell*)cell)];
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark - Helpers
 
@@ -105,6 +121,27 @@
 
 #pragma mark -
 #pragma mark - ViewHelpers
+
+- (BOOL)isTransmitterAgedOut:(Transmitter *)transmitter {
+    NSDate *now = [NSDate date];
+    NSTimeInterval ageOutPeriod = 15; //[[NSUserDefaults standardUserDefaults] integerForKey:@"age_out_period"];
+    if ([now timeIntervalSinceDate:transmitter.lastSighted] > ageOutPeriod) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)grayOutSightingsCell:(SightingsTableViewCell *)sightingsCell
+{
+    if (sightingsCell) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sightingsCell.contentView.alpha = 0.3f;
+            CGRect oldFrame = sightingsCell.rssiImageView.frame;
+            sightingsCell.rssiImageView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, 0, oldFrame.size.height);
+            sightingsCell.isGrayedOut = YES;
+        });
+    }
+}
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth
 {
@@ -211,17 +248,16 @@
         //        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
         //        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];
         cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
-        
-        //        if ([self isTransmitterAgedOut:transmitter]) {
-        //            [self grayOutSightingsCell:cell];
-        //        } else {
-        //            [self updateSightingsCell:cell withTransmitter:transmitter];
-        //        }
     } else {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SightingsTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
         cell.transmitterIdentifier = transmitter.identifier;
         cell.transmitterNameLabel.text = transmitter.name;
+    }
+    if ([self isTransmitterAgedOut:transmitter]) {
+        [self grayOutSightingsCell:cell];
+    } else {
+        [self updateSightingsCell:cell withTransmitter:transmitter];
     }
     return cell;
 }

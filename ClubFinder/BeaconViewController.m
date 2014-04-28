@@ -32,12 +32,20 @@
         NSLog(@"I have a beacon manager");
         // You still need to remove listeners before they are deleted.
         [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(transmitterDidArrive:)
+                                                     name:@"transmitterDidArrive"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(transmitterAdded)
                                                      name:@"transmitterAdded"
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(transmitterUpdated:)
                                                      name:@"transmitterUpdated"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(transmitterDidDepart:)
+                                                     name:@"transmitterDidDepart"
                                                    object:nil];
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
@@ -49,7 +57,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterAdded" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidArrive" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
 }
 
 #pragma mark -
@@ -64,6 +74,11 @@
 #pragma mark - Observer Handelers
 
 -(void)transmitterAdded
+{
+    [self.tableView reloadData];
+}
+
+-(void)transmitterDidArrive:(NSNotification *)notification
 {
     [self.tableView reloadData];
 }
@@ -87,16 +102,52 @@
 
 }
 
+-(void)transmitterDidDepart:(NSNotification *)notification
+{
+    Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
+    for (UITableViewCell *cell in self.tableView.visibleCells) {
+        FindTableViewCell *sightingsCell = (FindTableViewCell *)cell;
+        if ([sightingsCell.transmitterIdentifier isEqualToString:transmitter.identifier]) {
+            [self grayOutSightingsCell:((FindTableViewCell*)cell)];
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark - Helpers
 
-//-(NSArray *)beaconsToShow
-//{
-//    return [NSArray arrayWithObjects:self.beaconManager.transmitters.copy, nil];
-//}
+- (BOOL)isTransmitterAgedOut:(Transmitter *)transmitter {
+    NSDate *now = [NSDate date];
+    NSTimeInterval ageOutPeriod = 15; //[[NSUserDefaults standardUserDefaults] integerForKey:@"age_out_period"];
+    if ([now timeIntervalSinceDate:transmitter.lastSighted] > ageOutPeriod) {
+        return YES;
+    }
+    return NO;
+}
+
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.beaconManager.transmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
+}
 
 #pragma mark -
 #pragma mark - ViewHelpers
+
+- (void)grayOutSightingsCell:(FindTableViewCell *)sightingsCell
+{
+    if (sightingsCell) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sightingsCell.contentView.alpha = 0.3f;
+            CGRect oldFrame = sightingsCell.rssiImageView.frame;
+            sightingsCell.rssiImageView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, 0, oldFrame.size.height);
+            sightingsCell.isGrayedOut = YES;
+        });
+    }
+}
 
 - (NSNumber *)rssiForBarWidth:(float)barWidth
 {
@@ -205,11 +256,11 @@
         //        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];
         cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
         
-//        if ([self isTransmitterAgedOut:transmitter]) {
-//            [self grayOutSightingsCell:cell];
-//        } else {
-//            [self updateSightingsCell:cell withTransmitter:transmitter];
-//        }
+        if ([self isTransmitterAgedOut:transmitter]) {
+            [self grayOutSightingsCell:cell];
+        } else {
+            [self updateSightingsCell:cell withTransmitter:transmitter];
+        }
     } else {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FindTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];

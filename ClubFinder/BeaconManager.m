@@ -17,7 +17,11 @@
 
 @implementation BeaconManager
 
+#if DEBUG
+#define VISIT_DURATION_INTERVAL_IN_SECONDS 5
+#else
 #define VISIT_DURATION_INTERVAL_IN_SECONDS 15
+#endif
 
 -(id)init
 {
@@ -152,6 +156,11 @@
                         [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="]
                         ];
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+    NSDictionary *dictionary = @{
+                                 @"identifier" : visit.transmitter.identifier,
+                                 @"name" : visit.transmitter.name
+                                 };
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterDidArrive" object:self userInfo:dictionary];
 }
 
 - (void)receivedSighting:(FYXVisit *)visit updateTime:(NSDate *)updateTime RSSI:(NSNumber *)RSSI;
@@ -209,6 +218,13 @@
                         [@[@"dwellTime", [NSString stringWithFormat:@"%f", visit.dwellTime]] componentsJoinedByString:@"="]
                         ];
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
+    NSDictionary *dictionary = @{
+                                 @"identifier" : visit.transmitter.identifier,
+                                 @"lastUpdateTime" : visit.lastUpdateTime,
+                                 @"startTime" : visit.startTime,
+                                 @"dwellTime" : [NSNumber numberWithDouble:visit.dwellTime]
+                                 };
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterDidDepart" object:self userInfo:dictionary];
     // MANAGE THE TABLE
 //    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
