@@ -85,10 +85,10 @@
     Transmitter *temp = [self transmitterForID:[[notification userInfo] objectForKey:@"transmitterIdentifier"]];
     if (temp) {
         [temp setInBag:NO];
-
         for (Transmitter *t in self.mySavedTransmitters) {
             if ([t.identifier isEqualToString:temp.identifier]) {
                 [self.mySavedTransmitters removeObject:t];
+                break;
             }
         }
         [self persistsTransmitters];
