@@ -40,7 +40,8 @@
                                                      name:@"transmitterDidDepart"
                                                    object:nil];
     }
-
+    self.tableView.backgroundColor = [[UIColor alloc] initWithWhite:1 alpha:0.0];
+    self.title = @"My Clubs";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self

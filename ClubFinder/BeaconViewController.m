@@ -48,6 +48,7 @@
                                                      name:@"transmitterDidDepart"
                                                    object:nil];
     }
+    self.title = @"Add Clubs";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self

@@ -59,6 +59,7 @@
 		FB07E6D3190DA3A10023A581 /* LeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6D1190DA3A10023A581 /* LeftViewController.xib */; };
 		FB07E6D7190DA5F90023A581 /* MyBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB07E6D5190DA5F90023A581 /* MyBagViewController.m */; };
 		FB07E6D8190DA5F90023A581 /* MyBagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6D6190DA5F90023A581 /* MyBagViewController.xib */; };
+		FB07E6DA190EA82C0023A581 /* CFSplashBluredBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB07E6D9190EA82C0023A581 /* CFSplashBluredBkg@2x.png */; };
 		FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB26B3BC18E715E100E69F9A /* CFLogger.m */; };
 		FB59C8E218B7169400A0F41B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E118B7169400A0F41B /* Foundation.framework */; };
 		FB59C8E418B7169500A0F41B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB59C8E318B7169500A0F41B /* CoreGraphics.framework */; };
@@ -162,6 +163,7 @@
 		FB07E6D4190DA5F90023A581 /* MyBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBagViewController.h; sourceTree = "<group>"; };
 		FB07E6D5190DA5F90023A581 /* MyBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBagViewController.m; sourceTree = "<group>"; };
 		FB07E6D6190DA5F90023A581 /* MyBagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyBagViewController.xib; sourceTree = "<group>"; };
+		FB07E6D9190EA82C0023A581 /* CFSplashBluredBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CFSplashBluredBkg@2x.png"; sourceTree = "<group>"; };
 		FB26B3BB18E715E100E69F9A /* CFLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFLogger.h; sourceTree = "<group>"; };
 		FB26B3BC18E715E100E69F9A /* CFLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFLogger.m; sourceTree = "<group>"; };
 		FB59C8DE18B7169400A0F41B /* ClubFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 		FB03CF5718FB0A040082DEB8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB07E6D9190EA82C0023A581 /* CFSplashBluredBkg@2x.png */,
 				FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */,
 				FB03CF9418FB0E020082DEB8 /* battery_full.png */,
 				FB03CF9518FB0E020082DEB8 /* battery_full@2x.png */,
@@ -576,6 +579,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB07E6DA190EA82C0023A581 /* CFSplashBluredBkg@2x.png in Resources */,
 				FB03CF7B18FB0A200082DEB8 /* spinner_06@2x.png in Resources */,
 				FB03CF9318FB0DBB0082DEB8 /* list_item_bg@2x.png in Resources */,
 				FB03CF7918FB0A200082DEB8 /* spinner_05@2x.png in Resources */,
