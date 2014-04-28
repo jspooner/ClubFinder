@@ -20,18 +20,20 @@
 
 @implementation Transmitter
 
-- (void) encodeWithCoder:(NSCoder *)encoder {
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
     [encoder encodeObject:self.name forKey:@"name"];
     [encoder encodeObject:self.identifier forKey:@"identifier"];
     [encoder encodeFloat:[self.rssi floatValue]  forKey:@"rssi"];
     [encoder encodeFloat:[self.previousRSSI floatValue]  forKey:@"previousRSSI"];
-//    [encoder encodeObject:self.lastSighted forKey:@"lastSighted"];
+    [encoder encodeObject:self.lastSighted forKey:@"lastSighted"];
     [encoder encodeFloat:[self.batteryLevel floatValue]  forKey:@"batteryLevel"];
     [encoder encodeFloat:[self.temperature floatValue]  forKey:@"temperature"];
     [encoder encodeBool:self.inBag forKey:@"inBag"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (id)initWithCoder:(NSCoder *)decoder
+{
     self = [super init];
     if (!self) {
         return nil;
@@ -40,7 +42,7 @@
     self.identifier = [decoder decodeObjectForKey:@"identifier"];
     self.rssi = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"rssi"]];
     self.previousRSSI = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"previousRSSI"]];
-//    self.lastSighted = [decoder decodeObjectForKey:@"lastSighted"];
+    self.lastSighted = [decoder decodeObjectForKey:@"lastSighted"];
     self.batteryLevel = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"batteryLevel"]];
     self.temperature = [NSNumber numberWithFloat:[decoder decodeFloatForKey:@"temperature"]];
     self.inBag = [decoder decodeBoolForKey:@"inBag"];

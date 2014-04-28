@@ -234,7 +234,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"foo %@", [[self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row] class]);
     static NSString *CellIdentifier = @"MyReusableCell";
     SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
