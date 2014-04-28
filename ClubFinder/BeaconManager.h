@@ -13,7 +13,7 @@
 
 @interface BeaconManager : NSObject <FYXVisitDelegate, FYXServiceDelegate>
 @property (strong, nonatomic) FYXVisitManager *visitManager;
-@property (nonatomic) NSMutableArray *transmitters;
-@property (nonatomic) NSMutableArray *mySavedTransmitters;
+@property (atomic) NSMutableArray *transmitters;
+@property (atomic) NSMutableArray *mySavedTransmitters;
 -(id)init;
 @end
