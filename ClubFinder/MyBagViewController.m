@@ -10,6 +10,7 @@
 #import "SightingsTableViewCell.h"
 #import "Transmitter.h"
 #import "BeaconViewController.h"
+#import "BeaconDetailViewController.h"
 
 @interface MyBagViewController ()
 
@@ -260,7 +261,6 @@
     return cell;
 }
 
-
 #pragma mark -
 #pragma mark - UITableViewDelegate
 
@@ -269,5 +269,11 @@
     return 115;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SightingsTableViewCell *cell = (SightingsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    BeaconDetailViewController *detailVC = [[BeaconDetailViewController alloc] initWithBeacon:self.beaconManager andTransmitter:cell.transmitterIdentifier];
+    [[self navigationController] pushViewController:detailVC animated:YES];
+}
 
 @end
