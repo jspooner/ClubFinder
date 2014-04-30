@@ -243,28 +243,20 @@
 {
     static NSString *CellIdentifier = @"MyReusableCell";
     SightingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     Transmitter *transmitter = [self.beaconManager.mySavedTransmitters objectAtIndex:indexPath.row];
-    
-    if (cell != nil) {
-        // Update the transmitter text
-        cell.transmitterNameLabel.text = transmitter.name;
-        cell.transmitterIdentifier = transmitter.identifier;
-        // Update the transmitter avatar (icon image)
-        //        NSInteger avatarID = [UserSettingsRepository getAvatarIDForTransmitterID:transmitter.identifier];
-        //        NSString *imageFilename = [NSString stringWithFormat:@"avatar_%02d.png", avatarID];
-        cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
-    } else {
+    if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SightingsTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
-        cell.transmitterIdentifier = transmitter.identifier;
-        cell.transmitterNameLabel.text = transmitter.name;
     }
+    cell.transmitterIcon.image = [UIImage imageNamed:@"Avatar"];
+    cell.transmitterNameLabel.text = transmitter.name;
+    cell.transmitterIdentifier = transmitter.identifier;
     if ([self isTransmitterAgedOut:transmitter]) {
         [self grayOutSightingsCell:cell];
     } else {
         [self updateSightingsCell:cell withTransmitter:transmitter];
     }
+    
     return cell;
 }
 
