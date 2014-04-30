@@ -30,50 +30,56 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (self.beaconManager) {
-        NSLog(@"I have a beacon manager");
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterUpdated:)
-                                                     name:@"transmitterUpdated"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(transmitterDidDepart:)
-                                                     name:@"transmitterDidDepart"
-                                                   object:nil];
-    }
     self.tableView.backgroundColor = [[UIColor alloc] initWithWhite:1 alpha:0.0];
+    [self configureNavController];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self stopObserving];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self startObserving];
+    [self.tableView reloadData];
+}
+
+-(void)configureNavController
+{
     self.title = @"My Clubs";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(editBag)];
-
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(addBeacon)];
-    // Do any additional setup after loading the view from its nib.
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(addBeacon)];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+-(void)startObserving
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterUpdated:)
+                                                 name:@"transmitterUpdated"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterDidDepart:)
+                                                 name:@"transmitterDidDepart"
+                                               object:nil];
+}
+
+-(void)stopObserving
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"appear");
-    [self.tableView reloadData];
-}
-
 #pragma mark -
 #pragma mark - NavigationController button handlers
 
--(void)editBag
-{
-    
-}
+-(void)editBag{}
 
 -(void)addBeacon
 {

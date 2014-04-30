@@ -19,7 +19,7 @@
     self = [super initWithNibName:@"BeaconDetailViewController" bundle:nil];
     if (self) {
         self.beaconManager = manager;
-        self.transmitter = [self.beaconManager transmitterForID:identifer];
+        self.transmitter = [self transmitterForID:identifer];
     }
     return self;
 }
@@ -33,5 +33,28 @@
     self.title = [NSString stringWithFormat:@"Beacon %@", self.transmitter.name];
     self.nameLabel.text = self.transmitter.name;
 }
+
+#pragma mark - 
+#pragma mark - Helpers
+
+/**
+ *
+ * TODO Move to BeconManager
+ *
+ **/
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.beaconManager.transmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    for (Transmitter *transmitter in self.beaconManager.mySavedTransmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
+}
+
 
 @end

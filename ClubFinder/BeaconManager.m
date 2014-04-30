@@ -278,6 +278,11 @@
 #pragma mark -
 #pragma mark - Public
 
+/**
+ *
+ *  This public method shoud look at both arrays... maybe
+ *
+ **/
 - (Transmitter *)transmitterForID:(NSString *)ID {
     for (Transmitter *transmitter in self.transmitters) {
         if ([transmitter.identifier isEqualToString:ID]) {
