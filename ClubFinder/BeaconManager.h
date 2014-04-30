@@ -10,10 +10,15 @@
 #import <FYX/FYX.h>
 #import <FYX/FYXVisitManager.h>
 #import <ContextLocation/QLContextPlaceConnector.h>
+#import "Transmitter.h"
 
 @interface BeaconManager : NSObject <FYXVisitDelegate, FYXServiceDelegate>
+
 @property (strong, nonatomic) FYXVisitManager *visitManager;
 @property (atomic) NSMutableArray *transmitters;
 @property (atomic) NSMutableArray *mySavedTransmitters;
+
 -(id)init;
+- (Transmitter *)transmitterForID:(NSString *)ID;
+
 @end

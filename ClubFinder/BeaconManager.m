@@ -58,13 +58,6 @@
 
 }
 
--(void)persistsTransmitters
-{
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mySavedTransmitters];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"mySavedTransmitters"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 #pragma - mark
 #pragma - mark Observers
 
@@ -231,13 +224,6 @@
                                  @"dwellTime" : [NSNumber numberWithDouble:visit.dwellTime]
                                  };
     [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterDidDepart" object:self userInfo:dictionary];
-    // MANAGE THE TABLE
-//    Transmitter *transmitter = [self transmitterForID:visit.transmitter.identifier];
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.transmitters indexOfObject:transmitter] inSection:0];
-//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    if ([cell isKindOfClass:[SightingsTableViewCell class]]) {
-//        [self grayOutSightingsCell:((SightingsTableViewCell*)cell)];
-//    }
 //    // START ALERT OF NOTIFICATION
 //    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
 //    if (state == UIApplicationStateActive)
@@ -290,7 +276,26 @@
 }
 
 #pragma mark -
+#pragma mark - Public
+
+- (Transmitter *)transmitterForID:(NSString *)ID {
+    for (Transmitter *transmitter in self.transmitters) {
+        if ([transmitter.identifier isEqualToString:ID]) {
+            return transmitter;
+        }
+    }
+    return nil;
+}
+
+#pragma mark -
 #pragma mark - Helpers
+
+-(void)persistsTransmitters
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mySavedTransmitters];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"mySavedTransmitters"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 -(BOOL)transmitterIsSavedToBag:(Transmitter *)transmitter
 {
@@ -300,15 +305,6 @@
         }
     }
     return NO;
-}
-
-- (Transmitter *)transmitterForID:(NSString *)ID {
-    for (Transmitter *transmitter in self.transmitters) {
-        if ([transmitter.identifier isEqualToString:ID]) {
-            return transmitter;
-        }
-    }
-    return nil;
 }
 
 - (BOOL)shouldUpdateTransmitterCell:(FYXVisit *)visit withTransmitter:(Transmitter *)transmitter RSSI:(NSNumber *)rssi

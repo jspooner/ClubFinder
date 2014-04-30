@@ -19,7 +19,7 @@
     self = [super initWithNibName:@"BeaconDetailViewController" bundle:nil];
     if (self) {
         self.beaconManager = manager;
-        self.identifer = identifer;
+        self.transmitter = [self.beaconManager transmitterForID:identifer];
     }
     return self;
 }
@@ -27,7 +27,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"Beacon %@", self.identifer];
+    if (self.transmitter == nil) {
+        [[[UIAlertView alloc] initWithTitle:@"Oops" message:@"I couldn't find that beacon" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+    }
+    self.title = [NSString stringWithFormat:@"Beacon %@", self.transmitter.name];
+    self.nameLabel.text = self.transmitter.name;
 }
 
 @end

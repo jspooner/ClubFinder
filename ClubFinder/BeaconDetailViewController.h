@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BeaconManager.h"
+#import "Transmitter.h"
 
 @interface BeaconDetailViewController : UIViewController
 
 @property (strong, nonatomic) BeaconManager *beaconManager;
-@property (strong, nonatomic) NSString *identifer;
+@property (strong, nonatomic) Transmitter *transmitter;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 -(id)initWithBeacon:(BeaconManager *)manager andTransmitter:(NSString *)identifer;
 
