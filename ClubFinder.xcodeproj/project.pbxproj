@@ -94,6 +94,7 @@
 		FB59C93F18B92C6600A0F41B /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FB59C93E18B92C6600A0F41B /* home.gpx */; };
 		FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */; };
 		FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94818BA6DBE00A0F41B /* Transmitter.m */; };
+		FB70E625191145D000669134 /* CFSplashBluredParalaxBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB70E624191145D000669134 /* CFSplashBluredParalaxBkg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +210,7 @@
 		FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SightingsTableViewCell.m; sourceTree = "<group>"; };
 		FB59C94718BA6DBE00A0F41B /* Transmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmitter.h; sourceTree = "<group>"; };
 		FB59C94818BA6DBE00A0F41B /* Transmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transmitter.m; sourceTree = "<group>"; };
+		FB70E624191145D000669134 /* CFSplashBluredParalaxBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CFSplashBluredParalaxBkg@2x.png"; sourceTree = "<group>"; };
 		FBE68A5618E6762100AB8EE6 /* Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -252,6 +254,7 @@
 		FB03CF5718FB0A040082DEB8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB70E624191145D000669134 /* CFSplashBluredParalaxBkg@2x.png */,
 				FB07E6D9190EA82C0023A581 /* CFSplashBluredBkg@2x.png */,
 				FB07E6BE190B6B6A0023A581 /* CFSplashBkg@2x.png */,
 				FB03CF9418FB0E020082DEB8 /* battery_full.png */,
@@ -613,6 +616,7 @@
 				FB03CF7718FB0A200082DEB8 /* spinner_04@2x.png in Resources */,
 				FB03CF9718FB0E020082DEB8 /* battery_full@2x.png in Resources */,
 				FB03CF7518FB0A200082DEB8 /* spinner_03@2x.png in Resources */,
+				FB70E625191145D000669134 /* CFSplashBluredParalaxBkg@2x.png in Resources */,
 				FB59C93718B7173B00A0F41B /* DataModels.bundle in Resources */,
 				FB03CF8618FB0A200082DEB8 /* spinner_12.png in Resources */,
 				FB03CF8318FB0A200082DEB8 /* spinner_10@2x.png in Resources */,
