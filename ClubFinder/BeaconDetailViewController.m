@@ -31,56 +31,56 @@
         [[[UIAlertView alloc] initWithTitle:@"Oops" message:@"I couldn't find that beacon" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
     }
     self.title = [NSString stringWithFormat:@"Beacon %@", self.transmitter.name];
-    self.nameLabel.text = self.transmitter.name;
+    [self updateTransmitterView];
     [self startObserving];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+//    [self stopObserving];
 }
 
 -(void)startObserving
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(transmitterUpdated:)
-                                                 name:@"transmitterUpdated"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(transmitterDidDepart:)
-                                                 name:@"transmitterDidDepart"
-                                               object:nil];
+    [self.transmitter addObserver:self forKeyPath:@"rssi" options:NSKeyValueObservingOptionNew context:NULL];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(transmitterUpdated:)
+//                                                 name:@"transmitterUpdated"
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(transmitterDidDepart:)
+//                                                 name:@"transmitterDidDepart"
+//                                               object:nil];
 }
 
 -(void)stopObserving
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
+    [self.transmitter removeObserver:self forKeyPath:@"rssi"];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateRssiView];
+    });
 }
 
 #pragma mark -
 #pragma mark - Observer Handelers
 
--(void)transmitterAdded
-{
-}
+-(void)transmitterAdded{}
 
 -(void)transmitterUpdated:(NSNotification *)notification
 {
     Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
     if ([transmitter.identifier isEqualToString:self.transmitter.identifier]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            float oldBarWidth = [self barWidthForRSSI:transmitter.previousRSSI];
-            float newBarWidth = [self barWidthForRSSI:transmitter.rssi];
-            CGRect tempFrame = self.rssiImageView.frame;
-            CGRect oldFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, oldBarWidth, tempFrame.size.height);
-            CGRect newFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, newBarWidth, tempFrame.size.height);
-            // Animate updating the RSSI indicator bar
-            self.rssiImageView.frame = oldFrame;
-            [UIView animateWithDuration:1.0f animations:^{
-                self.rssiImageView.frame = newFrame;
-            }];
-            self.rssiLabel.text = [NSString stringWithFormat:@"%@", transmitter.rssi];
-            //
-            UIImage *batteryImage = [self getBatteryImageForLevel:transmitter.batteryLevel];
-            [self.batteryImageView setImage:batteryImage];
-            self.temperature.text = [NSString stringWithFormat:@"%@%@", transmitter.temperature,
-                                              [NSString stringWithUTF8String:"\xC2\xB0 F" ]];
+            [self updateTransmitterView];
         });
     }
 }
@@ -88,16 +88,43 @@
 -(void)transmitterDidDepart:(NSNotification *)notification
 {
     Transmitter *transmitter = [self transmitterForID:[[notification userInfo] objectForKey:@"identifier"]];
-//    for (UITableViewCell *cell in self.tableView.visibleCells) {
-//        SightingsTableViewCell *sightingsCell = (SightingsTableViewCell *)cell;
-//        if ([sightingsCell.transmitterIdentifier isEqualToString:transmitter.identifier]) {
-//            [self grayOutSightingsCell:((SightingsTableViewCell*)cell)];
-//        }
-//    }
+    if ([transmitter.identifier isEqualToString:self.transmitter.identifier]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+    }
 }
 
 #pragma mark - 
 #pragma mark - Helpers
+
+-(void)updateTransmitterView
+{
+    // Label
+    self.nameLabel.text = self.transmitter.name;
+    [self updateRssiView];
+    // Battery
+    UIImage *batteryImage = [self getBatteryImageForLevel:self.transmitter.batteryLevel];
+    [self.batteryImageView setImage:batteryImage];
+    self.temperature.text = [NSString stringWithFormat:@"%@%@", self.transmitter.temperature,
+                             [NSString stringWithUTF8String:"\xC2\xB0 F" ]];
+}
+
+-(void)updateRssiView
+{
+    // Bar
+    float oldBarWidth = [self barWidthForRSSI:self.transmitter.previousRSSI];
+    float newBarWidth = [self barWidthForRSSI:self.transmitter.rssi];
+    CGRect tempFrame = self.rssiImageView.frame;
+    CGRect oldFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, oldBarWidth, tempFrame.size.height);
+    CGRect newFrame = CGRectMake(tempFrame.origin.x, tempFrame.origin.y, newBarWidth, tempFrame.size.height);
+    // Animate updating the RSSI indicator bar
+    self.rssiImageView.frame = oldFrame;
+    [UIView animateWithDuration:1.0f animations:^{
+        self.rssiImageView.frame = newFrame;
+    }];
+    self.rssiLabel.text = [NSString stringWithFormat:@"%@", self.transmitter.rssi];
+}
 
 - (UIImage *)getBatteryImageForLevel: (NSNumber *)batteryLevel
 {

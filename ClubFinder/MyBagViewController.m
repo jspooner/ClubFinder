@@ -264,7 +264,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"179");
     return [self.beaconManager.mySavedTransmitters count];
 }
 
