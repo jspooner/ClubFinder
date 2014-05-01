@@ -100,8 +100,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupLogging];
-    self.beaconManager = [[BeaconManager alloc] init];
-//    self.locationLogger = [[LocationTracker alloc] init];
+    self.locationLogger = [[LocationTracker alloc] init];
+    self.beaconManager = [[BeaconManager alloc] initWith:self.locationLogger];
     
     self.leftController = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil];
     SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];

@@ -18,7 +18,11 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        [self startTracking];
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 1;
+        _locationManager.activityType = CLActivityTypeFitness;
     }
     
     return self;
@@ -27,17 +31,10 @@
 -(void)startTracking
 {
     DDLogCVerbose(@"LocationLogger startTracking");
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 1;
-    _locationManager.activityType = CLActivityTypeFitness;
-//    [_locationManager startUpdatingLocation];
-//    [_locationManager startUpdatingHeading];
     [_locationManager startMonitoringSignificantLocationChanges];
 }
 
--(void)endTracking
+-(void)stopTracking
 {
     [_locationManager stopMonitoringSignificantLocationChanges];
 }

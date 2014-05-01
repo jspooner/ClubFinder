@@ -23,10 +23,11 @@
 #define VISIT_DURATION_INTERVAL_IN_SECONDS 15
 #endif
 
--(id)init
+-(id)initWith:(LocationTracker *)locationTracker;
 {
     if ( self = [super init] ) {
         NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mySavedTransmitters"];
+        self.locationTracker = locationTracker;
         self.transmitters = [NSMutableArray new];
         self.mySavedTransmitters = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
         [self initBeacon];
@@ -173,6 +174,8 @@
                         [@[@"temperature", visit.transmitter.temperature] componentsJoinedByString:@"="],
                         [@[@"updateTime", updateTime] componentsJoinedByString:@"="],
                         [@[@"rssi", RSSI] componentsJoinedByString:@"="],
+                        [@[@"latitude", [NSString stringWithFormat:@"%f", self.locationTracker.lastLocation.coordinate.latitude]] componentsJoinedByString:@"="],
+                        [@[@"longitude", [NSString stringWithFormat:@"%f", self.locationTracker.lastLocation.coordinate.longitude]] componentsJoinedByString:@"="]
                         ];
     [[CFLogger sharedInstance] logEvent:[params componentsJoinedByString:@"&"]];
 
@@ -194,6 +197,8 @@
         [self.transmitters addObject:transmitter];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self userInfo:nil];
     }
+    
+    
 
     transmitter.lastSighted = updateTime;
     if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){

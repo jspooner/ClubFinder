@@ -15,6 +15,6 @@
 @property (strong) NSDate *lastLocationTimestamp;
 
 -(void)startTracking;
--(void)endTracking;
+-(void)stopTracking;
 
 @end
