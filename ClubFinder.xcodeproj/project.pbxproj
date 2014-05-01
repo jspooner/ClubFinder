@@ -95,6 +95,7 @@
 		FB59C94618BA6D1800A0F41B /* SightingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94518BA6D1800A0F41B /* SightingsTableViewCell.m */; };
 		FB59C94918BA6DBE00A0F41B /* Transmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB59C94818BA6DBE00A0F41B /* Transmitter.m */; };
 		FB70E625191145D000669134 /* CFSplashBluredParalaxBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB70E624191145D000669134 /* CFSplashBluredParalaxBkg@2x.png */; };
+		FB70E62B191294EE00669134 /* UIViewController+TransmitterViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB70E62A191294EE00669134 /* UIViewController+TransmitterViewHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,8 @@
 		FB59C94718BA6DBE00A0F41B /* Transmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transmitter.h; sourceTree = "<group>"; };
 		FB59C94818BA6DBE00A0F41B /* Transmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transmitter.m; sourceTree = "<group>"; };
 		FB70E624191145D000669134 /* CFSplashBluredParalaxBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CFSplashBluredParalaxBkg@2x.png"; sourceTree = "<group>"; };
+		FB70E629191294EE00669134 /* UIViewController+TransmitterViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TransmitterViewHelper.h"; sourceTree = "<group>"; };
+		FB70E62A191294EE00669134 /* UIViewController+TransmitterViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TransmitterViewHelper.m"; sourceTree = "<group>"; };
 		FBE68A5618E6762100AB8EE6 /* Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -388,6 +391,8 @@
 				FB59C8F918B7169500A0F41B /* Images.xcassets */,
 				FB03CF5718FB0A040082DEB8 /* Images */,
 				FB59C8E818B7169500A0F41B /* Supporting Files */,
+				FB70E629191294EE00669134 /* UIViewController+TransmitterViewHelper.h */,
+				FB70E62A191294EE00669134 /* UIViewController+TransmitterViewHelper.m */,
 			);
 			path = ClubFinder;
 			sourceTree = "<group>";
@@ -694,6 +699,7 @@
 				FB59C8F818B7169500A0F41B /* ViewController.m in Sources */,
 				FB07E6D7190DA5F90023A581 /* MyBagViewController.m in Sources */,
 				FB59C8F218B7169500A0F41B /* AppDelegate.m in Sources */,
+				FB70E62B191294EE00669134 /* UIViewController+TransmitterViewHelper.m in Sources */,
 				FB07E6AC190B59FF0023A581 /* BeaconViewController.m in Sources */,
 				FB26B3BD18E715E100E69F9A /* CFLogger.m in Sources */,
 				FB03CF5618F3A46D0082DEB8 /* DBLogger.m in Sources */,

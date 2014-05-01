@@ -7,8 +7,9 @@
 //
 
 #import "BeaconDetailViewController.h"
+#import "UIViewController+TransmitterViewHelper.h"
 
-@interface BeaconDetailViewController ()
+@interface BeaconDetailViewController (TransmitterViewHelper)
 
 @end
 
@@ -113,39 +114,6 @@
         self.rssiImageView.frame = newFrame;
     }];
     self.rssiLabel.text = [NSString stringWithFormat:@"%@", self.transmitter.rssi];
-}
-
-- (UIImage *)getBatteryImageForLevel: (NSNumber *)batteryLevel
-{
-    switch([batteryLevel integerValue]){
-        case 0:
-        case 1:
-            return [UIImage imageNamed:@"battery_low.png"];
-        case 2:
-            return [UIImage imageNamed:@"battery_high.png"];
-        case 3:
-            return [UIImage imageNamed:@"battery_full.png"];
-    }
-    return [UIImage imageNamed:@"battery_unknown.png"];
-}
-
-- (float)barWidthForRSSI:(NSNumber *)rssi
-{
-    NSInteger barMaxValue = -60; //[[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_max_value"];
-    NSInteger barMinValue = -90; // [[NSUserDefaults standardUserDefaults] integerForKey:@"rssi_bar_min_value"];
-    
-    float rssiValue = [rssi floatValue];
-    float barWidth;
-    if (rssiValue >= barMaxValue) {
-        barWidth = 270.0f;
-    } else if (rssiValue <= barMinValue) {
-        barWidth = 5.0f;
-    } else {
-        NSInteger barRange = barMaxValue - barMinValue;
-        float percentage = (barMaxValue - rssiValue) / (float)barRange;
-        barWidth = (1.0f - percentage) * 270.0f;
-    }
-    return barWidth;
 }
 
 /**
