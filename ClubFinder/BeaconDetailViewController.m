@@ -32,6 +32,7 @@
     }
     self.title = [NSString stringWithFormat:@"Beacon %@", self.transmitter.name];
     [self updateTransmitterView];
+    [self updateRssiView];
     [self startObserving];
 }
 
@@ -42,32 +43,20 @@
 
 -(void)startObserving
 {
-    [self.transmitter addObserver:self forKeyPath:@"rssi" options:NSKeyValueObservingOptionNew context:NULL];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(transmitterUpdated:)
-//                                                 name:@"transmitterUpdated"
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(transmitterDidDepart:)
-//                                                 name:@"transmitterDidDepart"
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterUpdated:)
+                                                 name:@"transmitterUpdated"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(transmitterDidDepart:)
+                                                 name:@"transmitterDidDepart"
+                                               object:nil];
 }
 
 -(void)stopObserving
 {
-    [self.transmitter removeObserver:self forKeyPath:@"rssi"];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateRssiView];
-    });
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"transmitterDidDepart" object:nil];
 }
 
 #pragma mark -
