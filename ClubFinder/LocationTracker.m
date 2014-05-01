@@ -37,6 +37,11 @@
     [_locationManager startMonitoringSignificantLocationChanges];
 }
 
+-(void)endTracking
+{
+    [_locationManager stopMonitoringSignificantLocationChanges];
+}
+
 #pragma - mark
 #pragma - mark CLLocation Manager Delegate
 
@@ -52,6 +57,8 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations objectAtIndex:0];
+    self.lastLocation = location;
+    self.lastLocationTimestamp = location.timestamp;
     NSArray *params = @[
                         @"e=/location/didUpdateLocations",
                         [@[@"timestamp", location.timestamp] componentsJoinedByString:@"="],

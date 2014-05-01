@@ -52,7 +52,6 @@
     [self.placeConnector monitorPlacesWhenAllowed];
     NSLog(self.placeConnector.isPlacesEnabled ? @"placeConnector.isPlacesEnabled=Yes" : @"placeConnector.isPlacesEnabled=No");
     NSLog(self.placeConnector.isBackgroundPlaceMonitoringEnabled ? @"placeConnector.isBackgroundPlaceMonitoringEnabled=Yes" : @"placeConnector.isBackgroundPlaceMonitoringEnabled=No");
-    
 //    [self.placeConnector allOrganizationPlacesAndOnSuccess:^(NSArray *places) {
 //        NSLog(@"allOrganizationPlacesAndOnSuccess SUCCESS %@", places);
 //    } failure:^(NSError *error) {
@@ -103,6 +102,7 @@
     [self setupLogging];
     self.beaconManager = [[BeaconManager alloc] init];
 //    self.locationLogger = [[LocationTracker alloc] init];
+    
     self.leftController = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil];
     SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:splashViewController];

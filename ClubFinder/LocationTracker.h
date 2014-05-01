@@ -11,4 +11,10 @@
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
+@property (strong) CLLocation *lastLocation;
+@property (strong) NSDate *lastLocationTimestamp;
+
+-(void)startTracking;
+-(void)endTracking;
+
 @end
