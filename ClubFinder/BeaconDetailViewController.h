@@ -15,6 +15,10 @@
 @property (strong, nonatomic) BeaconManager *beaconManager;
 @property (strong, nonatomic) Transmitter *transmitter;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *rssiLabel;
+@property (strong, nonatomic) IBOutlet UILabel *temperature;
+@property (strong, nonatomic) IBOutlet UIImageView *rssiImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *batteryImageView;
 
 -(id)initWithBeacon:(BeaconManager *)manager andTransmitter:(NSString *)identifer;
 

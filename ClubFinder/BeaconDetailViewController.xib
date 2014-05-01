@@ -6,7 +6,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BeaconDetailViewController">
             <connections>
+                <outlet property="batteryImageView" destination="dDL-m1-WP7" id="h2g-jX-4Au"/>
                 <outlet property="nameLabel" destination="UIy-qe-Ug3" id="him-8P-Xd8"/>
+                <outlet property="rssiImageView" destination="NMw-qz-dq3" id="gu8-TJ-dXh"/>
+                <outlet property="rssiLabel" destination="VCz-yX-R6y" id="eTz-5h-gl8"/>
+                <outlet property="temperature" destination="HER-Bd-Ydh" id="p0y-0N-SyQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
