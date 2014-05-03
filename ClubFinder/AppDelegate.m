@@ -17,6 +17,7 @@
 #import "DBLogger.h"
 #import <ContextCore/QLContextCoreConnector.h>
 #import "IIViewDeckController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 #import "BeaconViewController.h"
 #import "MyBagViewController.h"
@@ -99,9 +100,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [GMSServices provideAPIKey:@"AIzaSyCYB4t6qnN5LyQ5denPgmyPS7Qvn6mVPiA"];
     [self setupLogging];
     self.locationLogger = [[LocationTracker alloc] init];
     self.beaconManager = [[BeaconManager alloc] initWith:self.locationLogger];
+    [self.locationLogger startTracking];
     
     self.leftController = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil];
     SplashViewController *splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
@@ -229,8 +232,6 @@
             [[UIApplication sharedApplication] scheduleLocalNotification:myNote];
         } else {
             UIStoryboard *storyboard = [[[self window] rootViewController] storyboard];
-//            UINavigationController *navigationController = (UINavigationController*)[storyboard instantiateViewControllerWithIdentifier:@"navigationController"];
-//            ViewController *vc = (ViewController*)[storyboard instantiateViewControllerWithIdentifier:@"viewController"];
             HomeViewController *hvc = (HomeViewController*)[storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
             [hvc performSegueWithIdentifier:@"fuckThis" sender:nil];
         }

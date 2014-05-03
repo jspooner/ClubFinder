@@ -8,6 +8,7 @@
 
 #import "BeaconDetailViewController.h"
 #import "UIViewController+TransmitterViewHelper.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface BeaconDetailViewController (TransmitterViewHelper)
 
@@ -35,6 +36,36 @@
     [self updateTransmitterView];
     [self updateRssiView];
     [self startObserving];
+    GMSCameraPosition *camera = nil;
+    if (self.transmitter.lastLocation != nil) {
+        camera = [GMSCameraPosition cameraWithLatitude:self.transmitter.lastLocation.coordinate.latitude
+                                             longitude:self.transmitter.lastLocation.coordinate.longitude
+                                                  zoom:17];
+    } else {
+        camera = [GMSCameraPosition cameraWithLatitude:-33.868
+                                             longitude:151.2086
+                                                  zoom:6];
+    }
+    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectMake(0, 180, self.view.frame.size.width, self.view.frame.size.height-180) camera:camera];
+    mapView.myLocationEnabled = YES;
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = camera.target;
+    if (self.transmitter.lastLocation != nil) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+        marker.snippet = [formatter stringFromDate:self.transmitter.lastLocationTimestamp];
+        marker.map = mapView;
+        
+        CLLocationCoordinate2D circleCenter = self.transmitter.lastLocation.coordinate;
+        float newValue = [self.transmitter.rssi floatValue] * -1 / 4;
+        GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter radius:newValue];
+        circ.fillColor = [UIColor colorWithRed:0.50 green:0 blue:0 alpha:0.05];
+        circ.strokeColor = [UIColor redColor];
+        circ.strokeWidth = 1;
+        circ.map = mapView;
+    }
+    
+    [self.view addSubview:mapView];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

@@ -17,6 +17,7 @@
  * specified purpose, and against infringement.
  */
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface Transmitter : NSObject <NSCoding>
 
@@ -28,5 +29,8 @@
 @property (nonatomic, strong) NSNumber *batteryLevel;
 @property (nonatomic, strong) NSNumber *temperature;
 @property (nonatomic, assign) BOOL inBag;
+
+@property (strong) CLLocation *lastLocation;
+@property (strong) NSDate *lastLocationTimestamp;
 
 @end

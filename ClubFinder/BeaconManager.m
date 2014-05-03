@@ -197,9 +197,11 @@
         [self.transmitters addObject:transmitter];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"transmitterAdded" object:self userInfo:nil];
     }
+    if (self.locationTracker.lastLocation != nil) {
+        transmitter.lastLocation = self.locationTracker.lastLocation;
+        transmitter.lastLocationTimestamp = self.locationTracker.lastLocationTimestamp;
+    }
     
-    
-
     transmitter.lastSighted = updateTime;
     if([self shouldUpdateTransmitterCell:visit withTransmitter:transmitter RSSI:RSSI]){
         [self updateTransmitter:transmitter withVisit:visit RSSI:RSSI];
